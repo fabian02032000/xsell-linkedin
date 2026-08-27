@@ -443,6 +443,8 @@ function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'
 function stageClass(estado) { return 'stage-' + (STAGE_GROUP[estado] || 'prospectando'); }
 function uid(prefix) { return prefix + Math.random().toString(36).slice(2, 9); }
 function b64EncodeUnicode(str) { return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (m,p1) => String.fromCharCode('0x' + p1))); }
+function b64DecodeUnicode(str) { return decodeURIComponent(atob(str).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('')); }
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
 // ---------- theme ----------
 function initTheme() {
@@ -504,17 +506,38 @@ async function ghGetFile(path) {
   if (!res.ok) throw new Error(res.status === 401 ? 'Token inválido o vencido.' : 'No se pudo leer ' + path + ' (' + res.status + ')');
   return res.json();
 }
-async function ghSaveFile(path, jsonObj, message) {
+// Si dos guardados casi simultáneos (doble clic, o el bot de HubSpot escribiendo al mismo tiempo)
+// chocan contra el mismo archivo, GitHub responde 409. En vez de obligar a recargar la página a
+// mano, reintenta solo unas veces con el sha más nuevo. Para prospectos.json, además reconcilia
+// los campos que solo toca el bot de HubSpot (hubspot_contact_id, hubspot_synced_at) para no
+// pisar un contacto que el Action acaba de crear mientras guardábamos otra cosa.
+async function ghSaveFile(path, jsonObj, message, attempt) {
+  attempt = attempt || 0;
   if (!canEdit()) throw new Error('Agrega tu token de GitHub en Configuración (⚙) para poder guardar.');
   const current = await ghGetFile(path);
-  const content = b64EncodeUnicode(JSON.stringify(jsonObj, null, 2) + '\n');
+  let toWrite = jsonObj;
+  if (attempt > 0 && path === 'data/prospectos.json' && jsonObj.prospectos) {
+    try {
+      const remote = JSON.parse(b64DecodeUnicode(current.content));
+      const remoteById = new Map((remote.prospectos || []).map(p => [p.id, p]));
+      toWrite = { prospectos: jsonObj.prospectos.map(p => {
+        const r = remoteById.get(p.id);
+        if (!r) return p;
+        return { ...p, hubspot_contact_id: r.hubspot_contact_id ?? p.hubspot_contact_id, hubspot_synced_at: r.hubspot_synced_at ?? p.hubspot_synced_at };
+      }) };
+    } catch (e) { /* si no se puede parsear lo remoto, seguimos con lo que teníamos */ }
+  }
+  const content = b64EncodeUnicode(JSON.stringify(toWrite, null, 2) + '\n');
   const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`, {
     method: 'PUT',
     headers: { 'Authorization': `Bearer ${getToken()}`, 'Accept': 'application/vnd.github+json' },
     body: JSON.stringify({ message, content, sha: current.sha, branch: BRANCH })
   });
   if (!res.ok) {
-    if (res.status === 409) throw new Error('Alguien más guardó un cambio justo antes — recarga la página e inténtalo de nuevo.');
+    if (res.status === 409) {
+      if (attempt < 3) { await sleep(350 + Math.random() * 350); return ghSaveFile(path, jsonObj, message, attempt + 1); }
+      throw new Error('Alguien más está guardando cambios al mismo tiempo — espera un momento e inténtalo de nuevo.');
+    }
     if (res.status === 401) throw new Error('Token inválido o sin permiso de escritura sobre este repositorio.');
     const err = await res.json().catch(() => ({}));
     throw new Error(err.message || ('Error al guardar (' + res.status + ')'));

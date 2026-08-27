@@ -162,6 +162,13 @@
   .savetoast.show { opacity:1; }
   .savetoast.err { color:var(--red); border-color:var(--red); }
 
+  .modal-overlay { position:fixed; inset:0; background:rgba(10,9,16,0.55); display:none; align-items:center; justify-content:center; z-index:200; padding:20px; }
+  .modal-overlay.show { display:flex; }
+  .modal-box { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow); padding:22px; width:100%; max-width:420px; max-height:90vh; overflow-y:auto; }
+  .modal-box h3 { margin:0 0 4px; font-size:16px; color:var(--ink); }
+  .modal-box .modal-sub { font-size:12.5px; color:var(--ink-soft); margin:0 0 14px; }
+  .modal-box .editform { margin-top:2px; }
+
   .tabs { display:flex; gap:26px; border-bottom:1px solid var(--border); margin-bottom:32px; }
   .tab { background:none; border:none; padding:9px 1px 13px; font-size:14px; font-weight:700; color:var(--ink-soft); cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1px; }
   .tab:hover { color:var(--ink); }
@@ -226,6 +233,11 @@
   .cand-btn.yes:hover { color:var(--green); border-color:var(--green); }
   .cand-btn:disabled { opacity:.5; cursor:default; transform:none; }
   .cand-hint { text-align:center; font-size:12px; color:var(--ink-faint); margin-top:12px; }
+  .cand-cta { background:var(--surface); border:1px dashed var(--border); border-radius:var(--radius); padding:30px 26px; text-align:center; }
+  .cand-cta .cand-cta-icon { font-size:26px; margin-bottom:10px; }
+  .cand-cta h3 { margin:0 0 6px; font-size:15px; color:var(--ink); }
+  .cand-cta p { margin:0 0 18px; font-size:13px; line-height:1.5; color:var(--ink-soft); max-width:42ch; margin-left:auto; margin-right:auto; }
+  .cand-cta .btn { font-size:13px; padding:10px 20px; }
 </style>
 </head>
 <body>
@@ -344,6 +356,43 @@
 </div>
 
 <div class="savetoast" id="savetoast"></div>
+
+<div class="modal-overlay" id="add-prospect-overlay">
+  <div class="modal-box">
+    <h3>Agregar prospecto</h3>
+    <p class="modal-sub">Puedes salir a buscar el link de LinkedIn en otra pestaña — esta ventana no se cierra ni pierde lo que ya escribiste.</p>
+    <div class="editform">
+      <div><label>Nombre y apellido *</label><input id="np-nombre" placeholder="Ej. Juana Pérez"></div>
+      <div class="row2">
+        <div><label>Cargo</label><input id="np-cargo" placeholder="Ej. Gerente Comercial"></div>
+        <div><label>Empresa</label><input id="np-empresa"></div>
+      </div>
+      <div><label>Link de LinkedIn</label><input id="np-linkedin" placeholder="https://www.linkedin.com/in/..."></div>
+      <div class="card-error" id="np-err"></div>
+      <div class="actions">
+        <button class="btn ghost" id="np-cancel">Cancelar</button>
+        <button class="btn primary" id="np-save">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="add-post-overlay">
+  <div class="modal-box">
+    <h3>Agregar publicación</h3>
+    <p class="modal-sub">Puedes salir a revisar ideas en otra pestaña — esta ventana no se cierra ni pierde lo que ya escribiste.</p>
+    <div class="editform">
+      <div><label>Tema / idea del post *</label><textarea id="npo-tema" placeholder="De qué va la publicación"></textarea></div>
+      <div><label>Dolor al que conecta</label><input id="npo-dolor"></div>
+      <div><label>Fecha</label><input id="npo-fecha" type="date"></div>
+      <div class="card-error" id="npo-err"></div>
+      <div class="actions">
+        <button class="btn ghost" id="npo-cancel">Cancelar</button>
+        <button class="btn primary" id="npo-save">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
 const REPO_OWNER = location.hostname.split('.')[0] || 'usuario';
@@ -664,25 +713,39 @@ async function requestHubspotManual(id) {
 }
 
 function addProspectPrompt() {
-  const nombre = window.prompt('Nombre y apellido del prospecto:');
-  if (!nombre || !nombre.trim()) return;
-  const cargo = window.prompt('Cargo:', '') || '';
-  const empresa = window.prompt('Empresa:', '') || '';
-  const linkedin_url = window.prompt('Link de LinkedIn:', '') || '';
+  ['np-nombre','np-cargo','np-empresa','np-linkedin'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('np-err').textContent = '';
+  document.getElementById('add-prospect-overlay').classList.add('show');
+  document.getElementById('np-nombre').focus();
+}
+function closeAddProspectModal() {
+  document.getElementById('add-prospect-overlay').classList.remove('show');
+}
+function submitAddProspect() {
+  const errEl = document.getElementById('np-err');
+  const nombre = document.getElementById('np-nombre').value.trim();
+  if (!nombre) { errEl.textContent = 'Falta el nombre.'; return; }
+  const cargo = document.getElementById('np-cargo').value.trim();
+  const empresa = document.getElementById('np-empresa').value.trim();
+  const linkedin_url = document.getElementById('np-linkedin').value.trim();
   const nuevo = {
-    id: uid('p'), nombre: nombre.trim(), cargo: cargo.trim(), empresa: empresa.trim(), linkedin_url: linkedin_url.trim(),
+    id: uid('p'), nombre, cargo, empresa, linkedin_url,
     email: null, ultima_publicacion: null, publica_activamente: false, senales: [], dolor_detectado: '',
     etapa: 'Identificado', cuenta: 'Fabián', origen: actor() === 'Ingrid' ? 'Ingrid' : 'Fabián',
     mensaje_borrador: '', listo_para_enviar: false, proxima_accion: '', notas: '',
     actualizado: new Date().toISOString().slice(0,10),
     hubspot_contact_id: null, hubspot_synced_at: null
   };
+  closeAddProspectModal();
   PROSPECTOS.push(nuevo);
   renderProspects(); renderKpis(); renderFunnel(); renderPacs();
   saveProspectos(`${actor()}: agregó a ${nuevo.nombre} como prospecto`)
     .then(() => { toast('Guardado ✓'); renderLog(); })
     .catch(e => { toast(e.message, true); PROSPECTOS = PROSPECTOS.filter(x => x.id !== nuevo.id); renderProspects(); renderKpis(); renderFunnel(); renderPacs(); });
 }
+document.getElementById('np-cancel').addEventListener('click', closeAddProspectModal);
+document.getElementById('np-save').addEventListener('click', submitAddProspect);
+document.getElementById('add-prospect-overlay').addEventListener('click', (e) => { if (e.target.id === 'add-prospect-overlay') closeAddProspectModal(); });
 
 function estadoClass(estado) { return 'estado-' + (estado || 'Borrador').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z]/g,''); }
 function avatarOnly(cuenta) {
@@ -774,17 +837,33 @@ async function saveCalEdit(id) {
   } catch (e) { toast(e.message, true); }
 }
 function addPostPrompt() {
-  const tema = window.prompt('Tema / idea del post:');
-  if (!tema || !tema.trim()) return;
-  const dolor = window.prompt('Dolor al que conecta:', '') || '';
-  const fecha = window.prompt('Fecha (AAAA-MM-DD):', new Date().toISOString().slice(0,10)) || new Date().toISOString().slice(0,10);
-  const nuevo = { id: uid('c'), fecha, tema: tema.trim(), dolor: dolor.trim(), formato: 'Texto', estado: 'Borrador', publicado_por: null, link_publicacion: null };
+  document.getElementById('npo-tema').value = '';
+  document.getElementById('npo-dolor').value = '';
+  document.getElementById('npo-fecha').value = new Date().toISOString().slice(0,10);
+  document.getElementById('npo-err').textContent = '';
+  document.getElementById('add-post-overlay').classList.add('show');
+  document.getElementById('npo-tema').focus();
+}
+function closeAddPostModal() {
+  document.getElementById('add-post-overlay').classList.remove('show');
+}
+function submitAddPost() {
+  const errEl = document.getElementById('npo-err');
+  const tema = document.getElementById('npo-tema').value.trim();
+  if (!tema) { errEl.textContent = 'Falta el tema.'; return; }
+  const dolor = document.getElementById('npo-dolor').value.trim();
+  const fecha = document.getElementById('npo-fecha').value || new Date().toISOString().slice(0,10);
+  const nuevo = { id: uid('c'), fecha, tema, dolor, formato: 'Texto', estado: 'Borrador', publicado_por: null, link_publicacion: null };
+  closeAddPostModal();
   CALENDARIO.push(nuevo);
   renderCalendar(); renderKpis(); renderPublicaciones();
   saveCalendario(`${actor()}: agregó una publicación al calendario`)
     .then(() => { toast('Guardado ✓'); renderLog(); })
     .catch(e => { toast(e.message, true); CALENDARIO = CALENDARIO.filter(x => x.id !== nuevo.id); renderCalendar(); renderKpis(); renderPublicaciones(); });
 }
+document.getElementById('npo-cancel').addEventListener('click', closeAddPostModal);
+document.getElementById('npo-save').addEventListener('click', submitAddPost);
+document.getElementById('add-post-overlay').addEventListener('click', (e) => { if (e.target.id === 'add-post-overlay') closeAddPostModal(); });
 document.getElementById('add-post-btn').addEventListener('click', () => { if (canEdit()) addPostPrompt(); else toast('Agrega tu token de GitHub en Configuración (⚙) para poder guardar.', true); });
 
 // ---------- tabs ----------
@@ -830,6 +909,16 @@ function renderPacs() {
 }
 
 // ---------- candidatos (revisión por deslizar) ----------
+function copyCandidatoPhrase() {
+  const phrase = 'busca prospectos de la semana';
+  const ok = () => toast('Frase copiada — pégala en un chat con Claude ✓');
+  const fail = () => toast(`No se pudo copiar solo — escríbele a Claude: "${phrase}"`, true);
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(phrase).then(ok).catch(fail);
+  } else {
+    fail();
+  }
+}
 function renderCandidatosBadge() {
   const btn = document.getElementById('tab-btn-candidatos');
   btn.innerHTML = 'Candidatos' + (CANDIDATOS.length ? ` <span class="tab-badge">${CANDIDATOS.length}</span>` : '');
@@ -851,7 +940,14 @@ function renderCandidatos() {
   const actions = document.getElementById('candidate-actions');
   const countEl = document.getElementById('candidate-count');
   if (!CANDIDATOS.length) {
-    stack.innerHTML = `<div class="empty">Sin candidatos pendientes. Pídeme en el chat: "busca prospectos de la semana" y aparecerán aquí para que los revises.</div>`;
+    stack.innerHTML = `<div class="cand-cta">
+        <div class="cand-cta-icon">🔍</div>
+        <h3>Sin candidatos pendientes</h3>
+        <p>Esto no tiene un botón que busque solo — la búsqueda en LinkedIn siempre se pide en un chat con Claude, para que quede supervisada. Copia la frase y pégala ahí:</p>
+        <button class="btn primary" id="cand-copy-phrase">📋 Copiar "busca prospectos de la semana"</button>
+      </div>`;
+    const copyBtn = document.getElementById('cand-copy-phrase');
+    if (copyBtn) copyBtn.addEventListener('click', copyCandidatoPhrase);
     actions.style.display = 'none';
     countEl.textContent = '';
     return;

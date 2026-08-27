@@ -1,0 +1,29 @@
+{
+  "prospectos": [
+    {
+      "id": "p1",
+      "nombre": "Olenka Palomino Flores",
+      "cargo": "Gerente Comercial",
+      "empresa": "ICASA Grupo Inmobiliario",
+      "linkedin_url": "https://www.linkedin.com/in/olenka-palomino-flores/",
+      "email": null,
+      "ultima_publicacion": {
+        "fecha": "2026-08-20",
+        "resumen": "Publicó una vacante de Asesor Comercial Inmobiliario — está reforzando su equipo de ventas."
+      },
+      "publica_activamente": true,
+      "senales": ["Búsqueda de personal"],
+      "dolor_detectado": "Equipo comercial insuficiente para la demanda actual",
+      "etapa": "Precalentamiento",
+      "cuenta": "Fabián",
+      "origen": "Claude",
+      "mensaje_borrador": "Hola Olenka, vi que en ICASA están reforzando el equipo comercial con un Asesor Comercial Inmobiliario. Ayudamos a empresas a sumar capacidad de ventas rápido, sin aumentar planilla fija. Me gustaría conectar contigo.",
+      "listo_para_enviar": false,
+      "proxima_accion": "Comentar una publicación suya (día 2-3 del precalentamiento) antes de conectar",
+      "notas": "",
+      "actualizado": "2026-08-27",
+      "hubspot_contact_id": null,
+      "hubspot_synced_at": null
+    }
+  ]
+}

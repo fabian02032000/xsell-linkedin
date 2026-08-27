@@ -1,0 +1,785 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Xsell — Prospección LinkedIn</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Prospectos y calendario de contenido de la prospección PACS en LinkedIn — Xsell.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0B0B14; --surface: #14131F; --surface-raised: #1B1A29; --border: #262436;
+    --ink: #F1F0F6; --ink-soft: #8E8AA3; --ink-faint: #5B586C;
+    --purple: #8B6CFF; --purple-soft: #241E3D;
+    --orange: #FB923C; --orange-soft: #3A2414;
+    --teal: #5FD0C8; --teal-soft: #16332F;
+    --green: #22C55E; --green-soft: #15301E;
+    --red: #F87171; --red-soft: #3A1B1B;
+    --shadow: 0 1px 2px rgba(0,0,0,0.35), 0 16px 40px rgba(0,0,0,0.45);
+    --radius: 14px;
+  }
+  :root[data-theme="light"] {
+    --bg: #F6F5FB; --surface: #FFFFFF; --surface-raised: #FBFAFF; --border: #E4E1F0;
+    --ink: #17151F; --ink-soft: #6E6A80; --ink-faint: #A29DB3;
+    --purple: #7C5CFC; --purple-soft: #EFEAFF;
+    --orange: #F97316; --orange-soft: #FFE8D2;
+    --teal: #0EA5A0; --teal-soft: #DDF5F1;
+    --green: #16A34A; --green-soft: #DCFCE7;
+    --red: #DC2626; --red-soft: #FEE2E2;
+    --shadow: 0 1px 2px rgba(23,21,31,0.04), 0 8px 24px rgba(23,21,31,0.06);
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:"Inter",system-ui,sans-serif; line-height:1.5; transition:background .15s, color .15s; }
+  a { color:var(--purple); }
+  .wrap { max-width: 1120px; margin:0 auto; padding: 0 22px 90px; }
+
+  header.top { padding: 40px 0 24px; border-bottom:1px solid var(--border); margin-bottom: 32px; }
+  .topline { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:14px; }
+  .eyebrow { font-size:13px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--purple); margin:0; display:flex; align-items:center; gap:8px;}
+  .eyebrow .dot { width:7px;height:7px;border-radius:50%;background:var(--purple);}
+  .topline-right { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+  .live-pill { display:inline-flex; align-items:center; gap:7px; font-size:12px; font-weight:600; color:var(--green); background:var(--green-soft); border:1px solid var(--green); border-radius:999px; padding:5px 13px; white-space:nowrap; }
+  .live-dot { width:6px; height:6px; border-radius:50%; background:var(--green); box-shadow:0 0 0 3px var(--green-soft); }
+  .icon-btn { display:inline-flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:999px; border:1px solid var(--border); background:var(--surface); color:var(--ink-soft); cursor:pointer; font-size:15px; }
+  .icon-btn:hover { color:var(--ink); border-color:var(--purple); }
+  h1 { font-weight:800; font-size:clamp(28px,4.4vw,40px); margin:0 0 6px; letter-spacing:-.02em; text-wrap:balance;}
+  .sub { color:var(--ink-soft); font-size:15px; margin:0 0 4px; max-width:68ch;}
+  .sub small, .sub code { color:var(--ink-faint); }
+  .sub code { font-family:"IBM Plex Mono",monospace; background:var(--surface-raised); padding:1px 5px; border-radius:4px; }
+
+  .settings-panel { margin-top:16px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:16px 18px; display:none; gap:14px; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); }
+  .settings-panel.open { display:grid; }
+  .settings-panel label { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-soft); display:block; margin-bottom:5px; }
+  .settings-panel input, .settings-panel select { width:100%; padding:8px 10px; border-radius:7px; border:1px solid var(--border); background:var(--bg); color:var(--ink); font-family:"Inter",sans-serif; font-size:13.5px; }
+  .settings-panel .hint { font-size:11.5px; color:var(--ink-faint); margin-top:5px; }
+  .settings-panel .col { display:flex; flex-direction:column; justify-content:flex-end; }
+  .token-status { font-size:12px; margin-top:6px; }
+  .token-status.ok { color:var(--green); }
+  .token-status.bad { color:var(--ink-faint); }
+
+  .kpis { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:14px; margin-bottom:28px; }
+  .kpi { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:16px 18px; box-shadow:var(--shadow); }
+  .kpi .n { font-size:30px; font-weight:800; line-height:1; font-variant-numeric:tabular-nums; }
+  .kpi .l { font-size:12.5px; color:var(--ink-soft); margin-top:6px; font-weight:500; }
+
+  section.block { margin-bottom:44px; }
+  .blockhead { display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:16px; flex-wrap:wrap;}
+  h2 { font-size:22px; font-weight:800; margin:0; letter-spacing:-.01em; }
+  .count { font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--ink-soft); }
+
+  .funnelwrap { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:22px 24px; box-shadow:var(--shadow); }
+  .funnel-row { display:grid; grid-template-columns:170px 1fr 56px; align-items:center; gap:14px; margin-bottom:12px; }
+  .funnel-row:last-child { margin-bottom:0; }
+  .funnel-name { font-size:13px; font-weight:600; color:var(--ink); }
+  .funnel-track { position:relative; height:26px; background:var(--purple-soft); border-radius:7px; overflow:hidden; }
+  .funnel-fill { position:absolute; inset:0; width:0; background:var(--purple); border-radius:7px; display:flex; align-items:center; transition:width .5s ease; }
+  .funnel-fill .fv { font-size:12px; font-weight:700; color:#fff; margin-left:10px; font-variant-numeric:tabular-nums; }
+  .funnel-pct { font-size:12px; color:var(--ink-soft); text-align:right; font-variant-numeric:tabular-nums; }
+
+  .cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:14px; }
+  .card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:18px; box-shadow:var(--shadow); display:flex; flex-direction:column; gap:10px; }
+  .card-head { display:flex; justify-content:space-between; align-items:flex-start; gap:10px; }
+  .card-name { font-size:15.5px; font-weight:700; }
+  .card-name a { color:var(--ink); text-decoration:none; }
+  .card-name a:hover { color:var(--purple); }
+  .card-role { font-size:12.5px; color:var(--ink-soft); margin-top:2px; }
+  .card-head-right { display:flex; flex-direction:column; align-items:flex-end; gap:6px; flex-shrink:0; }
+  .stage-pill { font-size:11px; font-weight:700; padding:4px 10px; border-radius:999px; white-space:nowrap; }
+  .stage-prospectando { background:var(--purple-soft); color:var(--purple); }
+  .stage-contactando  { background:var(--orange-soft); color:var(--orange); }
+  .stage-conversando  { background:var(--teal-soft); color:var(--teal); }
+  .stage-reunion      { background:var(--green-soft); color:var(--green); }
+  .stage-ganado        { background:var(--green-soft); color:var(--green); }
+  .stage-perdido       { background:var(--red-soft); color:var(--red); }
+  .edit-btn { background:none; border:none; color:var(--ink-faint); cursor:pointer; font-size:14px; padding:2px 4px; }
+  .edit-btn:hover { color:var(--purple); }
+
+  .contacted-by { display:inline-flex; align-items:center; gap:6px; font-size:12px; color:var(--ink-soft); }
+  .avatar { width:18px; height:18px; border-radius:50%; background:var(--purple-soft); color:var(--purple); font-size:10px; font-weight:800; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .avatar.ingrid { background:var(--orange-soft); color:var(--orange); }
+
+  .chips { display:flex; flex-wrap:wrap; gap:6px; }
+  .chip { font-size:11px; font-weight:600; padding:3px 9px; border-radius:999px; background:var(--orange-soft); color:var(--orange); }
+  .pain { font-size:13px; color:var(--ink-soft); }
+  .pain b { color:var(--ink); font-weight:600; }
+  .lastpost { font-size:12.5px; color:var(--ink-soft); background:var(--surface-raised); border:1px solid var(--border); border-radius:9px; padding:9px 11px; }
+  .lastpost .lp-date { font-family:"IBM Plex Mono",monospace; font-size:10.5px; color:var(--ink-faint); display:block; margin-bottom:3px; }
+
+  details.msg { border-top:1px solid var(--border); padding-top:10px; }
+  details.msg summary { cursor:pointer; font-size:12.5px; font-weight:600; color:var(--purple); list-style:none; }
+  details.msg summary::-webkit-details-marker { display:none; }
+  details.msg summary::before { content:"+ "; }
+  details.msg[open] summary::before { content:"– "; }
+  .msg-body { font-size:13px; color:var(--ink); margin-top:8px; white-space:pre-wrap; background:var(--surface-raised); border:1px solid var(--border); border-radius:9px; padding:10px 12px; }
+  .card-foot { display:flex; justify-content:space-between; align-items:center; font-size:11.5px; color:var(--ink-faint); margin-top:auto; padding-top:6px; gap:8px; }
+  .ready-badge { color:var(--green); font-weight:700; }
+
+  .editform { display:flex; flex-direction:column; gap:8px; }
+  .editform label { font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--ink-soft); display:block; margin-bottom:3px; }
+  .editform input, .editform select, .editform textarea { width:100%; padding:7px 9px; border-radius:7px; border:1px solid var(--border); background:var(--bg); color:var(--ink); font-family:"Inter",sans-serif; font-size:13px; }
+  .editform textarea { resize:vertical; min-height:60px; }
+  .editform .row2 { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  .editform .chk { display:flex; align-items:center; gap:6px; font-size:12.5px; color:var(--ink); }
+  .editform .actions { display:flex; gap:8px; justify-content:flex-end; margin-top:2px; }
+  .btn { border:none; padding:7px 14px; border-radius:8px; font-family:"Inter",sans-serif; font-weight:700; font-size:12.5px; cursor:pointer; }
+  .btn.primary { background:var(--purple); color:#fff; }
+  .btn.primary:hover { opacity:.9; }
+  .btn.ghost { background:var(--surface-raised); color:var(--ink-soft); border:1px solid var(--border); }
+  .btn.ghost:hover { color:var(--ink); }
+  .btn:disabled { opacity:.6; cursor:default; }
+  .card-error { font-size:12px; color:var(--red); }
+
+  .addcard { border:1.5px dashed var(--border); background:transparent; box-shadow:none; display:flex; align-items:center; justify-content:center; min-height:120px; }
+  .addcard button { background:none; border:none; color:var(--ink-soft); font-size:13.5px; font-weight:600; cursor:pointer; }
+  .addcard button:hover { color:var(--purple); }
+
+  .tablewrap { overflow-x:auto; border:1px solid var(--border); border-radius:var(--radius); background:var(--surface); box-shadow:var(--shadow); }
+  table { width:100%; border-collapse:collapse; font-size:13.5px; min-width:640px; }
+  th { text-align:left; font-size:11px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--ink-soft); padding:10px 12px; border-bottom:1px solid var(--border); white-space:nowrap;}
+  td { padding:10px 12px; border-bottom:1px solid var(--border); vertical-align:top; }
+  tr:last-child td { border-bottom:none; }
+  tr:hover td { background:var(--purple-soft); }
+  td input, td select, td textarea { width:100%; padding:6px 8px; border-radius:6px; border:1px solid var(--border); background:var(--bg); color:var(--ink); font-family:"Inter",sans-serif; font-size:12.5px; }
+
+  .loglist { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:0; }
+  .loglist li { font-size:13px; color:var(--ink-soft); border-bottom:1px solid var(--border); padding:11px 2px; }
+  .loglist li:last-child { border-bottom:none; }
+  .loglist a { color:inherit; text-decoration:none; }
+  .logtime { font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--purple); margin-right:8px; }
+  .logactor { font-weight:600; color:var(--ink); }
+
+  .empty, .loading { padding:24px; text-align:center; color:var(--ink-soft); font-size:13.5px; }
+  footer.note { font-size:12.5px; color:var(--ink-faint); padding-top:10px; }
+  footer.note a { color:var(--ink-soft); }
+
+  .savetoast { position:fixed; bottom:18px; left:50%; transform:translateX(-50%); background:var(--surface-raised); border:1px solid var(--border); color:var(--ink); padding:9px 18px; border-radius:999px; font-size:12.5px; box-shadow:var(--shadow); opacity:0; pointer-events:none; transition:opacity .2s; z-index:50; }
+  .savetoast.show { opacity:1; }
+  .savetoast.err { color:var(--red); border-color:var(--red); }
+
+  .tabs { display:flex; gap:26px; border-bottom:1px solid var(--border); margin-bottom:32px; }
+  .tab { background:none; border:none; padding:9px 1px 13px; font-size:14px; font-weight:700; color:var(--ink-soft); cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1px; }
+  .tab:hover { color:var(--ink); }
+  .tab.active { color:var(--orange); border-bottom-color:var(--orange); }
+  .tabpanel { display:none; }
+  .tabpanel.active { display:block; }
+
+  .pacs-intro { color:var(--ink-soft); font-size:14.5px; max-width:72ch; margin:0 0 28px; }
+  .pillars { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px; margin-bottom:36px; }
+  .pillar { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:18px; box-shadow:var(--shadow); border-top:3px solid var(--pc); }
+  .pillar .pl-letter { font-size:22px; font-weight:800; color:var(--pc); line-height:1; }
+  .pillar .pl-name { font-size:14px; font-weight:700; margin-top:6px; }
+  .pillar .pl-desc { font-size:12.5px; color:var(--ink-soft); margin-top:6px; }
+  .pillar .pl-count { font-size:11px; color:var(--ink-faint); margin-top:10px; font-family:"IBM Plex Mono",monospace; }
+
+  .pacs-steps { display:flex; flex-direction:column; gap:10px; }
+  .pacs-step { background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--pc); border-radius:10px; padding:14px 18px; box-shadow:var(--shadow); }
+  .pacs-step-head { display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:6px; }
+  .pacs-step-num { font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--pc); font-weight:700; }
+  .pacs-step-name { font-weight:700; font-size:14px; }
+  .pacs-step-pillar { font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--pc); background:color-mix(in srgb, var(--pc) 16%, transparent); padding:2px 8px; border-radius:999px; margin-left:auto; }
+  .pacs-step-desc { font-size:12.5px; color:var(--ink-soft); margin-bottom:8px; }
+  .pacs-step-leads { display:flex; flex-wrap:wrap; gap:6px; }
+  .lead-chip { font-size:11.5px; font-weight:600; padding:4px 10px; border-radius:999px; background:var(--surface-raised); border:1px solid var(--border); color:var(--ink); text-decoration:none; }
+  .lead-chip:hover { border-color:var(--pc); color:var(--pc); }
+  .pacs-step-empty { font-size:12px; color:var(--ink-faint); font-style:italic; }
+
+  .estado-pill { display:inline-block; padding:3px 10px; border-radius:999px; font-size:11.5px; font-weight:700; white-space:nowrap; }
+  .estado-borrador { background:var(--surface-raised); color:var(--ink-soft); }
+  .estado-listopararevisar { background:var(--orange-soft); color:var(--orange); }
+  .estado-publicado { background:var(--green-soft); color:var(--green); }
+  .estado-descartado { background:var(--red-soft); color:var(--red); }
+  .pub-by { font-size:11.5px; color:var(--ink-soft); white-space:nowrap; }
+  .pub-by a { color:inherit; }
+
+  .pub-summary { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:14px; margin-bottom:20px; }
+  .pub-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:18px; box-shadow:var(--shadow); }
+  .pub-card-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+  .pub-card-head .who { display:flex; align-items:center; gap:8px; font-weight:700; font-size:14.5px; }
+  .pub-card-head .n { font-size:22px; font-weight:800; font-variant-numeric:tabular-nums; }
+  .pub-list { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px; }
+  .pub-list li { font-size:12.5px; border-top:1px solid var(--border); padding-top:8px; }
+  .pub-list li:first-child { border-top:none; padding-top:0; }
+  .pub-list a { color:var(--ink); text-decoration:none; }
+  .pub-list a:hover { color:var(--purple); }
+  .pub-list .pd { color:var(--ink-faint); font-family:"IBM Plex Mono",monospace; font-size:10.5px; margin-right:6px; }
+  .pub-empty { font-size:12.5px; color:var(--ink-faint); font-style:italic; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="topline">
+      <p class="eyebrow"><span class="dot"></span>Xsell</p>
+      <div class="topline-right">
+        <span class="live-pill"><span class="live-dot"></span>Se actualiza con cada cambio en GitHub</span>
+        <button class="icon-btn" id="theme-toggle" title="Cambiar a vista clara/oscura">🌙</button>
+        <button class="icon-btn" id="settings-toggle" title="Configuración">⚙</button>
+      </div>
+    </div>
+    <h1>Prospección LinkedIn</h1>
+    <p class="sub">Prospectos y calendario de contenido del método PACS. <small>Los datos viven en <code>data/prospectos.json</code> y <code>data/calendario.json</code>.</small></p>
+
+    <div class="settings-panel" id="settings-panel">
+      <div class="col">
+        <label>Viendo como</label>
+        <select id="whoami-select">
+          <option value="">— elegir —</option>
+          <option value="Fabián">Fabián</option>
+          <option value="Ingrid">Ingrid</option>
+        </select>
+      </div>
+      <div class="col">
+        <label>Token de GitHub (para editar y guardar)</label>
+        <input type="password" id="gh-token" placeholder="ghp_… o github_pat_…">
+        <div class="hint">Se guarda solo en este navegador. Necesita permiso "Contents: Read and write" sobre este repositorio.</div>
+        <div class="token-status" id="token-status"></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" id="tab-btn-prospeccion" onclick="switchTab('prospeccion')">Prospección</button>
+    <button class="tab" id="tab-btn-pacs" onclick="switchTab('pacs')">Método PACS</button>
+  </nav>
+
+  <div id="tab-prospeccion" class="tabpanel active">
+    <div id="kpis" class="kpis"></div>
+
+    <section class="block">
+      <div class="blockhead">
+        <h2>Embudo de venta</h2>
+        <span class="count" id="funnel-count"></span>
+      </div>
+      <div class="funnelwrap" id="funnel"></div>
+    </section>
+
+    <section class="block">
+      <div class="blockhead">
+        <h2>Prospectos</h2>
+        <span class="count" id="prospect-count"></span>
+      </div>
+      <div id="prospect-cards" class="cards"></div>
+    </section>
+
+    <section class="block">
+      <div class="blockhead">
+        <h2>Publicaciones subidas</h2>
+        <span class="count" id="pub-count"></span>
+      </div>
+      <div class="pub-summary" id="pub-summary"></div>
+    </section>
+
+    <section class="block">
+      <div class="blockhead">
+        <h2>Calendario de contenido</h2>
+        <span class="count" id="calendar-count"></span>
+      </div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Fecha</th><th>Tema</th><th>Dolor al que conecta</th><th>Formato</th><th>Estado</th><th>Publicado por</th><th></th></tr></thead>
+          <tbody id="calendar-rows"></tbody>
+        </table>
+      </div>
+      <div class="addcard" style="margin-top:12px; border-radius:14px;"><button id="add-post-btn">+ Agregar publicación</button></div>
+      <footer class="note">Regla PACS: cada post habla del problema del prospecto, no de Xsell. 2-3 publicaciones por semana. Al marcar quién lo publicó, el estado pasa a "Publicado" automáticamente.</footer>
+    </section>
+  </div>
+
+  <div id="tab-pacs" class="tabpanel">
+    <section class="block">
+      <p class="pacs-intro">El método PACS organiza la prospección en 4 pilares y 8 pasos. Cada prospecto avanza por estos pasos según su etapa actual — así se ve de un vistazo si el embudo está sano (movimiento constante) o si hay un cuello de botella en algún paso.</p>
+      <div class="pillars" id="pillars"></div>
+      <div class="pacs-steps" id="pacs-steps"></div>
+    </section>
+  </div>
+
+  <section class="block">
+    <div class="blockhead">
+      <h2>Historial de cambios</h2>
+      <span class="count" id="log-count"></span>
+    </div>
+    <div class="tablewrap" style="padding:6px 16px;">
+      <ul id="log-list" class="loglist"><li class="loading">Cargando historial de GitHub…</li></ul>
+    </div>
+    <footer class="note">Cada fila es un commit real de este repositorio — queda quién hizo el cambio, cuándo, y qué se modificó.</footer>
+  </section>
+</div>
+
+<div class="savetoast" id="savetoast"></div>
+
+<script>
+const REPO_OWNER = location.hostname.split('.')[0] || 'usuario';
+const REPO_NAME = (location.pathname.split('/').filter(Boolean)[0]) || 'xsell-prospectos';
+const REPO_URL = `https://github.com/${REPO_OWNER}/${REPO_NAME}`;
+const BRANCH = 'main';
+const HUBSPOT_PORTAL_ID = '4934520';
+
+const STAGE_OPTIONS = ["Identificado","Precalentamiento","Conexión enviada","Mensaje 1","Conversación","Seguimiento","Reunión agendada","Reunión realizada","Propuesta","Ganado","Perdido","No contactar"];
+const STAGE_GROUP = {
+  "Identificado":"prospectando","Precalentamiento":"prospectando","Conexión enviada":"contactando","Mensaje 1":"contactando",
+  "Conversación":"conversando","Seguimiento":"conversando","Reunión agendada":"reunion","Reunión realizada":"reunion",
+  "Propuesta":"reunion","Ganado":"ganado","Perdido":"perdido","No contactar":"perdido"
+};
+const FUNNEL_STEPS = [
+  { key:"prospectando", label:"Prospectando" },
+  { key:"contactando",  label:"Contactando" },
+  { key:"conversando",  label:"Conversando" },
+  { key:"reunion",      label:"Reunión / Propuesta" },
+  { key:"ganado",       label:"Ganado" },
+];
+const CAL_OPTIONS = ["Borrador","Listo para revisar","Publicado","Descartado"];
+const FORMATO_OPTIONS = ["Texto","Carrusel","Texto + imagen","Video","Newsletter"];
+
+const PACS_PILLARS = [
+  { key:"P", color:"var(--purple)", name:"Prospectar Anichadamente", desc:"Elegir el nicho y armar listas de contactos con la señal correcta." },
+  { key:"A", color:"var(--orange)", name:"Construir Autoridad",       desc:"Perfil optimizado y presencia constante antes de escribir a nadie." },
+  { key:"C", color:"var(--teal)",   name:"Mensajes Conversacionales", desc:"Conectar y abrir conversación real, sin pitch de venta." },
+  { key:"S", color:"var(--green)",  name:"Seguimiento Sistematizado", desc:"Follow-up y medición constante hasta la reunión o el cierre." },
+];
+// 8 pasos del método PACS, mapeados a las etapas del embudo de prospectos
+const PACS_STEPS = [
+  { num:1, pilar:"P", name:"Target",                      desc:"Definir el ICP y a quién se le va a escribir.",                     etapas:[] },
+  { num:2, pilar:"P", name:"Listas anichadas",             desc:"Agrupar prospectos por nicho / señal en común.",                    etapas:["Identificado"] },
+  { num:3, pilar:"A", name:"Perfil LinkedIn",              desc:"Perfil listo para resistir una visita antes de conectar.",          etapas:[] },
+  { num:4, pilar:"A", name:"Autoridad / Warm-up",          desc:"Seguir, comentar e interactuar antes de enviar solicitud.",         etapas:["Precalentamiento"] },
+  { num:5, pilar:"C", name:"Campaña de conexión",          desc:"Enviar la solicitud de conexión con o sin nota.",                   etapas:["Conexión enviada"] },
+  { num:6, pilar:"C", name:"Secuencia conversacional",     desc:"Primer mensaje y conversación — sin vender todavía.",               etapas:["Mensaje 1","Conversación"] },
+  { num:7, pilar:"S", name:"Follow-up",                    desc:"Seguimiento sistemático hasta conseguir una respuesta o reunión.",  etapas:["Seguimiento"] },
+  { num:8, pilar:"S", name:"Sistematizar y medir",         desc:"Reunión, propuesta y cierre — más lo que se aprende para el resto del embudo.", etapas:["Reunión agendada","Reunión realizada","Propuesta","Ganado","Perdido"] },
+];
+
+let PROSPECTOS = [];
+let CALENDARIO = [];
+
+function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function stageClass(estado) { return 'stage-' + (STAGE_GROUP[estado] || 'prospectando'); }
+function uid(prefix) { return prefix + Math.random().toString(36).slice(2, 9); }
+function b64EncodeUnicode(str) { return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (m,p1) => String.fromCharCode('0x' + p1))); }
+
+// ---------- theme ----------
+function initTheme() {
+  const saved = localStorage.getItem('xsell_theme');
+  if (saved === 'light') { document.documentElement.setAttribute('data-theme','light'); document.getElementById('theme-toggle').textContent = '☀️'; }
+  else { document.getElementById('theme-toggle').textContent = '🌙'; }
+}
+document.getElementById('theme-toggle').addEventListener('click', () => {
+  const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+  if (isLight) { document.documentElement.removeAttribute('data-theme'); localStorage.setItem('xsell_theme','dark'); document.getElementById('theme-toggle').textContent = '🌙'; }
+  else { document.documentElement.setAttribute('data-theme','light'); localStorage.setItem('xsell_theme','light'); document.getElementById('theme-toggle').textContent = '☀️'; }
+});
+
+// ---------- settings / whoami / token ----------
+function actor() { return localStorage.getItem('xsell_actor') || 'Alguien'; }
+function getToken() { return localStorage.getItem('xsell_gh_token') || ''; }
+document.getElementById('settings-toggle').addEventListener('click', () => document.getElementById('settings-panel').classList.toggle('open'));
+function initSettings() {
+  const sel = document.getElementById('whoami-select');
+  const savedActor = localStorage.getItem('xsell_actor');
+  if (savedActor) sel.value = savedActor;
+  sel.addEventListener('change', () => localStorage.setItem('xsell_actor', sel.value));
+  const tokenInput = document.getElementById('gh-token');
+  const savedToken = getToken();
+  if (savedToken) tokenInput.value = savedToken;
+  updateTokenStatus();
+  tokenInput.addEventListener('change', () => {
+    localStorage.setItem('xsell_gh_token', tokenInput.value.trim());
+    updateTokenStatus();
+    renderProspects(); renderCalendar();
+  });
+}
+function updateTokenStatus() {
+  const el = document.getElementById('token-status');
+  if (getToken()) { el.textContent = '✓ Token guardado en este navegador — puedes editar y guardar.'; el.className = 'token-status ok'; }
+  else { el.textContent = 'Sin token — puedes ver todo, pero no guardar cambios.'; el.className = 'token-status bad'; }
+}
+function canEdit() { return !!getToken(); }
+
+// ---------- toast ----------
+let toastTimer = null;
+function toast(msg, isErr) {
+  const t = document.getElementById('savetoast');
+  t.textContent = msg; t.className = 'savetoast show' + (isErr ? ' err' : '');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), isErr ? 5000 : 2500);
+}
+
+// ---------- GitHub read/write ----------
+async function loadJson(path) {
+  const res = await fetch(path + '?t=' + Date.now());
+  if (!res.ok) throw new Error('No se pudo cargar ' + path);
+  return res.json();
+}
+async function ghGetFile(path) {
+  const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}?ref=${BRANCH}`, {
+    headers: { 'Authorization': `Bearer ${getToken()}`, 'Accept': 'application/vnd.github+json' }
+  });
+  if (!res.ok) throw new Error(res.status === 401 ? 'Token inválido o vencido.' : 'No se pudo leer ' + path + ' (' + res.status + ')');
+  return res.json();
+}
+async function ghSaveFile(path, jsonObj, message) {
+  if (!canEdit()) throw new Error('Agrega tu token de GitHub en Configuración (⚙) para poder guardar.');
+  const current = await ghGetFile(path);
+  const content = b64EncodeUnicode(JSON.stringify(jsonObj, null, 2) + '\n');
+  const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`, {
+    method: 'PUT',
+    headers: { 'Authorization': `Bearer ${getToken()}`, 'Accept': 'application/vnd.github+json' },
+    body: JSON.stringify({ message, content, sha: current.sha, branch: BRANCH })
+  });
+  if (!res.ok) {
+    if (res.status === 409) throw new Error('Alguien más guardó un cambio justo antes — recarga la página e inténtalo de nuevo.');
+    if (res.status === 401) throw new Error('Token inválido o sin permiso de escritura sobre este repositorio.');
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || ('Error al guardar (' + res.status + ')'));
+  }
+  return res.json();
+}
+async function saveProspectos(commitMsg) {
+  await ghSaveFile('data/prospectos.json', { prospectos: PROSPECTOS }, commitMsg);
+}
+async function saveCalendario(commitMsg) {
+  await ghSaveFile('data/calendario.json', { calendario: CALENDARIO }, commitMsg);
+}
+
+// ---------- rendering ----------
+function renderKpis() {
+  const groups = {prospectando:0, contactando:0, conversando:0, reunion:0, ganado:0};
+  PROSPECTOS.forEach(p => { const g = STAGE_GROUP[p.etapa]; if (g && groups[g] !== undefined) groups[g]++; });
+  const listos = PROSPECTOS.filter(p => p.listo_para_enviar).length;
+  const publicados = CALENDARIO.filter(c => c.estado === 'Publicado').length;
+  const kpis = [
+    [PROSPECTOS.length, 'Prospectos totales'],
+    [groups.prospectando, 'En precalentamiento'],
+    [listos, 'Mensajes listos para enviar'],
+    [groups.conversando, 'Conversando'],
+    [groups.reunion, 'Reuniones'],
+    [publicados + '/' + CALENDARIO.length, 'Contenido publicado'],
+  ];
+  document.getElementById('kpis').innerHTML = kpis.map(([n,l]) => `<div class="kpi"><div class="n">${esc(n)}</div><div class="l">${esc(l)}</div></div>`).join('');
+}
+
+function renderFunnel() {
+  const groups = {prospectando:0, contactando:0, conversando:0, reunion:0, ganado:0};
+  PROSPECTOS.forEach(p => { const g = STAGE_GROUP[p.etapa]; if (g && groups[g] !== undefined) groups[g]++; });
+  const top = Math.max(PROSPECTOS.length, 1);
+  document.getElementById('funnel-count').textContent = PROSPECTOS.length + ' en el embudo';
+  document.getElementById('funnel').innerHTML = FUNNEL_STEPS.map(s => {
+    const n = groups[s.key] || 0;
+    const pct = Math.round((n / top) * 100);
+    return `<div class="funnel-row">
+      <div class="funnel-name">${esc(s.label)}</div>
+      <div class="funnel-track"><div class="funnel-fill" style="width:${Math.max(pct,3)}%"><span class="fv">${n}</span></div></div>
+      <div class="funnel-pct">${pct}%</div>
+    </div>`;
+  }).join('');
+}
+
+function accountBadge(cuenta) {
+  if (!cuenta) return '';
+  const initial = cuenta.charAt(0).toUpperCase();
+  const cls = cuenta === 'Ingrid' ? 'avatar ingrid' : 'avatar';
+  return `<span class="contacted-by"><span class="${cls}">${esc(initial)}</span>Contactado por ${esc(cuenta)}</span>`;
+}
+
+function prospectViewHtml(p) {
+  return `
+      <div class="card-head">
+        <div>
+          <div class="card-name"><a href="${esc(p.linkedin_url || '#')}" target="_blank" rel="noopener">${esc(p.nombre)} ↗</a></div>
+          <div class="card-role">${esc(p.cargo || '')} · ${esc(p.empresa || '')}</div>
+        </div>
+        <div class="card-head-right">
+          <span class="stage-pill ${stageClass(p.etapa)}">${esc(p.etapa)}</span>
+          ${canEdit() ? `<button class="edit-btn" title="Editar" onclick="toggleProspectEdit('${p.id}')">✎ Editar</button>` : ''}
+        </div>
+      </div>
+      ${accountBadge(p.cuenta)}
+      ${(p.senales && p.senales.length) ? `<div class="chips">${p.senales.map(s => `<span class="chip">${esc(s)}</span>`).join('')}</div>` : ''}
+      ${p.dolor_detectado ? `<div class="pain"><b>Dolor:</b> ${esc(p.dolor_detectado)}</div>` : ''}
+      ${p.ultima_publicacion ? `<div class="lastpost"><span class="lp-date">Última publicación · ${esc(p.ultima_publicacion.fecha || '')}</span>${esc(p.ultima_publicacion.resumen || '')}</div>` : ''}
+      ${p.mensaje_borrador ? `<details class="msg"><summary>Mensaje borrador</summary><div class="msg-body">${esc(p.mensaje_borrador)}</div></details>` : ''}
+      <div class="card-foot">
+        <span>${esc(p.proxima_accion || '')}</span>
+        <span class="${p.listo_para_enviar ? 'ready-badge' : ''}">${p.listo_para_enviar ? '✓ Listo para enviar' : esc(p.origen || '')}</span>
+      </div>
+      ${p.hubspot_contact_id ? `<a class="pub-by" href="https://app.hubspot.com/contacts/${HUBSPOT_PORTAL_ID}/contact/${esc(p.hubspot_contact_id)}" target="_blank" rel="noopener" style="color:var(--green);">✓ En HubSpot ↗</a>` : ''}`;
+}
+
+function prospectEditHtml(p) {
+  return `
+      <div class="editform">
+        <div class="row2">
+          <div><label>Etapa</label><select id="ef-etapa-${p.id}">${STAGE_OPTIONS.map(s => `<option ${s===p.etapa?'selected':''}>${esc(s)}</option>`).join('')}</select></div>
+          <div><label>Cuenta</label><select id="ef-cuenta-${p.id}">${['Fabián','Ingrid'].map(s => `<option ${s===p.cuenta?'selected':''}>${esc(s)}</option>`).join('')}</select></div>
+        </div>
+        <div><label>Dolor detectado</label><input id="ef-dolor-${p.id}" value="${esc(p.dolor_detectado||'')}"></div>
+        <div><label>Mensaje borrador</label><textarea id="ef-mensaje-${p.id}">${esc(p.mensaje_borrador||'')}</textarea></div>
+        <div><label>Próxima acción</label><input id="ef-accion-${p.id}" value="${esc(p.proxima_accion||'')}"></div>
+        <label class="chk"><input type="checkbox" id="ef-listo-${p.id}" ${p.listo_para_enviar?'checked':''}> Mensaje listo para enviar</label>
+        <div class="card-error" id="ef-err-${p.id}"></div>
+        <div class="actions">
+          <button class="btn ghost" onclick="toggleProspectEdit('${p.id}')">Cancelar</button>
+          <button class="btn primary" id="ef-save-${p.id}" onclick="saveProspectEdit('${p.id}')">Guardar</button>
+        </div>
+      </div>`;
+}
+
+function renderProspects() {
+  document.getElementById('prospect-count').textContent = PROSPECTOS.length + ' en total';
+  const wrap = document.getElementById('prospect-cards');
+  const cardsHtml = PROSPECTOS.map(p => `<div class="card" id="card-${p.id}" data-editing="0">${prospectViewHtml(p)}</div>`).join('');
+  const addCard = canEdit() ? `<div class="card addcard"><button id="add-prospect-btn">+ Agregar prospecto</button></div>` : '';
+  wrap.innerHTML = (PROSPECTOS.length ? cardsHtml : `<div class="empty">Todavía no hay prospectos.</div>`) + addCard;
+  const addBtn = document.getElementById('add-prospect-btn');
+  if (addBtn) addBtn.addEventListener('click', addProspectPrompt);
+}
+
+function toggleProspectEdit(id) {
+  const card = document.getElementById('card-' + id);
+  const p = PROSPECTOS.find(x => x.id === id);
+  if (!card || !p) return;
+  const editing = card.dataset.editing === '1';
+  card.dataset.editing = editing ? '0' : '1';
+  card.innerHTML = editing ? prospectViewHtml(p) : prospectEditHtml(p);
+}
+
+async function saveProspectEdit(id) {
+  const p = PROSPECTOS.find(x => x.id === id);
+  if (!p) return;
+  const btn = document.getElementById('ef-save-' + id);
+  const errEl = document.getElementById('ef-err-' + id);
+  errEl.textContent = '';
+  const before = { etapa: p.etapa, mensaje_borrador: p.mensaje_borrador, listo_para_enviar: p.listo_para_enviar };
+  p.etapa = document.getElementById('ef-etapa-' + id).value;
+  p.cuenta = document.getElementById('ef-cuenta-' + id).value;
+  p.dolor_detectado = document.getElementById('ef-dolor-' + id).value.trim();
+  p.mensaje_borrador = document.getElementById('ef-mensaje-' + id).value.trim();
+  p.proxima_accion = document.getElementById('ef-accion-' + id).value.trim();
+  p.listo_para_enviar = document.getElementById('ef-listo-' + id).checked;
+  p.actualizado = new Date().toISOString().slice(0,10);
+  btn.disabled = true; btn.textContent = 'Guardando…';
+  try {
+    let msg = `${actor()}: editó a ${p.nombre}`;
+    if (before.etapa !== p.etapa) msg += ` — etapa → ${p.etapa}`;
+    if (before.mensaje_borrador !== p.mensaje_borrador) msg += ` — mensaje actualizado`;
+    if (before.listo_para_enviar !== p.listo_para_enviar) msg += p.listo_para_enviar ? ` — marcado listo para enviar` : ` — desmarcado`;
+    await saveProspectos(msg);
+    toast('Guardado ✓');
+    const card = document.getElementById('card-' + id);
+    card.dataset.editing = '0';
+    card.innerHTML = prospectViewHtml(p);
+    renderKpis(); renderFunnel(); renderPacs();
+    renderLog();
+  } catch (e) {
+    errEl.textContent = e.message;
+    btn.disabled = false; btn.textContent = 'Guardar';
+    toast(e.message, true);
+  }
+}
+
+function addProspectPrompt() {
+  const nombre = window.prompt('Nombre y apellido del prospecto:');
+  if (!nombre || !nombre.trim()) return;
+  const cargo = window.prompt('Cargo:', '') || '';
+  const empresa = window.prompt('Empresa:', '') || '';
+  const linkedin_url = window.prompt('Link de LinkedIn:', '') || '';
+  const nuevo = {
+    id: uid('p'), nombre: nombre.trim(), cargo: cargo.trim(), empresa: empresa.trim(), linkedin_url: linkedin_url.trim(),
+    email: null, ultima_publicacion: null, publica_activamente: false, senales: [], dolor_detectado: '',
+    etapa: 'Identificado', cuenta: 'Fabián', origen: actor() === 'Ingrid' ? 'Ingrid' : 'Fabián',
+    mensaje_borrador: '', listo_para_enviar: false, proxima_accion: '', notas: '',
+    actualizado: new Date().toISOString().slice(0,10),
+    hubspot_contact_id: null, hubspot_synced_at: null
+  };
+  PROSPECTOS.push(nuevo);
+  renderProspects(); renderKpis(); renderFunnel(); renderPacs();
+  saveProspectos(`${actor()}: agregó a ${nuevo.nombre} como prospecto`)
+    .then(() => { toast('Guardado ✓'); renderLog(); })
+    .catch(e => { toast(e.message, true); PROSPECTOS = PROSPECTOS.filter(x => x.id !== nuevo.id); renderProspects(); renderKpis(); renderFunnel(); renderPacs(); });
+}
+
+function estadoClass(estado) { return 'estado-' + (estado || 'Borrador').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z]/g,''); }
+function avatarOnly(cuenta) {
+  const cls = cuenta === 'Ingrid' ? 'avatar ingrid' : 'avatar';
+  return `<span class="${cls}">${esc(cuenta.charAt(0).toUpperCase())}</span>${esc(cuenta)}`;
+}
+function pubByHtml(c) {
+  if (!c.publicado_por) return '<span class="pub-by">—</span>';
+  return `<span class="pub-by">${avatarOnly(c.publicado_por)}${c.link_publicacion ? ` · <a href="${esc(c.link_publicacion)}" target="_blank" rel="noopener">ver ↗</a>` : ''}</span>`;
+}
+function calRowView(c) {
+  return `
+      <td>${esc(c.fecha)}</td>
+      <td>${esc(c.tema)}</td>
+      <td>${esc(c.dolor)}</td>
+      <td>${esc(c.formato)}</td>
+      <td><span class="estado-pill ${estadoClass(c.estado)}">${esc(c.estado)}</span></td>
+      <td>${pubByHtml(c)}</td>
+      <td>${canEdit() ? `<button class="edit-btn" title="Editar" onclick="toggleCalEdit('${c.id}')">✎</button>` : ''}</td>`;
+}
+function calRowEdit(c) {
+  return `
+      <td><input id="ce-fecha-${c.id}" type="date" value="${esc(c.fecha)}"></td>
+      <td><textarea id="ce-tema-${c.id}" style="min-height:44px;">${esc(c.tema)}</textarea></td>
+      <td><input id="ce-dolor-${c.id}" value="${esc(c.dolor)}"></td>
+      <td><select id="ce-formato-${c.id}">${FORMATO_OPTIONS.map(f => `<option ${f===c.formato?'selected':''}>${esc(f)}</option>`).join('')}</select></td>
+      <td><select id="ce-estado-${c.id}">${CAL_OPTIONS.map(s => `<option ${s===c.estado?'selected':''}>${esc(s)}</option>`).join('')}</select></td>
+      <td>
+        <select id="ce-pubpor-${c.id}" style="margin-bottom:5px;">
+          <option value="">— sin publicar —</option>
+          <option value="Fabián" ${c.publicado_por==='Fabián'?'selected':''}>Fabián</option>
+          <option value="Ingrid" ${c.publicado_por==='Ingrid'?'selected':''}>Ingrid</option>
+        </select>
+        <input id="ce-publink-${c.id}" placeholder="Link del post" value="${esc(c.link_publicacion||'')}">
+      </td>
+      <td style="white-space:nowrap;">
+        <button class="btn primary" style="padding:5px 9px;" onclick="saveCalEdit('${c.id}')">✓</button>
+        <button class="btn ghost" style="padding:5px 9px;" onclick="toggleCalEdit('${c.id}')">✕</button>
+      </td>`;
+}
+function renderCalendar() {
+  document.getElementById('calendar-count').textContent = CALENDARIO.length + ' publicaciones';
+  const tbody = document.getElementById('calendar-rows');
+  if (!CALENDARIO.length) { tbody.innerHTML = `<tr><td colspan="7" class="empty">Sin publicaciones todavía.</td></tr>`; return; }
+  const sorted = [...CALENDARIO].sort((a,b) => (a.fecha||'').localeCompare(b.fecha||''));
+  tbody.innerHTML = sorted.map(c => `<tr id="calrow-${c.id}" data-editing="0">${calRowView(c)}</tr>`).join('');
+}
+function toggleCalEdit(id) {
+  const row = document.getElementById('calrow-' + id);
+  const c = CALENDARIO.find(x => x.id === id);
+  if (!row || !c) return;
+  const editing = row.dataset.editing === '1';
+  row.dataset.editing = editing ? '0' : '1';
+  row.innerHTML = editing ? calRowView(c) : calRowEdit(c);
+}
+function renderPublicaciones() {
+  const total = CALENDARIO.filter(c => c.publicado_por).length;
+  document.getElementById('pub-count').textContent = total + ' publicadas en total';
+  document.getElementById('pub-summary').innerHTML = ['Fabián','Ingrid'].map(persona => {
+    const posts = CALENDARIO.filter(c => c.publicado_por === persona).sort((a,b) => (b.fecha||'').localeCompare(a.fecha||''));
+    const cls = persona === 'Ingrid' ? 'avatar ingrid' : 'avatar';
+    const list = posts.length
+      ? `<ul class="pub-list">${posts.map(c => `<li><span class="pd">${esc(c.fecha)}</span>${c.link_publicacion ? `<a href="${esc(c.link_publicacion)}" target="_blank" rel="noopener">${esc(c.tema.slice(0,70))}${c.tema.length>70?'…':''} ↗</a>` : esc(c.tema.slice(0,70))}</li>`).join('')}</ul>`
+      : `<div class="pub-empty">Todavía no ha marcado ninguna publicación como subida.</div>`;
+    return `<div class="pub-card">
+      <div class="pub-card-head">
+        <span class="who"><span class="${cls}">${persona.charAt(0)}</span>${persona}</span>
+        <span class="n">${posts.length}</span>
+      </div>
+      ${list}
+    </div>`;
+  }).join('');
+}
+async function saveCalEdit(id) {
+  const c = CALENDARIO.find(x => x.id === id);
+  if (!c) return;
+  c.fecha = document.getElementById('ce-fecha-' + id).value;
+  c.tema = document.getElementById('ce-tema-' + id).value.trim();
+  c.dolor = document.getElementById('ce-dolor-' + id).value.trim();
+  c.formato = document.getElementById('ce-formato-' + id).value;
+  c.publicado_por = document.getElementById('ce-pubpor-' + id).value || null;
+  c.link_publicacion = document.getElementById('ce-publink-' + id).value.trim() || null;
+  // Cruce automático: si alguien queda marcado como quien lo publicó, el estado pasa a Publicado solo.
+  c.estado = c.publicado_por ? 'Publicado' : document.getElementById('ce-estado-' + id).value;
+  try {
+    await saveCalendario(`${actor()}: editó una publicación del calendario ("${c.tema.slice(0,50)}")${c.publicado_por ? ' — marcada como publicada por ' + c.publicado_por : ''}`);
+    toast('Guardado ✓');
+    renderCalendar(); renderKpis(); renderPublicaciones(); renderLog();
+  } catch (e) { toast(e.message, true); }
+}
+function addPostPrompt() {
+  const tema = window.prompt('Tema / idea del post:');
+  if (!tema || !tema.trim()) return;
+  const dolor = window.prompt('Dolor al que conecta:', '') || '';
+  const fecha = window.prompt('Fecha (AAAA-MM-DD):', new Date().toISOString().slice(0,10)) || new Date().toISOString().slice(0,10);
+  const nuevo = { id: uid('c'), fecha, tema: tema.trim(), dolor: dolor.trim(), formato: 'Texto', estado: 'Borrador', publicado_por: null, link_publicacion: null };
+  CALENDARIO.push(nuevo);
+  renderCalendar(); renderKpis(); renderPublicaciones();
+  saveCalendario(`${actor()}: agregó una publicación al calendario`)
+    .then(() => { toast('Guardado ✓'); renderLog(); })
+    .catch(e => { toast(e.message, true); CALENDARIO = CALENDARIO.filter(x => x.id !== nuevo.id); renderCalendar(); renderKpis(); renderPublicaciones(); });
+}
+document.getElementById('add-post-btn').addEventListener('click', () => { if (canEdit()) addPostPrompt(); else toast('Agrega tu token de GitHub en Configuración (⚙) para poder guardar.', true); });
+
+// ---------- tabs ----------
+function switchTab(tab) {
+  document.querySelectorAll('.tabpanel').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  document.getElementById('tab-btn-' + tab).classList.add('active');
+  localStorage.setItem('xsell_tab', tab);
+}
+
+// ---------- método PACS ----------
+function renderPacs() {
+  const pillarCounts = {P:0, A:0, C:0, S:0};
+  PROSPECTOS.forEach(p => {
+    const step = PACS_STEPS.find(s => s.etapas.includes(p.etapa));
+    if (step) pillarCounts[step.pilar]++;
+  });
+  document.getElementById('pillars').innerHTML = PACS_PILLARS.map(pl => `
+    <div class="pillar" style="--pc:${pl.color}">
+      <div class="pl-letter">${pl.key}</div>
+      <div class="pl-name">${esc(pl.name)}</div>
+      <div class="pl-desc">${esc(pl.desc)}</div>
+      <div class="pl-count">${pillarCounts[pl.key]} prospecto${pillarCounts[pl.key] === 1 ? '' : 's'} aquí ahora</div>
+    </div>`).join('');
+
+  document.getElementById('pacs-steps').innerHTML = PACS_STEPS.map(step => {
+    const color = PACS_PILLARS.find(pl => pl.key === step.pilar).color;
+    const leads = PROSPECTOS.filter(p => step.etapas.includes(p.etapa));
+    const leadsHtml = leads.length
+      ? `<div class="pacs-step-leads">${leads.map(p => `<a class="lead-chip" href="${esc(p.linkedin_url || '#')}" target="_blank" rel="noopener">${esc(p.nombre)}</a>`).join('')}</div>`
+      : `<div class="pacs-step-empty">Sin prospectos en este paso todavía.</div>`;
+    return `<div class="pacs-step" style="--pc:${color}">
+      <div class="pacs-step-head">
+        <span class="pacs-step-num">Paso ${step.num}</span>
+        <span class="pacs-step-name">${esc(step.name)}</span>
+        <span class="pacs-step-pillar">Pilar ${step.pilar}</span>
+      </div>
+      <div class="pacs-step-desc">${esc(step.desc)}</div>
+      ${leadsHtml}
+    </div>`;
+  }).join('');
+}
+
+async function renderLog() {
+  const list = document.getElementById('log-list');
+  try {
+    const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/commits?path=data&per_page=15`);
+    if (!res.ok) throw new Error('api error');
+    const commits = await res.json();
+    document.getElementById('log-count').textContent = commits.length + ' cambios recientes';
+    if (!commits.length) { list.innerHTML = `<li>Todavía no hay cambios registrados.</li>`; return; }
+    list.innerHTML = commits.map(c => {
+      const date = new Date(c.commit.author.date).toLocaleString('es-PE', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' });
+      const author = c.author?.login || c.commit.author.name || 'Alguien';
+      const msg = c.commit.message.split('\n')[0];
+      return `<li><a href="${c.html_url}" target="_blank" rel="noopener"><span class="logtime">${esc(date)}</span><span class="logactor">${esc(author)}</span> — ${esc(msg)}</a></li>`;
+    }).join('');
+  } catch (e) {
+    list.innerHTML = `<li>No se pudo cargar el historial desde GitHub — <a href="${REPO_URL}/commits/main" target="_blank" rel="noopener">míralo directo en el repositorio</a>.</li>`;
+    document.getElementById('log-count').textContent = '';
+  }
+}
+
+async function init() {
+  initTheme();
+  initSettings();
+  try {
+    const [prospData, calData] = await Promise.all([loadJson('data/prospectos.json'), loadJson('data/calendario.json')]);
+    PROSPECTOS = prospData.prospectos || [];
+    CALENDARIO = calData.calendario || [];
+    renderKpis(); renderFunnel(); renderProspects(); renderCalendar(); renderPublicaciones(); renderPacs();
+  } catch (e) {
+    document.getElementById('prospect-cards').innerHTML = `<div class="empty">No se pudieron cargar los datos (${esc(e.message)}).</div>`;
+  }
+  renderLog();
+  const savedTab = localStorage.getItem('xsell_tab');
+  if (savedTab === 'pacs') switchTab('pacs');
+}
+init();
+</script>
+</body>
+</html>

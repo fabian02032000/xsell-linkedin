@@ -1,0 +1,44 @@
+name: Sincronizar prospectos con HubSpot
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "data/prospectos.json"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-hubspot
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Sincronizar prospectos en etapa de cliente potencial hacia HubSpot
+        env:
+          HUBSPOT_TOKEN: ${{ secrets.HUBSPOT_TOKEN }}
+        run: node .github/scripts/sync-hubspot.mjs
+
+      - name: Guardar los IDs de HubSpot en el repositorio
+        run: |
+          if ! git diff --quiet -- data/prospectos.json; then
+            git config user.name "xsell-hubspot-sync"
+            git config user.email "actions@github.com"
+            git add data/prospectos.json
+            git commit -m "bot: sincronizó prospectos con HubSpot [skip ci]"
+            git push
+          else
+            echo "Sin cambios que sincronizar."
+          fi

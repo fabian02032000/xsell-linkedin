@@ -1,0 +1,12 @@
+{
+  "calendario": [
+    { "id": "c1", "fecha": "2026-09-01", "tema": "Generar muchos leads no es lo mismo que vender más: el cuello de botella real suele estar en el seguimiento comercial, no en la pauta.", "dolor": "Leads que no se convierten en ventas", "formato": "Texto", "estado": "Borrador", "publicado_por": null, "link_publicacion": null },
+    { "id": "c2", "fecha": "2026-09-03", "tema": "Una empresa puede generar 2.000 leads y vender menos que una que genera 200 — la diferencia está en quién los contacta y qué tan rápido.", "dolor": "Baja conversión de leads a venta", "formato": "Texto", "estado": "Borrador", "publicado_por": null, "link_publicacion": null },
+    { "id": "c3", "fecha": "2026-09-08", "tema": "Señal de que tu equipo comercial no da abasto: leads que esperan más de 24h para el primer contacto.", "dolor": "Equipo comercial insuficiente", "formato": "Carrusel", "estado": "Borrador", "publicado_por": null, "link_publicacion": null },
+    { "id": "c4", "fecha": "2026-09-10", "tema": "Caso breve: cómo una empresa sumó capacidad comercial sin aumentar planilla fija y redujo su tiempo de primer contacto.", "dolor": "Necesidad de reforzar el equipo sin contratar", "formato": "Texto + imagen", "estado": "Borrador", "publicado_por": null, "link_publicacion": null },
+    { "id": "c5", "fecha": "2026-09-15", "tema": "Contratar vendedores rápido no siempre resuelve el problema si no hay proceso de seguimiento detrás.", "dolor": "Rotación / contratación comercial urgente", "formato": "Texto", "estado": "Borrador", "publicado_por": null, "link_publicacion": null },
+    { "id": "c6", "fecha": "2026-09-17", "tema": "3 preguntas para saber si tu problema es de generación de leads o de conversión comercial.", "dolor": "Diagnóstico leads vs. conversión", "formato": "Carrusel", "estado": "Borrador", "publicado_por": null, "link_publicacion": null },
+    { "id": "c7", "fecha": "2026-09-22", "tema": "Lo que aprendimos ayudando a empresas B2B a convertir mejor su inversión en pauta digital.", "dolor": "Autoridad / caso propio de Xsell", "formato": "Texto", "estado": "Borrador", "publicado_por": null, "link_publicacion": null },
+    { "id": "c8", "fecha": "2026-09-24", "tema": "Contactabilidad: la métrica que casi nadie mide y que explica por qué se pierden oportunidades ya pagadas.", "dolor": "Pérdida de oportunidades por contacto lento", "formato": "Texto", "estado": "Borrador", "publicado_por": null, "link_publicacion": null }
+  ]
+}

@@ -1,17 +1,6 @@
 {
   "candidatos": [
     {
-      "id": "cand_a1b2c3",
-      "nombre": "César Ley Acuña",
-      "cargo": "Founder",
-      "empresa": "Real Capital Perú",
-      "linkedin_url": "https://www.linkedin.com/in/cesarleyceo/",
-      "senal": "Búsqueda de personal comercial",
-      "razon": "Publicó (hace ~2 meses) que Real Capital Perú está en expansión y busca sumar Asesores Comerciales de Préstamos e Inversiones en Lima (San Isidro) — señal de que necesitan reforzar el equipo de ventas. Publicación algo antigua, vale confirmar si la vacante sigue abierta.",
-      "fecha_encontrado": "2026-08-27",
-      "encontrado_por": "Claude"
-    },
-    {
       "id": "cand_d4e5f6",
       "nombre": "Daniel Lorino Salcedo",
       "cargo": "Jefe Comercial",

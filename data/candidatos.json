@@ -1,3 +1,37 @@
 {
-  "candidatos": []
+  "candidatos": [
+    {
+      "id": "cand_a1b2c3",
+      "nombre": "César Ley Acuña",
+      "cargo": "Founder",
+      "empresa": "Real Capital Perú",
+      "linkedin_url": "https://www.linkedin.com/in/cesarleyceo/",
+      "senal": "Búsqueda de personal comercial",
+      "razon": "Publicó (hace ~2 meses) que Real Capital Perú está en expansión y busca sumar Asesores Comerciales de Préstamos e Inversiones en Lima (San Isidro) — señal de que necesitan reforzar el equipo de ventas. Publicación algo antigua, vale confirmar si la vacante sigue abierta.",
+      "fecha_encontrado": "2026-08-27",
+      "encontrado_por": "Claude"
+    },
+    {
+      "id": "cand_d4e5f6",
+      "nombre": "Daniel Lorino Salcedo",
+      "cargo": "Jefe Comercial",
+      "empresa": "FLOW-X Perú",
+      "linkedin_url": "https://www.linkedin.com/in/daniel-lorino-salcedo/",
+      "senal": "Búsqueda de personal comercial",
+      "razon": "Como Jefe Comercial de FLOW-X Perú (logística internacional), publicó hace ~3 semanas que están buscando un Ejecutivo de Ventas Senior para impulsar nuevos negocios — es él mismo quien lidera el área que necesita reforzar, el mismo patrón que Olenka.",
+      "fecha_encontrado": "2026-08-27",
+      "encontrado_por": "Claude"
+    },
+    {
+      "id": "cand_g7h8i9",
+      "nombre": "Oscar Leonardo Alviarez Martinez",
+      "cargo": "Gerente Comercial",
+      "empresa": "Conex Perú",
+      "linkedin_url": "https://www.linkedin.com/in/oscar-leonardo-alviarez-martinez-69b2bb19b/",
+      "senal": "Búsqueda de personal comercial",
+      "razon": "Es el Gerente Comercial de Conex Perú (telecom/FTTH) y publicó que están incorporando vendedores freelance para ampliar el equipo comercial. La publicación tiene varios meses, pero el patrón (el propio gerente comercial buscando reforzar ventas) encaja con el perfil que ya funcionó con Olenka.",
+      "fecha_encontrado": "2026-08-27",
+      "encontrado_por": "Claude"
+    }
+  ]
 }

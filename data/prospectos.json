@@ -26,28 +26,6 @@
       "actualizado": "2026-08-27",
       "hubspot_contact_id": null,
       "hubspot_synced_at": null
-    },
-    {
-      "id": "pep1svd1",
-      "nombre": "Fernando del Aguila",
-      "cargo": "Asistente de logistica",
-      "empresa": "Autoland",
-      "linkedin_url": "https://www.linkedin.com/in/fdelaguilaa/",
-      "email": null,
-      "ultima_publicacion": null,
-      "publica_activamente": false,
-      "senales": [],
-      "dolor_detectado": "",
-      "etapa": "Identificado",
-      "cuenta": "Fabián",
-      "origen": "Fabián",
-      "mensaje_borrador": "",
-      "listo_para_enviar": false,
-      "proxima_accion": "",
-      "notas": "",
-      "actualizado": "2026-08-27",
-      "hubspot_contact_id": null,
-      "hubspot_synced_at": null
     }
   ]
 }

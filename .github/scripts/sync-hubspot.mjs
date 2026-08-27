@@ -1,16 +1,15 @@
-// Crea un Contacto en HubSpot para cada prospecto que llegó a etapa de "cliente potencial"
-// (Reunión agendada en adelante), o que tenga hubspot_solicitud_manual: true (botón "Crear
-// en HubSpot ahora" del dashboard) — y todavía no tenga hubspot_contact_id.
-// Se ejecuta automáticamente vía GitHub Actions en cada push a data/prospectos.json.
+// Crea un Contacto en HubSpot SOLO para el prospecto que tenga hubspot_solicitud_manual: true
+// (botón "Crear en HubSpot ahora" del dashboard) — y todavía no tenga hubspot_contact_id.
+// Ninguna etapa del embudo dispara esto automáticamente: el envío a HubSpot es siempre una
+// decisión manual de Fabián o Ingrid desde el dashboard.
+// Se ejecuta vía GitHub Actions en cada push a data/prospectos.json, pero solo actúa si
+// encuentra alguna solicitud manual pendiente.
 
 import { readFileSync, writeFileSync } from "node:fs";
 
 const TOKEN = process.env.HUBSPOT_TOKEN;
 const DATA_PATH = "data/prospectos.json";
 const HS_API = "https://api.hubapi.com";
-
-// Etapas del embudo Xsell/PACS que cuentan como "cliente potencial" para HubSpot.
-const SYNC_STAGES = ["Reunión agendada", "Reunión realizada", "Propuesta", "Ganado"];
 
 if (!TOKEN) {
   console.error("Falta el secret HUBSPOT_TOKEN en el repositorio (Settings → Secrets and variables → Actions).");
@@ -101,11 +100,10 @@ async function main() {
   let changed = false;
 
   for (const p of prospectos) {
-    const manual = !!p.hubspot_solicitud_manual;
-    if (!SYNC_STAGES.includes(p.etapa) && !manual) continue;
+    if (!p.hubspot_solicitud_manual) continue; // solo por pedido manual desde el dashboard
     if (p.hubspot_contact_id) continue; // ya sincronizado
 
-    console.log(`→ Sincronizando a ${p.nombre} (${p.etapa}${manual ? ", pedido manual" : ""})…`);
+    console.log(`→ Sincronizando a ${p.nombre} (pedido manual, etapa ${p.etapa})…`);
     try {
       let contactId = await findExistingContact(p);
       let isNew = false;
@@ -118,7 +116,7 @@ async function main() {
       }
       p.hubspot_contact_id = contactId;
       p.hubspot_synced_at = new Date().toISOString().slice(0, 10);
-      if (manual) delete p.hubspot_solicitud_manual;
+      delete p.hubspot_solicitud_manual;
       changed = true;
 
       if (isNew) {

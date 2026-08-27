@@ -238,6 +238,51 @@
   .cand-cta h3 { margin:0 0 6px; font-size:15px; color:var(--ink); }
   .cand-cta p { margin:0 0 18px; font-size:13px; line-height:1.5; color:var(--ink-soft); max-width:42ch; margin-left:auto; margin-right:auto; }
   .cand-cta .btn { font-size:13px; padding:10px 20px; }
+
+  .reminder-pill { display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; padding:4px 9px; border-radius:999px; white-space:nowrap; border:1px solid transparent; }
+  .reminder-pill.due { background:var(--red-soft); color:var(--red); border-color:var(--red); }
+  .reminder-pill.soon { background:var(--orange-soft); color:var(--orange); border-color:var(--orange); }
+  .reminder-pill.ok { background:var(--surface-raised); color:var(--ink-faint); border-color:var(--border); }
+
+  .interactions { border-top:1px solid var(--border); padding-top:10px; }
+  .interactions-head { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+  .interactions-head .it-toggle { cursor:pointer; font-size:12.5px; font-weight:600; color:var(--purple); background:none; border:none; padding:0; }
+  .interactions-head .it-add { font-size:11.5px; font-weight:600; color:var(--ink-soft); background:none; border:1px solid var(--border); border-radius:999px; padding:3px 10px; cursor:pointer; }
+  .interactions-head .it-add:hover { color:var(--purple); border-color:var(--purple); }
+  .interaction-list { list-style:none; margin:8px 0 0; padding:0; display:flex; flex-direction:column; gap:6px; }
+  .interaction-list li { font-size:12px; color:var(--ink-soft); display:flex; align-items:center; gap:6px; background:var(--surface-raised); border:1px solid var(--border); border-radius:7px; padding:6px 9px; }
+  .interaction-list .it-icon { font-size:13px; flex-shrink:0; }
+  .interaction-list .it-who { color:var(--ink-faint); font-size:10.5px; }
+  .interaction-list .it-date { font-family:"IBM Plex Mono",monospace; font-size:10.5px; color:var(--ink-faint); margin-left:auto; }
+  .interaction-empty { font-size:12px; color:var(--ink-faint); font-style:italic; margin-top:6px; }
+
+  .candidate-wrap { max-width: none; }
+  .candidate-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px; }
+  .candidate-card2 { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:18px; box-shadow:var(--shadow); display:flex; flex-direction:column; gap:10px; transition:transform .25s ease, opacity .25s ease; }
+  .cand-actions2 { display:flex; gap:8px; justify-content:flex-end; margin-top:auto; padding-top:4px; }
+  .cand-btn2 { border:1px solid var(--border); background:var(--surface-raised); width:36px; height:36px; border-radius:50%; font-size:15px; cursor:pointer; color:var(--ink); }
+  .cand-btn2:hover { transform:translateY(-1px); }
+  .cand-btn2.no:hover { color:var(--red); border-color:var(--red); }
+  .cand-btn2.yes:hover { color:var(--green); border-color:var(--green); }
+  .cand-btn2:disabled { opacity:.5; cursor:default; transform:none; }
+
+  .thumb { width:42px; height:42px; border-radius:7px; object-fit:cover; border:1px solid var(--border); flex-shrink:0; background:var(--surface-raised); }
+  .thumb-row { display:flex; align-items:center; gap:8px; }
+  .thumb-upload-preview { width:52px; height:52px; border-radius:8px; object-fit:cover; border:1px solid var(--border); }
+  .thumb-field { display:flex; align-items:center; gap:8px; margin-top:4px; }
+  .thumb-field input[type=file] { font-size:11px; color:var(--ink-soft); }
+
+  .criteria-box { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:18px 20px; margin-bottom:22px; }
+  .criteria-box-head { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:12px; }
+  .criteria-box h3 { margin:0; font-size:14.5px; }
+  .criteria-row { margin-bottom:12px; }
+  .criteria-row:last-child { margin-bottom:0; }
+  .criteria-row b { font-size:11px; color:var(--ink-soft); display:block; margin-bottom:5px; text-transform:uppercase; letter-spacing:.03em; font-weight:700; }
+  .criteria-chips { display:flex; flex-wrap:wrap; gap:6px; }
+  .criteria-chip { font-size:11.5px; font-weight:600; padding:4px 10px; border-radius:999px; background:var(--purple-soft); color:var(--purple); }
+  .criteria-chip.avoid { background:var(--red-soft); color:var(--red); }
+  .criteria-notes { font-size:13px; color:var(--ink); white-space:pre-wrap; }
+  .criteria-empty { font-size:12.5px; color:var(--ink-faint); font-style:italic; }
 </style>
 </head>
 <body>
@@ -322,15 +367,12 @@
   </div>
 
   <div id="tab-candidatos" class="tabpanel">
+    <section class="block" id="criteria-section"></section>
     <section class="block">
-      <p class="cand-intro">Cuando le pides a Claude en el chat que "busque prospectos de la semana", los candidatos que encuentra aparecen aquí para que decidas — deslízalos o usa los botones. Al aprobar uno, se agrega directo a "Prospección" en etapa Identificado.</p>
+      <p class="cand-intro">Cuando le pides a Claude en el chat que "busque prospectos de la semana", los candidatos que encuentra aparecen aquí en una vitrina para que decidas uno por uno. Al aprobar uno, se agrega directo a "Prospección" en etapa Identificado.</p>
       <div class="candidate-wrap">
-        <div class="candidate-stack" id="candidate-stack"></div>
-        <div class="candidate-actions" id="candidate-actions">
-          <button class="cand-btn no" id="cand-btn-no" title="Descartar">✕</button>
-          <button class="cand-btn yes" id="cand-btn-yes" title="Agregar a prospección">✓</button>
-        </div>
         <div class="cand-hint" id="candidate-count"></div>
+        <div class="candidate-grid" id="candidate-stack"></div>
       </div>
     </section>
   </div>
@@ -394,6 +436,22 @@
   </div>
 </div>
 
+<div class="modal-overlay" id="add-interaction-overlay">
+  <div class="modal-box">
+    <h3>Registrar interacción</h3>
+    <p class="modal-sub" id="ni-who"></p>
+    <div class="editform">
+      <div><label>Tipo</label><select id="ni-tipo"></select></div>
+      <div><label>Fecha</label><input id="ni-fecha" type="date"></div>
+      <div class="card-error" id="ni-err"></div>
+      <div class="actions">
+        <button class="btn ghost" id="ni-cancel">Cancelar</button>
+        <button class="btn primary" id="ni-save">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 const REPO_OWNER = location.hostname.split('.')[0] || 'usuario';
 const REPO_NAME = (location.pathname.split('/').filter(Boolean)[0]) || 'xsell-prospectos';
@@ -417,6 +475,16 @@ const FUNNEL_STEPS = [
 const CAL_OPTIONS = ["Borrador","Listo para revisar","Publicado","Descartado"];
 const FORMATO_OPTIONS = ["Texto","Carrusel","Texto + imagen","Video","Newsletter"];
 
+// Historial de interacción por prospecto: qué tipos existen y cómo se ven.
+const INTERACTION_TYPES = ["Like","Comentario","Solicitud de conexión enviada","Conexión aceptada","Mensaje enviado","Llamada","Reunión","Otro"];
+const INTERACTION_ICONS = {
+  "Like":"👍", "Comentario":"💬", "Solicitud de conexión enviada":"🔗", "Conexión aceptada":"🤝",
+  "Mensaje enviado":"✉️", "Llamada":"📞", "Reunión":"📅", "Otro":"•",
+};
+// Cuántos días de inactividad se toleran por grupo del embudo antes de avisar que venció el
+// seguimiento. Ganado/Perdido no tienen recordatorio — ya se cerraron.
+const REMINDER_CADENCE_DAYS = { prospectando:3, contactando:2, conversando:2, reunion:3 };
+
 const PACS_PILLARS = [
   { key:"P", color:"var(--purple)", name:"Prospectar Anichadamente", desc:"Elegir el nicho y armar listas de contactos con la señal correcta." },
   { key:"A", color:"var(--orange)", name:"Construir Autoridad",       desc:"Perfil optimizado y presencia constante antes de escribir a nadie." },
@@ -438,6 +506,8 @@ const PACS_STEPS = [
 let PROSPECTOS = [];
 let CALENDARIO = [];
 let CANDIDATOS = [];
+let CRITERIOS = { sectores: [], paises: [], senales_prioritarias: [], senales_a_evitar: [], notas: "" };
+let currentInteractionProspectId = null;
 
 function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function stageClass(estado) { return 'stage-' + (STAGE_GROUP[estado] || 'prospectando'); }
@@ -445,6 +515,99 @@ function uid(prefix) { return prefix + Math.random().toString(36).slice(2, 9); }
 function b64EncodeUnicode(str) { return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (m,p1) => String.fromCharCode('0x' + p1))); }
 function b64DecodeUnicode(str) { return decodeURIComponent(atob(str).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('')); }
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+function todayStr() { return new Date().toISOString().slice(0,10); }
+function daysBetween(fromStr, toStr) {
+  if (!fromStr) return null;
+  const a = new Date(fromStr + 'T00:00:00'), b = new Date((toStr || todayStr()) + 'T00:00:00');
+  if (isNaN(a) || isNaN(b)) return null;
+  return Math.round((b - a) / 86400000);
+}
+function fmtDateShort(s) {
+  if (!s) return '';
+  const [y,m,d] = s.split('-');
+  return d && m ? `${d}/${m}/${y.slice(2)}` : s;
+}
+
+// ---------- historial de interacción + recordatorio de seguimiento ----------
+function lastTouchDate(p) {
+  let last = p.actualizado || null;
+  (p.interacciones || []).forEach(it => { if (it.fecha && (!last || it.fecha > last)) last = it.fecha; });
+  return last;
+}
+function reminderInfo(p) {
+  const group = STAGE_GROUP[p.etapa];
+  const cadence = REMINDER_CADENCE_DAYS[group];
+  if (!cadence) return null; // Identificado / Ganado / Perdido / No contactar: sin recordatorio
+  const last = lastTouchDate(p);
+  const dias = daysBetween(last, todayStr());
+  if (dias === null) return null;
+  const restantes = cadence - dias;
+  if (restantes < 0) return { level:'due', text:`🔔 Venció hace ${-restantes} día${-restantes===1?'':'s'}` };
+  if (restantes === 0) return { level:'soon', text:'🔔 Vence hoy' };
+  if (restantes === 1) return { level:'soon', text:'🔔 Vence mañana' };
+  return { level:'ok', text:`Próximo paso en ${restantes} días` };
+}
+function reminderPillHtml(p) {
+  const r = reminderInfo(p);
+  if (!r) return '';
+  return `<span class="reminder-pill ${r.level}" title="${r.level==='ok' ? 'Todavía dentro del plazo esperado' : 'Según el paso de seguimiento definido para esta etapa'}">${esc(r.text)}</span>`;
+}
+function interactionsHtml(p) {
+  const list = (p.interacciones || []).slice().sort((a,b) => (b.fecha||'').localeCompare(a.fecha||''));
+  const items = list.length
+    ? `<ul class="interaction-list">${list.map(it => `<li><span class="it-icon">${INTERACTION_ICONS[it.tipo] || '•'}</span>${esc(it.tipo)}${it.quien ? `<span class="it-who">· ${esc(it.quien)}</span>` : ''}<span class="it-date">${esc(fmtDateShort(it.fecha))}</span></li>`).join('')}</ul>`
+    : `<div class="interaction-empty">Sin interacciones registradas todavía.</div>`;
+  return `<div class="interactions" id="interactions-${p.id}">
+      <div class="interactions-head">
+        <span style="font-size:12.5px; font-weight:700; color:var(--ink-soft);">Historial de interacción</span>
+        ${canEdit() ? `<button class="it-add" onclick="openInteractionModal('${p.id}')">+ Registrar</button>` : ''}
+      </div>
+      ${items}
+    </div>`;
+}
+function openInteractionModal(id) {
+  const p = PROSPECTOS.find(x => x.id === id);
+  if (!p) return;
+  currentInteractionProspectId = id;
+  document.getElementById('ni-who').textContent = `Para ${p.nombre}. El paso de etapa se registra solo — esto es para likes, comentarios o mensajes sueltos.`;
+  const sel = document.getElementById('ni-tipo');
+  sel.innerHTML = INTERACTION_TYPES.map(t => `<option>${esc(t)}</option>`).join('');
+  document.getElementById('ni-fecha').value = todayStr();
+  document.getElementById('ni-err').textContent = '';
+  document.getElementById('add-interaction-overlay').classList.add('show');
+}
+function closeInteractionModal() {
+  document.getElementById('add-interaction-overlay').classList.remove('show');
+  currentInteractionProspectId = null;
+}
+async function submitInteraction() {
+  const id = currentInteractionProspectId;
+  const p = PROSPECTOS.find(x => x.id === id);
+  const errEl = document.getElementById('ni-err');
+  if (!p) return;
+  const fecha = document.getElementById('ni-fecha').value;
+  if (!fecha) { errEl.textContent = 'Falta la fecha.'; return; }
+  const tipo = document.getElementById('ni-tipo').value;
+  const entry = { tipo, fecha, quien: actor() };
+  const before = (p.interacciones || []).slice();
+  p.interacciones = [...before, entry];
+  const saveBtn = document.getElementById('ni-save');
+  saveBtn.disabled = true; saveBtn.textContent = 'Guardando…';
+  try {
+    await saveProspectos(`${actor()}: registró "${tipo}" con ${p.nombre}`);
+    closeInteractionModal();
+    toast('Guardado ✓');
+    const card = document.getElementById('card-' + id);
+    if (card) card.innerHTML = prospectViewHtml(p);
+    renderLog();
+  } catch (e) {
+    p.interacciones = before;
+    errEl.textContent = e.message;
+    toast(e.message, true);
+  } finally {
+    saveBtn.disabled = false; saveBtn.textContent = 'Guardar';
+  }
+}
 
 // ---------- theme ----------
 function initTheme() {
@@ -544,6 +707,52 @@ async function ghSaveFile(path, jsonObj, message, attempt) {
   }
   return res.json();
 }
+// Subida de la miniatura de una publicación: mismo mecanismo que ghSaveFile (PUT a Contents API
+// con reintento en 409) pero con contenido binario/base64 tal cual, sin tocar JSON, y sin fallar
+// si el archivo todavía no existe (miniatura nueva).
+async function ghGetFileMaybe(path) {
+  try { return await ghGetFile(path); } catch (e) { return null; }
+}
+async function ghPutRawFile(path, base64Content, message, attempt) {
+  attempt = attempt || 0;
+  if (!canEdit()) throw new Error('Agrega tu token de GitHub en Configuración (⚙) para poder guardar.');
+  const current = await ghGetFileMaybe(path);
+  const body = { message, content: base64Content, branch: BRANCH };
+  if (current) body.sha = current.sha;
+  const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`, {
+    method: 'PUT',
+    headers: { 'Authorization': `Bearer ${getToken()}`, 'Accept': 'application/vnd.github+json' },
+    body: JSON.stringify(body)
+  });
+  if (!res.ok) {
+    if (res.status === 409) {
+      if (attempt < 3) { await sleep(350 + Math.random() * 350); return ghPutRawFile(path, base64Content, message, attempt + 1); }
+      throw new Error('No se pudo subir la imagen — inténtalo de nuevo.');
+    }
+    if (res.status === 401) throw new Error('Token inválido o sin permiso de escritura sobre este repositorio.');
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || ('Error al subir la imagen (' + res.status + ')'));
+  }
+  return res.json();
+}
+function readFileAsBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => { const s = String(reader.result || ''); resolve(s.slice(s.indexOf(',') + 1)); };
+    reader.onerror = () => reject(new Error('No se pudo leer el archivo de imagen.'));
+    reader.readAsDataURL(file);
+  });
+}
+function extFromFile(file) {
+  const m = (file.name || '').match(/\.([a-zA-Z0-9]+)$/);
+  return m ? m[1].toLowerCase() : 'jpg';
+}
+async function uploadCalThumbnail(id, file) {
+  const base64 = await readFileAsBase64(file);
+  const path = `data/thumbs/${id}.${extFromFile(file)}`;
+  await ghPutRawFile(path, base64, `${actor()}: subió miniatura para una publicación del calendario`);
+  return path;
+}
 async function saveProspectos(commitMsg) {
   await ghSaveFile('data/prospectos.json', { prospectos: PROSPECTOS }, commitMsg);
 }
@@ -552,6 +761,9 @@ async function saveCalendario(commitMsg) {
 }
 async function saveCandidatosList(list, commitMsg) {
   await ghSaveFile('data/candidatos.json', { candidatos: list }, commitMsg);
+}
+async function saveCriterios(commitMsg) {
+  await ghSaveFile('data/criterios.json', CRITERIOS, commitMsg);
 }
 
 // ---------- rendering ----------
@@ -603,6 +815,7 @@ function prospectViewHtml(p) {
         </div>
         <div class="card-head-right">
           <span class="stage-pill ${stageClass(p.etapa)}">${esc(p.etapa)}</span>
+          ${reminderPillHtml(p)}
           ${canEdit() ? `<button class="edit-btn" title="Editar" onclick="toggleProspectEdit('${p.id}')">✎ Editar</button>` : ''}
         </div>
       </div>
@@ -615,10 +828,11 @@ function prospectViewHtml(p) {
         <span>${esc(p.proxima_accion || '')}</span>
         <span class="${p.listo_para_enviar ? 'ready-badge' : ''}">${p.listo_para_enviar ? '✓ Listo para enviar' : esc(p.origen || '')}</span>
       </div>
+      ${interactionsHtml(p)}
       ${p.hubspot_contact_id
         ? `<a class="pub-by" href="https://app.hubspot.com/contacts/${HUBSPOT_PORTAL_ID}/contact/${esc(p.hubspot_contact_id)}" target="_blank" rel="noopener" style="color:var(--green);">✓ En HubSpot ↗</a>`
         : (p.hubspot_solicitud_manual
-          ? `<span class="pub-by" style="color:var(--orange);">⏳ Creándose en HubSpot…</span>`
+          ? `<div class="thumb-row" style="justify-content:space-between;"><span class="pub-by" style="color:var(--orange);">⏳ Creándose en HubSpot… (recarga en un minuto)</span>${canEdit() ? `<button class="edit-btn" title="Si lleva rato pendiente, reintenta" onclick="requestHubspotManual('${p.id}')">↻ Reintentar</button>` : ''}</div>`
           : (canEdit() ? `<button class="btn hubspot" onclick="requestHubspotManual('${p.id}')" id="hs-btn-${p.id}">→ Crear en HubSpot ahora</button>` : ''))}`;
 }
 
@@ -677,6 +891,12 @@ async function saveProspectEdit(id) {
   p.proxima_accion = document.getElementById('ef-accion-' + id).value.trim();
   p.listo_para_enviar = document.getElementById('ef-listo-' + id).checked;
   p.actualizado = new Date().toISOString().slice(0,10);
+  const etapaCambio = before.etapa !== p.etapa;
+  if (etapaCambio) {
+    // El historial de interacción se registra solo cuando cambia la etapa — likes,
+    // comentarios y mensajes sueltos se agregan a mano con "+ Registrar".
+    p.interacciones = [...(p.interacciones || []), { tipo: p.etapa, fecha: p.actualizado, quien: actor(), automatica: true }];
+  }
   btn.disabled = true; btn.textContent = 'Guardando…';
   try {
     let msg = `${actor()}: editó a ${p.nombre}`;
@@ -755,8 +975,8 @@ function submitAddProspect() {
     id: uid('p'), nombre, cargo, empresa, linkedin_url,
     email: null, ultima_publicacion: null, publica_activamente: false, senales: [], dolor_detectado: '',
     etapa: 'Identificado', cuenta: 'Fabián', origen: actor() === 'Ingrid' ? 'Ingrid' : 'Fabián',
-    mensaje_borrador: '', listo_para_enviar: false, proxima_accion: '', notas: '',
-    actualizado: new Date().toISOString().slice(0,10),
+    mensaje_borrador: '', listo_para_enviar: false, proxima_accion: '', notas: '', interacciones: [],
+    actualizado: todayStr(),
     hubspot_contact_id: null, hubspot_synced_at: null
   };
   closeAddProspectModal();
@@ -777,7 +997,7 @@ function avatarOnly(cuenta) {
 }
 function pubByHtml(c) {
   if (!c.publicado_por) return '<span class="pub-by">—</span>';
-  return `<span class="pub-by">${avatarOnly(c.publicado_por)}${c.link_publicacion ? ` · <a href="${esc(c.link_publicacion)}" target="_blank" rel="noopener">ver ↗</a>` : ''}</span>`;
+  return `<span class="pub-by thumb-row">${c.imagen_miniatura ? `<img class="thumb" src="${esc(c.imagen_miniatura)}" alt="">` : ''}${avatarOnly(c.publicado_por)}${c.link_publicacion ? ` · <a href="${esc(c.link_publicacion)}" target="_blank" rel="noopener">ver ↗</a>` : ''}</span>`;
 }
 function calRowView(c) {
   return `
@@ -803,11 +1023,24 @@ function calRowEdit(c) {
           <option value="Ingrid" ${c.publicado_por==='Ingrid'?'selected':''}>Ingrid</option>
         </select>
         <input id="ce-publink-${c.id}" placeholder="Link del post" value="${esc(c.link_publicacion||'')}">
+        <div class="thumb-field">
+          ${c.imagen_miniatura ? `<img class="thumb-upload-preview" id="ce-thumb-preview-${c.id}" src="${esc(c.imagen_miniatura)}" alt="">` : `<img class="thumb-upload-preview" id="ce-thumb-preview-${c.id}" style="display:none;" alt="">`}
+          <input id="ce-thumbfile-${c.id}" type="file" accept="image/*" onchange="previewCalThumb('${c.id}')">
+        </div>
       </td>
       <td style="white-space:nowrap;">
         <button class="btn primary" style="padding:5px 9px;" onclick="saveCalEdit('${c.id}')">✓</button>
         <button class="btn ghost" style="padding:5px 9px;" onclick="toggleCalEdit('${c.id}')">✕</button>
       </td>`;
+}
+function previewCalThumb(id) {
+  const input = document.getElementById('ce-thumbfile-' + id);
+  const img = document.getElementById('ce-thumb-preview-' + id);
+  const file = input.files && input.files[0];
+  if (!file || !img) return;
+  const reader = new FileReader();
+  reader.onload = () => { img.src = reader.result; img.style.display = ''; };
+  reader.readAsDataURL(file);
 }
 function renderCalendar() {
   document.getElementById('calendar-count').textContent = CALENDARIO.length + ' publicaciones';
@@ -831,7 +1064,7 @@ function renderPublicaciones() {
     const posts = CALENDARIO.filter(c => c.publicado_por === persona).sort((a,b) => (b.fecha||'').localeCompare(a.fecha||''));
     const cls = persona === 'Ingrid' ? 'avatar ingrid' : 'avatar';
     const list = posts.length
-      ? `<ul class="pub-list">${posts.map(c => `<li><span class="pd">${esc(c.fecha)}</span>${c.link_publicacion ? `<a href="${esc(c.link_publicacion)}" target="_blank" rel="noopener">${esc(c.tema.slice(0,70))}${c.tema.length>70?'…':''} ↗</a>` : esc(c.tema.slice(0,70))}</li>`).join('')}</ul>`
+      ? `<ul class="pub-list">${posts.map(c => `<li class="thumb-row">${c.imagen_miniatura ? `<img class="thumb" src="${esc(c.imagen_miniatura)}" alt="">` : ''}<span><span class="pd">${esc(c.fecha)}</span>${c.link_publicacion ? `<a href="${esc(c.link_publicacion)}" target="_blank" rel="noopener">${esc(c.tema.slice(0,70))}${c.tema.length>70?'…':''} ↗</a>` : esc(c.tema.slice(0,70))}</span></li>`).join('')}</ul>`
       : `<div class="pub-empty">Todavía no ha marcado ninguna publicación como subida.</div>`;
     return `<div class="pub-card">
       <div class="pub-card-head">
@@ -845,6 +1078,7 @@ function renderPublicaciones() {
 async function saveCalEdit(id) {
   const c = CALENDARIO.find(x => x.id === id);
   if (!c) return;
+  const before = { ...c };
   c.fecha = document.getElementById('ce-fecha-' + id).value;
   c.tema = document.getElementById('ce-tema-' + id).value.trim();
   c.dolor = document.getElementById('ce-dolor-' + id).value.trim();
@@ -853,11 +1087,22 @@ async function saveCalEdit(id) {
   c.link_publicacion = document.getElementById('ce-publink-' + id).value.trim() || null;
   // Cruce automático: si alguien queda marcado como quien lo publicó, el estado pasa a Publicado solo.
   c.estado = c.publicado_por ? 'Publicado' : document.getElementById('ce-estado-' + id).value;
+  const fileInput = document.getElementById('ce-thumbfile-' + id);
+  const file = fileInput && fileInput.files && fileInput.files[0];
+  const saveBtn = document.querySelector(`#calrow-${id} .btn.primary`);
+  if (saveBtn) { saveBtn.disabled = true; saveBtn.textContent = '…'; }
   try {
+    if (file) {
+      c.imagen_miniatura = await uploadCalThumbnail(id, file);
+    }
     await saveCalendario(`${actor()}: editó una publicación del calendario ("${c.tema.slice(0,50)}")${c.publicado_por ? ' — marcada como publicada por ' + c.publicado_por : ''}`);
     toast('Guardado ✓');
     renderCalendar(); renderKpis(); renderPublicaciones(); renderLog();
-  } catch (e) { toast(e.message, true); }
+  } catch (e) {
+    Object.assign(c, before);
+    if (saveBtn) { saveBtn.disabled = false; saveBtn.textContent = '✓'; }
+    toast(e.message, true);
+  }
 }
 function addPostPrompt() {
   document.getElementById('npo-tema').value = '';
@@ -876,7 +1121,7 @@ function submitAddPost() {
   if (!tema) { errEl.textContent = 'Falta el tema.'; return; }
   const dolor = document.getElementById('npo-dolor').value.trim();
   const fecha = document.getElementById('npo-fecha').value || new Date().toISOString().slice(0,10);
-  const nuevo = { id: uid('c'), fecha, tema, dolor, formato: 'Texto', estado: 'Borrador', publicado_por: null, link_publicacion: null };
+  const nuevo = { id: uid('c'), fecha, tema, dolor, formato: 'Texto', estado: 'Borrador', publicado_por: null, link_publicacion: null, imagen_miniatura: null };
   closeAddPostModal();
   CALENDARIO.push(nuevo);
   renderCalendar(); renderKpis(); renderPublicaciones();
@@ -888,6 +1133,9 @@ document.getElementById('npo-cancel').addEventListener('click', closeAddPostModa
 document.getElementById('npo-save').addEventListener('click', submitAddPost);
 document.getElementById('add-post-overlay').addEventListener('click', (e) => { if (e.target.id === 'add-post-overlay') closeAddPostModal(); });
 document.getElementById('add-post-btn').addEventListener('click', () => { if (canEdit()) addPostPrompt(); else toast('Agrega tu token de GitHub en Configuración (⚙) para poder guardar.', true); });
+document.getElementById('ni-cancel').addEventListener('click', closeInteractionModal);
+document.getElementById('ni-save').addEventListener('click', submitInteraction);
+document.getElementById('add-interaction-overlay').addEventListener('click', (e) => { if (e.target.id === 'add-interaction-overlay') closeInteractionModal(); });
 
 // ---------- tabs ----------
 function switchTab(tab) {
@@ -932,6 +1180,78 @@ function renderPacs() {
 }
 
 // ---------- candidatos (revisión por deslizar) ----------
+// ---------- criterios de búsqueda (ICP) ----------
+// Esto es lo que Claude lee para saber qué priorizar cuando le piden "busca prospectos de la
+// semana" — Fabián e Ingrid lo mantienen actualizado ellos mismos, sin depender de un chat.
+function chipsHtml(arr, cls) {
+  if (!arr || !arr.length) return '<span class="criteria-empty">Sin definir todavía.</span>';
+  return `<div class="criteria-chips">${arr.map(s => `<span class="criteria-chip${cls==='avoid'?' avoid':''}">${esc(s)}</span>`).join('')}</div>`;
+}
+function criteriaViewHtml() {
+  return `
+    <div class="criteria-box-head">
+      <h3>🎯 Criterios de búsqueda (a quién priorizar)</h3>
+      ${canEdit() ? `<button class="edit-btn" onclick="toggleCriteriaEdit()">✎ Editar</button>` : ''}
+    </div>
+    <div class="criteria-row"><b>Señales que buscamos</b>${chipsHtml(CRITERIOS.senales_prioritarias)}</div>
+    <div class="criteria-row"><b>Señales que evitar (no han dado buenos resultados)</b>${chipsHtml(CRITERIOS.senales_a_evitar, 'avoid')}</div>
+    <div class="criteria-row"><b>Sectores</b>${chipsHtml(CRITERIOS.sectores.length ? CRITERIOS.sectores : ['Cualquier sector'])}</div>
+    <div class="criteria-row"><b>Países</b>${chipsHtml(CRITERIOS.paises)}</div>
+    ${CRITERIOS.notas ? `<div class="criteria-row"><b>Notas para Claude</b><div class="criteria-notes">${esc(CRITERIOS.notas)}</div></div>` : ''}`;
+}
+function criteriaEditHtml() {
+  return `
+    <div class="criteria-box-head"><h3>🎯 Criterios de búsqueda (a quién priorizar)</h3></div>
+    <div class="editform">
+      <div><label>Señales que buscamos (separadas por coma)</label><input id="cr-senales" value="${esc((CRITERIOS.senales_prioritarias||[]).join(', '))}"></div>
+      <div><label>Señales que evitar (separadas por coma)</label><input id="cr-evitar" value="${esc((CRITERIOS.senales_a_evitar||[]).join(', '))}"></div>
+      <div class="row2">
+        <div><label>Sectores (vacío = cualquiera)</label><input id="cr-sectores" value="${esc((CRITERIOS.sectores||[]).join(', '))}"></div>
+        <div><label>Países</label><input id="cr-paises" value="${esc((CRITERIOS.paises||[]).join(', '))}"></div>
+      </div>
+      <div><label>Notas para Claude</label><textarea id="cr-notas">${esc(CRITERIOS.notas||'')}</textarea></div>
+      <div class="card-error" id="cr-err"></div>
+      <div class="actions">
+        <button class="btn ghost" onclick="toggleCriteriaEdit()">Cancelar</button>
+        <button class="btn primary" id="cr-save" onclick="saveCriteriaEdit()">Guardar</button>
+      </div>
+    </div>`;
+}
+function renderCriteria() {
+  const el = document.getElementById('criteria-section');
+  if (!el) return;
+  el.innerHTML = `<div class="criteria-box" id="criteria-box">${criteriaViewHtml()}</div>`;
+}
+function toggleCriteriaEdit() {
+  const box = document.getElementById('criteria-box');
+  const editing = box.dataset.editing === '1';
+  box.dataset.editing = editing ? '0' : '1';
+  box.innerHTML = editing ? criteriaViewHtml() : criteriaEditHtml();
+}
+function splitCsv(s) { return s.split(',').map(x => x.trim()).filter(Boolean); }
+async function saveCriteriaEdit() {
+  const before = JSON.parse(JSON.stringify(CRITERIOS));
+  CRITERIOS.senales_prioritarias = splitCsv(document.getElementById('cr-senales').value);
+  CRITERIOS.senales_a_evitar = splitCsv(document.getElementById('cr-evitar').value);
+  CRITERIOS.sectores = splitCsv(document.getElementById('cr-sectores').value);
+  CRITERIOS.paises = splitCsv(document.getElementById('cr-paises').value);
+  CRITERIOS.notas = document.getElementById('cr-notas').value.trim();
+  const btn = document.getElementById('cr-save');
+  btn.disabled = true; btn.textContent = 'Guardando…';
+  try {
+    await saveCriterios(`${actor()}: actualizó los criterios de búsqueda de prospectos`);
+    toast('Guardado ✓');
+    const box = document.getElementById('criteria-box');
+    box.dataset.editing = '0';
+    box.innerHTML = criteriaViewHtml();
+    renderLog();
+  } catch (e) {
+    CRITERIOS = before;
+    document.getElementById('cr-err').textContent = e.message;
+    btn.disabled = false; btn.textContent = 'Guardar';
+    toast(e.message, true);
+  }
+}
 function copyCandidatoPhrase() {
   const phrase = 'busca prospectos de la semana';
   const ok = () => toast('Frase copiada — pégala en un chat con Claude ✓');
@@ -946,21 +1266,22 @@ function renderCandidatosBadge() {
   const btn = document.getElementById('tab-btn-candidatos');
   btn.innerHTML = 'Candidatos' + (CANDIDATOS.length ? ` <span class="tab-badge">${CANDIDATOS.length}</span>` : '');
 }
-function candidateCardHtml(c, idx) {
-  return `<div class="candidate-card" id="cand-card-${c.id}" data-id="${c.id}" style="z-index:${50 - idx}">
-      <div class="cand-stamp cand-stamp-yes">✓ AGREGAR</div>
-      <div class="cand-stamp cand-stamp-no">✕ DESCARTAR</div>
+function candidateCardHtml(c) {
+  return `<div class="candidate-card2" id="cand-card-${c.id}" data-id="${c.id}">
       <div class="card-name"><a href="${esc(c.linkedin_url || '#')}" target="_blank" rel="noopener">${esc(c.nombre)} ↗</a></div>
       <div class="card-role">${esc(c.cargo || '')} · ${esc(c.empresa || '')}</div>
       ${c.senal ? `<div class="chips"><span class="chip">${esc(c.senal)}</span></div>` : ''}
       ${c.razon ? `<div class="pain"><b>Por qué lo elegí:</b> ${esc(c.razon)}</div>` : ''}
       <div class="card-foot"><span>Encontrado el ${esc(c.fecha_encontrado || '')}</span><span>${esc(c.encontrado_por || 'Claude')}</span></div>
+      <div class="cand-actions2">
+        <button class="cand-btn2 no" title="Descartar" onclick="resolveCandidate('${c.id}', false)">✕</button>
+        <button class="cand-btn2 yes" title="Agregar a prospección" onclick="resolveCandidate('${c.id}', true)">✓</button>
+      </div>
     </div>`;
 }
 function renderCandidatos() {
   renderCandidatosBadge();
   const stack = document.getElementById('candidate-stack');
-  const actions = document.getElementById('candidate-actions');
   const countEl = document.getElementById('candidate-count');
   if (!CANDIDATOS.length) {
     stack.innerHTML = `<div class="cand-cta">
@@ -971,81 +1292,69 @@ function renderCandidatos() {
       </div>`;
     const copyBtn = document.getElementById('cand-copy-phrase');
     if (copyBtn) copyBtn.addEventListener('click', copyCandidatoPhrase);
-    actions.style.display = 'none';
     countEl.textContent = '';
     return;
   }
-  actions.style.display = 'flex';
-  countEl.textContent = CANDIDATOS.length + ' por revisar — desliza a la derecha para agregar, a la izquierda para descartar';
-  const visible = CANDIDATOS.slice(0, 3);
-  stack.innerHTML = visible.map((c, i) => candidateCardHtml(c, i)).join('');
-  attachCandidateDrag();
+  countEl.textContent = CANDIDATOS.length + ' por revisar';
+  stack.innerHTML = CANDIDATOS.map(c => candidateCardHtml(c)).join('');
 }
-function attachCandidateDrag() {
-  const top = document.querySelector('#candidate-stack .candidate-card');
-  const yesBtn = document.getElementById('cand-btn-yes');
-  const noBtn = document.getElementById('cand-btn-no');
-  if (!top) { yesBtn.onclick = null; noBtn.onclick = null; return; }
-  const id = top.dataset.id;
-  yesBtn.onclick = () => resolveCandidate(id, true);
-  noBtn.onclick = () => resolveCandidate(id, false);
-  let dragging = false, startX = 0, startY = 0, dx = 0;
-  const yesStamp = top.querySelector('.cand-stamp-yes'), noStamp = top.querySelector('.cand-stamp-no');
-  top.addEventListener('pointerdown', e => {
-    dragging = true; dx = 0; top.classList.add('dragging');
-    try { top.setPointerCapture(e.pointerId); } catch (_) {}
-    startX = e.clientX; startY = e.clientY;
-  });
-  top.addEventListener('pointermove', e => {
-    if (!dragging) return;
-    dx = e.clientX - startX; const dy = e.clientY - startY;
-    top.style.transform = `translate(${dx}px, ${dy * 0.15}px) rotate(${dx / 18}deg)`;
-    yesStamp.style.opacity = Math.max(0, Math.min(1, dx / 90));
-    noStamp.style.opacity = Math.max(0, Math.min(1, -dx / 90));
-  });
-  function endDrag() {
-    if (!dragging) return;
-    dragging = false; top.classList.remove('dragging');
-    if (dx > 110) resolveCandidate(id, true);
-    else if (dx < -110) resolveCandidate(id, false);
-    else { top.style.transform = ''; yesStamp.style.opacity = 0; noStamp.style.opacity = 0; }
-  }
-  top.addEventListener('pointerup', endDrag);
-  top.addEventListener('pointercancel', endDrag);
+// Si dos veces se aprueba el mismo candidato (p. ej. un reintento tras un guardado que falló
+// a medias), esto evita crear un prospecto duplicado: si ya existe uno con el mismo link de
+// LinkedIn (o el mismo nombre, cuando no hay link), se reusa en vez de crear otro.
+function findExistingProspectFor(c) {
+  return PROSPECTOS.find(p =>
+    (c.linkedin_url && p.linkedin_url && p.linkedin_url === c.linkedin_url) ||
+    (!c.linkedin_url && p.nombre === c.nombre && p.empresa === c.empresa)
+  );
 }
 async function resolveCandidate(id, accept) {
   const idx = CANDIDATOS.findIndex(x => x.id === id);
   if (idx === -1) return;
   if (!canEdit()) { toast('Agrega tu token de GitHub en Configuración (⚙) para poder guardar.', true); return; }
   const c = CANDIDATOS[idx];
-  const topEl = document.getElementById('cand-card-' + id);
-  if (topEl) {
-    topEl.style.transform = `translate(${accept ? 700 : -700}px, -30px) rotate(${accept ? 26 : -26}deg)`;
-    topEl.style.opacity = '0';
-  }
-  document.getElementById('cand-btn-yes').disabled = true;
-  document.getElementById('cand-btn-no').disabled = true;
-  try {
-    if (accept) {
-      const nuevo = {
+  const cardEl = document.getElementById('cand-card-' + id);
+  if (cardEl) cardEl.querySelectorAll('.cand-btn2').forEach(b => b.disabled = true);
+
+  // Paso 1: crear el prospecto (si se aprueba). Si esto falla, se corta acá — el candidato
+  // sigue en la vitrina, sin tocar candidatos.json, así que reintentar es seguro.
+  let nuevo = null;
+  if (accept) {
+    const existing = findExistingProspectFor(c);
+    if (existing) {
+      nuevo = existing; // ya se había creado en un intento anterior — no duplicar
+    } else {
+      nuevo = {
         id: uid('p'), nombre: c.nombre, cargo: c.cargo || '', empresa: c.empresa || '', linkedin_url: c.linkedin_url || '',
         email: null, ultima_publicacion: null, publica_activamente: false,
         senales: c.senal ? [c.senal] : [], dolor_detectado: c.razon || '',
         etapa: 'Identificado', cuenta: actor() === 'Ingrid' ? 'Ingrid' : 'Fabián', origen: 'Claude',
         mensaje_borrador: '', listo_para_enviar: false, proxima_accion: 'Revisar y decidir cómo abordarlo', notas: '',
-        actualizado: new Date().toISOString().slice(0, 10), hubspot_contact_id: null, hubspot_synced_at: null
+        interacciones: [], actualizado: todayStr(), hubspot_contact_id: null, hubspot_synced_at: null
       };
       PROSPECTOS.push(nuevo);
-      await saveProspectos(`${actor()}: aprobó candidato → agregó a ${nuevo.nombre} como prospecto`);
+      try {
+        await saveProspectos(`${actor()}: aprobó candidato → agregó a ${nuevo.nombre} como prospecto`);
+      } catch (e) {
+        PROSPECTOS = PROSPECTOS.filter(x => x.id !== nuevo.id); // rollback: no se guardó, no se queda en memoria
+        toast('No se pudo agregar a prospección — ' + e.message + ' Intenta de nuevo.', true);
+        if (cardEl) cardEl.querySelectorAll('.cand-btn2').forEach(b => b.disabled = false);
+        return;
+      }
       renderKpis(); renderFunnel(); renderPacs(); renderProspects();
     }
-    const remaining = CANDIDATOS.filter(x => x.id !== id);
+  }
+
+  // Paso 2: sacarlo de la vitrina. Si esto falla, el prospecto ya quedó creado (paso 1 sí se
+  // guardó) — el candidato se queda visible para reintentar, y el dedupe de arriba evita que
+  // el reintento cree un segundo prospecto.
+  const remaining = CANDIDATOS.filter(x => x.id !== id);
+  try {
     await saveCandidatosList(remaining, `${actor()}: ${accept ? 'aprobó' : 'descartó'} candidato — ${c.nombre}`);
     CANDIDATOS = remaining;
     toast(accept ? 'Agregado a prospección ✓' : 'Descartado');
     renderLog();
   } catch (e) {
-    toast(e.message, true);
+    toast('Se agregó a prospección, pero no pude actualizar la vitrina — ' + e.message + ' Reintenta.', true);
   } finally {
     renderCandidatos();
   }
@@ -1075,14 +1384,16 @@ async function init() {
   initTheme();
   initSettings();
   try {
-    const [prospData, calData, candData] = await Promise.all([
+    const [prospData, calData, candData, critData] = await Promise.all([
       loadJson('data/prospectos.json'), loadJson('data/calendario.json'),
-      loadJson('data/candidatos.json').catch(() => ({candidatos: []}))
+      loadJson('data/candidatos.json').catch(() => ({candidatos: []})),
+      loadJson('data/criterios.json').catch(() => ({ sectores: [], paises: ['Perú'], senales_prioritarias: [], senales_a_evitar: [], notas: '' }))
     ]);
     PROSPECTOS = prospData.prospectos || [];
     CALENDARIO = calData.calendario || [];
     CANDIDATOS = candData.candidatos || [];
-    renderKpis(); renderFunnel(); renderProspects(); renderCalendar(); renderPublicaciones(); renderPacs(); renderCandidatos();
+    CRITERIOS = { sectores: [], paises: [], senales_prioritarias: [], senales_a_evitar: [], notas: '', ...critData };
+    renderKpis(); renderFunnel(); renderProspects(); renderCalendar(); renderPublicaciones(); renderPacs(); renderCandidatos(); renderCriteria();
   } catch (e) {
     document.getElementById('prospect-cards').innerHTML = `<div class="empty">No se pudieron cargar los datos (${esc(e.message)}).</div>`;
   }

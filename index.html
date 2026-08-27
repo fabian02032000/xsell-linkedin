@@ -128,6 +128,10 @@
   .btn.primary:hover { opacity:.9; }
   .btn.ghost { background:var(--surface-raised); color:var(--ink-soft); border:1px solid var(--border); }
   .btn.ghost:hover { color:var(--ink); }
+  .btn.danger { background:transparent; color:var(--red); border:1px solid var(--red-soft); }
+  .btn.danger:hover { background:var(--red-soft); }
+  .btn.hubspot { background:transparent; color:var(--orange); border:1px solid var(--orange-soft); width:100%; }
+  .btn.hubspot:hover { background:var(--orange-soft); }
   .btn:disabled { opacity:.6; cursor:default; }
   .card-error { font-size:12px; color:var(--red); }
 
@@ -205,6 +209,23 @@
   .pub-list a:hover { color:var(--purple); }
   .pub-list .pd { color:var(--ink-faint); font-family:"IBM Plex Mono",monospace; font-size:10.5px; margin-right:6px; }
   .pub-empty { font-size:12.5px; color:var(--ink-faint); font-style:italic; }
+
+  .tab-badge { display:inline-flex; align-items:center; justify-content:center; min-width:18px; height:18px; padding:0 5px; border-radius:999px; background:var(--orange); color:#fff; font-size:10.5px; font-weight:800; margin-left:5px; vertical-align:2px; }
+  .cand-intro { color:var(--ink-soft); font-size:14px; max-width:64ch; margin:0 0 22px; }
+  .candidate-wrap { max-width:440px; margin:0 auto; }
+  .candidate-stack { position:relative; min-height:340px; margin-bottom:18px; }
+  .candidate-card { position:absolute; inset:0; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px; box-shadow:var(--shadow); display:flex; flex-direction:column; gap:10px; cursor:grab; touch-action:pan-y; user-select:none; transition:transform .3s ease, opacity .3s ease; }
+  .candidate-card.dragging { cursor:grabbing; transition:none; }
+  .cand-stamp { position:absolute; top:18px; font-size:13px; font-weight:800; letter-spacing:.03em; padding:5px 12px; border-radius:8px; border:2.5px solid; opacity:0; pointer-events:none; }
+  .cand-stamp-yes { left:18px; color:var(--green); border-color:var(--green); transform:rotate(-12deg); }
+  .cand-stamp-no { right:18px; color:var(--red); border-color:var(--red); transform:rotate(12deg); }
+  .candidate-actions { display:flex; gap:12px; justify-content:center; }
+  .cand-btn { border:none; width:56px; height:56px; border-radius:50%; font-size:22px; cursor:pointer; box-shadow:var(--shadow); background:var(--surface); border:1px solid var(--border); color:var(--ink); }
+  .cand-btn:hover { transform:translateY(-1px); }
+  .cand-btn.no:hover { color:var(--red); border-color:var(--red); }
+  .cand-btn.yes:hover { color:var(--green); border-color:var(--green); }
+  .cand-btn:disabled { opacity:.5; cursor:default; transform:none; }
+  .cand-hint { text-align:center; font-size:12px; color:var(--ink-faint); margin-top:12px; }
 </style>
 </head>
 <body>
@@ -241,6 +262,7 @@
 
   <nav class="tabs">
     <button class="tab active" id="tab-btn-prospeccion" onclick="switchTab('prospeccion')">Prospección</button>
+    <button class="tab" id="tab-btn-candidatos" onclick="switchTab('candidatos')">Candidatos</button>
     <button class="tab" id="tab-btn-pacs" onclick="switchTab('pacs')">Método PACS</button>
   </nav>
 
@@ -284,6 +306,20 @@
       </div>
       <div class="addcard" style="margin-top:12px; border-radius:14px;"><button id="add-post-btn">+ Agregar publicación</button></div>
       <footer class="note">Regla PACS: cada post habla del problema del prospecto, no de Xsell. 2-3 publicaciones por semana. Al marcar quién lo publicó, el estado pasa a "Publicado" automáticamente.</footer>
+    </section>
+  </div>
+
+  <div id="tab-candidatos" class="tabpanel">
+    <section class="block">
+      <p class="cand-intro">Cuando le pides a Claude en el chat que "busque prospectos de la semana", los candidatos que encuentra aparecen aquí para que decidas — deslízalos o usa los botones. Al aprobar uno, se agrega directo a "Prospección" en etapa Identificado.</p>
+      <div class="candidate-wrap">
+        <div class="candidate-stack" id="candidate-stack"></div>
+        <div class="candidate-actions" id="candidate-actions">
+          <button class="cand-btn no" id="cand-btn-no" title="Descartar">✕</button>
+          <button class="cand-btn yes" id="cand-btn-yes" title="Agregar a prospección">✓</button>
+        </div>
+        <div class="cand-hint" id="candidate-count"></div>
+      </div>
     </section>
   </div>
 
@@ -352,6 +388,7 @@ const PACS_STEPS = [
 
 let PROSPECTOS = [];
 let CALENDARIO = [];
+let CANDIDATOS = [];
 
 function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function stageClass(estado) { return 'stage-' + (STAGE_GROUP[estado] || 'prospectando'); }
@@ -441,6 +478,9 @@ async function saveProspectos(commitMsg) {
 async function saveCalendario(commitMsg) {
   await ghSaveFile('data/calendario.json', { calendario: CALENDARIO }, commitMsg);
 }
+async function saveCandidatosList(list, commitMsg) {
+  await ghSaveFile('data/candidatos.json', { candidatos: list }, commitMsg);
+}
 
 // ---------- rendering ----------
 function renderKpis() {
@@ -503,7 +543,11 @@ function prospectViewHtml(p) {
         <span>${esc(p.proxima_accion || '')}</span>
         <span class="${p.listo_para_enviar ? 'ready-badge' : ''}">${p.listo_para_enviar ? '✓ Listo para enviar' : esc(p.origen || '')}</span>
       </div>
-      ${p.hubspot_contact_id ? `<a class="pub-by" href="https://app.hubspot.com/contacts/${HUBSPOT_PORTAL_ID}/contact/${esc(p.hubspot_contact_id)}" target="_blank" rel="noopener" style="color:var(--green);">✓ En HubSpot ↗</a>` : ''}`;
+      ${p.hubspot_contact_id
+        ? `<a class="pub-by" href="https://app.hubspot.com/contacts/${HUBSPOT_PORTAL_ID}/contact/${esc(p.hubspot_contact_id)}" target="_blank" rel="noopener" style="color:var(--green);">✓ En HubSpot ↗</a>`
+        : (p.hubspot_solicitud_manual
+          ? `<span class="pub-by" style="color:var(--orange);">⏳ Creándose en HubSpot…</span>`
+          : (canEdit() ? `<button class="btn hubspot" onclick="requestHubspotManual('${p.id}')" id="hs-btn-${p.id}">→ Crear en HubSpot ahora</button>` : ''))}`;
 }
 
 function prospectEditHtml(p) {
@@ -518,9 +562,12 @@ function prospectEditHtml(p) {
         <div><label>Próxima acción</label><input id="ef-accion-${p.id}" value="${esc(p.proxima_accion||'')}"></div>
         <label class="chk"><input type="checkbox" id="ef-listo-${p.id}" ${p.listo_para_enviar?'checked':''}> Mensaje listo para enviar</label>
         <div class="card-error" id="ef-err-${p.id}"></div>
-        <div class="actions">
-          <button class="btn ghost" onclick="toggleProspectEdit('${p.id}')">Cancelar</button>
-          <button class="btn primary" id="ef-save-${p.id}" onclick="saveProspectEdit('${p.id}')">Guardar</button>
+        <div class="actions" style="justify-content:space-between;">
+          <button class="btn danger" onclick="deleteProspect('${p.id}')">🗑 Eliminar</button>
+          <div style="display:flex; gap:8px;">
+            <button class="btn ghost" onclick="toggleProspectEdit('${p.id}')">Cancelar</button>
+            <button class="btn primary" id="ef-save-${p.id}" onclick="saveProspectEdit('${p.id}')">Guardar</button>
+          </div>
         </div>
       </div>`;
 }
@@ -575,6 +622,44 @@ async function saveProspectEdit(id) {
     errEl.textContent = e.message;
     btn.disabled = false; btn.textContent = 'Guardar';
     toast(e.message, true);
+  }
+}
+
+async function deleteProspect(id) {
+  const p = PROSPECTOS.find(x => x.id === id);
+  if (!p) return;
+  if (!window.confirm(`¿Eliminar a ${p.nombre} de la lista de prospectos? El historial del repositorio queda, pero desaparece del dashboard.`)) return;
+  const errEl = document.getElementById('ef-err-' + id);
+  const before = PROSPECTOS;
+  PROSPECTOS = PROSPECTOS.filter(x => x.id !== id);
+  try {
+    await saveProspectos(`${actor()}: eliminó a ${p.nombre} de la lista de prospectos`);
+    toast('Eliminado');
+    renderProspects(); renderKpis(); renderFunnel(); renderPacs();
+    renderLog();
+  } catch (e) {
+    PROSPECTOS = before;
+    if (errEl) errEl.textContent = e.message;
+    toast(e.message, true);
+  }
+}
+
+async function requestHubspotManual(id) {
+  const p = PROSPECTOS.find(x => x.id === id);
+  if (!p) return;
+  const btn = document.getElementById('hs-btn-' + id);
+  if (btn) { btn.disabled = true; btn.textContent = 'Enviando…'; }
+  p.hubspot_solicitud_manual = true;
+  try {
+    await saveProspectos(`${actor()}: pidió crear a ${p.nombre} en HubSpot ahora (sin esperar la etapa)`);
+    toast('Enviado — HubSpot lo crea en unos segundos, recarga la página para ver el enlace.');
+    const card = document.getElementById('card-' + id);
+    if (card) card.innerHTML = prospectViewHtml(p);
+    renderLog();
+  } catch (e) {
+    p.hubspot_solicitud_manual = false;
+    toast(e.message, true);
+    if (btn) { btn.disabled = false; btn.textContent = '→ Crear en HubSpot ahora'; }
   }
 }
 
@@ -744,6 +829,109 @@ function renderPacs() {
   }).join('');
 }
 
+// ---------- candidatos (revisión por deslizar) ----------
+function renderCandidatosBadge() {
+  const btn = document.getElementById('tab-btn-candidatos');
+  btn.innerHTML = 'Candidatos' + (CANDIDATOS.length ? ` <span class="tab-badge">${CANDIDATOS.length}</span>` : '');
+}
+function candidateCardHtml(c, idx) {
+  return `<div class="candidate-card" id="cand-card-${c.id}" data-id="${c.id}" style="z-index:${50 - idx}">
+      <div class="cand-stamp cand-stamp-yes">✓ AGREGAR</div>
+      <div class="cand-stamp cand-stamp-no">✕ DESCARTAR</div>
+      <div class="card-name"><a href="${esc(c.linkedin_url || '#')}" target="_blank" rel="noopener">${esc(c.nombre)} ↗</a></div>
+      <div class="card-role">${esc(c.cargo || '')} · ${esc(c.empresa || '')}</div>
+      ${c.senal ? `<div class="chips"><span class="chip">${esc(c.senal)}</span></div>` : ''}
+      ${c.razon ? `<div class="pain"><b>Por qué lo elegí:</b> ${esc(c.razon)}</div>` : ''}
+      <div class="card-foot"><span>Encontrado el ${esc(c.fecha_encontrado || '')}</span><span>${esc(c.encontrado_por || 'Claude')}</span></div>
+    </div>`;
+}
+function renderCandidatos() {
+  renderCandidatosBadge();
+  const stack = document.getElementById('candidate-stack');
+  const actions = document.getElementById('candidate-actions');
+  const countEl = document.getElementById('candidate-count');
+  if (!CANDIDATOS.length) {
+    stack.innerHTML = `<div class="empty">Sin candidatos pendientes. Pídeme en el chat: "busca prospectos de la semana" y aparecerán aquí para que los revises.</div>`;
+    actions.style.display = 'none';
+    countEl.textContent = '';
+    return;
+  }
+  actions.style.display = 'flex';
+  countEl.textContent = CANDIDATOS.length + ' por revisar — desliza a la derecha para agregar, a la izquierda para descartar';
+  const visible = CANDIDATOS.slice(0, 3);
+  stack.innerHTML = visible.map((c, i) => candidateCardHtml(c, i)).join('');
+  attachCandidateDrag();
+}
+function attachCandidateDrag() {
+  const top = document.querySelector('#candidate-stack .candidate-card');
+  const yesBtn = document.getElementById('cand-btn-yes');
+  const noBtn = document.getElementById('cand-btn-no');
+  if (!top) { yesBtn.onclick = null; noBtn.onclick = null; return; }
+  const id = top.dataset.id;
+  yesBtn.onclick = () => resolveCandidate(id, true);
+  noBtn.onclick = () => resolveCandidate(id, false);
+  let dragging = false, startX = 0, startY = 0, dx = 0;
+  const yesStamp = top.querySelector('.cand-stamp-yes'), noStamp = top.querySelector('.cand-stamp-no');
+  top.addEventListener('pointerdown', e => {
+    dragging = true; dx = 0; top.classList.add('dragging');
+    try { top.setPointerCapture(e.pointerId); } catch (_) {}
+    startX = e.clientX; startY = e.clientY;
+  });
+  top.addEventListener('pointermove', e => {
+    if (!dragging) return;
+    dx = e.clientX - startX; const dy = e.clientY - startY;
+    top.style.transform = `translate(${dx}px, ${dy * 0.15}px) rotate(${dx / 18}deg)`;
+    yesStamp.style.opacity = Math.max(0, Math.min(1, dx / 90));
+    noStamp.style.opacity = Math.max(0, Math.min(1, -dx / 90));
+  });
+  function endDrag() {
+    if (!dragging) return;
+    dragging = false; top.classList.remove('dragging');
+    if (dx > 110) resolveCandidate(id, true);
+    else if (dx < -110) resolveCandidate(id, false);
+    else { top.style.transform = ''; yesStamp.style.opacity = 0; noStamp.style.opacity = 0; }
+  }
+  top.addEventListener('pointerup', endDrag);
+  top.addEventListener('pointercancel', endDrag);
+}
+async function resolveCandidate(id, accept) {
+  const idx = CANDIDATOS.findIndex(x => x.id === id);
+  if (idx === -1) return;
+  if (!canEdit()) { toast('Agrega tu token de GitHub en Configuración (⚙) para poder guardar.', true); return; }
+  const c = CANDIDATOS[idx];
+  const topEl = document.getElementById('cand-card-' + id);
+  if (topEl) {
+    topEl.style.transform = `translate(${accept ? 700 : -700}px, -30px) rotate(${accept ? 26 : -26}deg)`;
+    topEl.style.opacity = '0';
+  }
+  document.getElementById('cand-btn-yes').disabled = true;
+  document.getElementById('cand-btn-no').disabled = true;
+  try {
+    if (accept) {
+      const nuevo = {
+        id: uid('p'), nombre: c.nombre, cargo: c.cargo || '', empresa: c.empresa || '', linkedin_url: c.linkedin_url || '',
+        email: null, ultima_publicacion: null, publica_activamente: false,
+        senales: c.senal ? [c.senal] : [], dolor_detectado: c.razon || '',
+        etapa: 'Identificado', cuenta: actor() === 'Ingrid' ? 'Ingrid' : 'Fabián', origen: 'Claude',
+        mensaje_borrador: '', listo_para_enviar: false, proxima_accion: 'Revisar y decidir cómo abordarlo', notas: '',
+        actualizado: new Date().toISOString().slice(0, 10), hubspot_contact_id: null, hubspot_synced_at: null
+      };
+      PROSPECTOS.push(nuevo);
+      await saveProspectos(`${actor()}: aprobó candidato → agregó a ${nuevo.nombre} como prospecto`);
+      renderKpis(); renderFunnel(); renderPacs(); renderProspects();
+    }
+    const remaining = CANDIDATOS.filter(x => x.id !== id);
+    await saveCandidatosList(remaining, `${actor()}: ${accept ? 'aprobó' : 'descartó'} candidato — ${c.nombre}`);
+    CANDIDATOS = remaining;
+    toast(accept ? 'Agregado a prospección ✓' : 'Descartado');
+    renderLog();
+  } catch (e) {
+    toast(e.message, true);
+  } finally {
+    renderCandidatos();
+  }
+}
+
 async function renderLog() {
   const list = document.getElementById('log-list');
   try {
@@ -768,10 +956,14 @@ async function init() {
   initTheme();
   initSettings();
   try {
-    const [prospData, calData] = await Promise.all([loadJson('data/prospectos.json'), loadJson('data/calendario.json')]);
+    const [prospData, calData, candData] = await Promise.all([
+      loadJson('data/prospectos.json'), loadJson('data/calendario.json'),
+      loadJson('data/candidatos.json').catch(() => ({candidatos: []}))
+    ]);
     PROSPECTOS = prospData.prospectos || [];
     CALENDARIO = calData.calendario || [];
-    renderKpis(); renderFunnel(); renderProspects(); renderCalendar(); renderPublicaciones(); renderPacs();
+    CANDIDATOS = candData.candidatos || [];
+    renderKpis(); renderFunnel(); renderProspects(); renderCalendar(); renderPublicaciones(); renderPacs(); renderCandidatos();
   } catch (e) {
     document.getElementById('prospect-cards').innerHTML = `<div class="empty">No se pudieron cargar los datos (${esc(e.message)}).</div>`;
   }

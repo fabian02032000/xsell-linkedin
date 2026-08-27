@@ -40,6 +40,9 @@ Dile en el chat qué prospecto agregar, qué mensaje redactar, o qué etapa camb
 | `notas` | Cualquier detalle extra |
 | `email` | Correo del prospecto, si se consigue — se usa para no duplicarlo en HubSpot |
 | `hubspot_contact_id` / `hubspot_synced_at` | Los llena solo el Action de HubSpot — no editar a mano |
+| `hubspot_solicitud_manual` | Lo pone el botón "→ Crear en HubSpot ahora" — no editar a mano |
+
+**Eliminar un prospecto:** dentro de "✎ Editar" hay un botón "🗑 Eliminar" (pide confirmación). Desaparece del dashboard; el registro sigue existiendo en el historial de commits de GitHub por si hace falta recuperarlo.
 
 **Etapas posibles:** Identificado → Precalentamiento → Conexión enviada → Mensaje 1 → Conversación → Seguimiento → Reunión agendada → Reunión realizada → Propuesta → Ganado / Perdido / No contactar.
 
@@ -53,6 +56,16 @@ Cada publicación del calendario (`data/calendario.json`) tiene además:
 | `link_publicacion` | Link al post ya publicado |
 
 **Cruce automático:** en cuanto se marca quién publicó un post (con el lápiz ✎ de esa fila), el `estado` pasa solo a `"Publicado"` y se pinta en verde — no hace falta cambiar el estado a mano también. El bloque "Publicaciones subidas" arriba del calendario resume, por persona, cuántos posts subió cada quien y con qué link.
+
+## Buscar prospectos nuevos (pestaña "Candidatos")
+
+Cuando quieras que Claude salga a buscar prospectos nuevos, pídeselo directo en el chat — por ejemplo: **"busca prospectos de la semana"**. Claude revisa LinkedIn buscando las mismas señales que ya usamos (empresas publicando vacantes de personal comercial, o gente quejándose de baja conversión de leads / seguimiento lento) y escribe lo que encuentra en `data/candidatos.json`.
+
+Esos candidatos aparecen en la pestaña **Candidatos** del dashboard como una pila de tarjetas para revisar una por una:
+- Desliza la tarjeta a la **derecha** (o el botón ✓) para aprobarlo — se agrega automáticamente a "Prospección" en etapa Identificado.
+- Desliza a la **izquierda** (o el botón ✕) para descartarlo — desaparece sin dejar rastro en prospección.
+
+Nada se agrega a la lista de prospectos reales sin que alguien lo apruebe a mano ahí. La búsqueda en sí la corre Claude en una conversación normal del chat (no es un proceso automático corriendo solo en segundo plano), así que no hay riesgo de que LinkedIn la detecte como un bot suelto.
 
 ## Sincronización automática con HubSpot
 
@@ -70,6 +83,8 @@ Cuando un prospecto llega a **"Reunión agendada"** (o una etapa posterior: Reun
 3. En este repositorio de GitHub: **Settings → Secrets and variables → Actions → New repository secret**, nombre `HUBSPOT_TOKEN`, y pegar el token ahí (no en este archivo ni en el chat).
 
 Si el secret no está configurado, el Action falla de forma visible en la pestaña "Actions" del repositorio — no falla en silencio.
+
+**Crearlo manualmente, sin esperar la etapa:** cada tarjeta de prospecto que todavía no está en HubSpot tiene un botón **"→ Crear en HubSpot ahora"**. No importa en qué etapa esté — al presionarlo, el prospecto queda marcado y el mismo Action lo recoge y lo crea en HubSpot en cuestión de segundos (la tarjeta muestra "⏳ Creándose en HubSpot…" mientras tanto; recarga la página para ver el enlace ya creado).
 
 ## Importante — envío de mensajes
 

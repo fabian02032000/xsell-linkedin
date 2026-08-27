@@ -1,5 +1,6 @@
 // Crea un Contacto en HubSpot para cada prospecto que llegó a etapa de "cliente potencial"
-// (Reunión agendada en adelante) y todavía no tiene hubspot_contact_id.
+// (Reunión agendada en adelante), o que tenga hubspot_solicitud_manual: true (botón "Crear
+// en HubSpot ahora" del dashboard) — y todavía no tenga hubspot_contact_id.
 // Se ejecuta automáticamente vía GitHub Actions en cada push a data/prospectos.json.
 
 import { readFileSync, writeFileSync } from "node:fs";
@@ -100,10 +101,11 @@ async function main() {
   let changed = false;
 
   for (const p of prospectos) {
-    if (!SYNC_STAGES.includes(p.etapa)) continue;
+    const manual = !!p.hubspot_solicitud_manual;
+    if (!SYNC_STAGES.includes(p.etapa) && !manual) continue;
     if (p.hubspot_contact_id) continue; // ya sincronizado
 
-    console.log(`→ Sincronizando a ${p.nombre} (${p.etapa})…`);
+    console.log(`→ Sincronizando a ${p.nombre} (${p.etapa}${manual ? ", pedido manual" : ""})…`);
     try {
       let contactId = await findExistingContact(p);
       let isNew = false;
@@ -116,6 +118,7 @@ async function main() {
       }
       p.hubspot_contact_id = contactId;
       p.hubspot_synced_at = new Date().toISOString().slice(0, 10);
+      if (manual) delete p.hubspot_solicitud_manual;
       changed = true;
 
       if (isNew) {

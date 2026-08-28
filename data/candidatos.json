@@ -1,17 +1,6 @@
 {
   "candidatos": [
     {
-      "id": "cand_d4e5f6",
-      "nombre": "Daniel Lorino Salcedo",
-      "cargo": "Jefe Comercial",
-      "empresa": "FLOW-X Perú",
-      "linkedin_url": "https://www.linkedin.com/in/daniel-lorino-salcedo/",
-      "senal": "Búsqueda de personal comercial",
-      "razon": "Como Jefe Comercial de FLOW-X Perú (logística internacional), publicó hace ~3 semanas que están buscando un Ejecutivo de Ventas Senior para impulsar nuevos negocios — es él mismo quien lidera el área que necesita reforzar, el mismo patrón que Olenka.",
-      "fecha_encontrado": "2026-08-27",
-      "encontrado_por": "Claude"
-    },
-    {
       "id": "cand_g7h8i9",
       "nombre": "Oscar Leonardo Alviarez Martinez",
       "cargo": "Gerente Comercial",

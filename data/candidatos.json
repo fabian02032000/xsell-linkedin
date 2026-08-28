@@ -1,15 +1,3 @@
 {
-  "candidatos": [
-    {
-      "id": "cand_g7h8i9",
-      "nombre": "Oscar Leonardo Alviarez Martinez",
-      "cargo": "Gerente Comercial",
-      "empresa": "Conex Perú",
-      "linkedin_url": "https://www.linkedin.com/in/oscar-leonardo-alviarez-martinez-69b2bb19b/",
-      "senal": "Búsqueda de personal comercial",
-      "razon": "Es el Gerente Comercial de Conex Perú (telecom/FTTH) y publicó que están incorporando vendedores freelance para ampliar el equipo comercial. La publicación tiene varios meses, pero el patrón (el propio gerente comercial buscando reforzar ventas) encaja con el perfil que ya funcionó con Olenka.",
-      "fecha_encontrado": "2026-08-27",
-      "encontrado_por": "Claude"
-    }
-  ]
+  "candidatos": []
 }

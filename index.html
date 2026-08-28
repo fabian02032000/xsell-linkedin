@@ -283,6 +283,18 @@
   .criteria-chip.avoid { background:var(--red-soft); color:var(--red); }
   .criteria-notes { font-size:13px; color:var(--ink); white-space:pre-wrap; }
   .criteria-empty { font-size:12.5px; color:var(--ink-faint); font-style:italic; }
+
+  .content-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:14px; }
+  .content-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden; display:flex; flex-direction:column; }
+  .content-thumb-wrap { width:100%; aspect-ratio:1.4; background:var(--surface-raised); display:flex; align-items:center; justify-content:center; overflow:hidden; }
+  .content-thumb-wrap img { width:100%; height:100%; object-fit:cover; display:block; }
+  .content-thumb-empty { font-size:26px; color:var(--ink-faint); }
+  .content-card-body { padding:14px 16px; display:flex; flex-direction:column; gap:8px; }
+  .content-card-head { display:flex; justify-content:space-between; align-items:flex-start; gap:8px; }
+  .content-card-date { font-family:"IBM Plex Mono",monospace; font-size:10.5px; color:var(--ink-faint); }
+  .content-card-tema { font-size:13.5px; font-weight:600; line-height:1.4; }
+  .content-card-actions { display:flex; gap:8px; margin-top:4px; }
+  .content-card-actions .btn { flex:1; text-align:center; }
 </style>
 </head>
 <body>
@@ -320,6 +332,7 @@
   <nav class="tabs">
     <button class="tab active" id="tab-btn-prospeccion" onclick="switchTab('prospeccion')">Prospección</button>
     <button class="tab" id="tab-btn-candidatos" onclick="switchTab('candidatos')">Candidatos</button>
+    <button class="tab" id="tab-btn-contenido" onclick="switchTab('contenido')">Contenido</button>
     <button class="tab" id="tab-btn-pacs" onclick="switchTab('pacs')">Método PACS</button>
   </nav>
 
@@ -374,6 +387,13 @@
         <div class="cand-hint" id="candidate-count"></div>
         <div class="candidate-grid" id="candidate-stack"></div>
       </div>
+    </section>
+  </div>
+
+  <div id="tab-contenido" class="tabpanel">
+    <section class="block">
+      <p class="cand-intro">Las piezas ya diseñadas del calendario — con su link de Drive y una miniatura para reconocerlas de un vistazo. Desde acá se descarga lo que toca subir esta semana.</p>
+      <div class="content-grid" id="content-grid"></div>
     </section>
   </div>
 
@@ -1097,10 +1117,96 @@ async function saveCalEdit(id) {
     }
     await saveCalendario(`${actor()}: editó una publicación del calendario ("${c.tema.slice(0,50)}")${c.publicado_por ? ' — marcada como publicada por ' + c.publicado_por : ''}`);
     toast('Guardado ✓');
-    renderCalendar(); renderKpis(); renderPublicaciones(); renderLog();
+    renderCalendar(); renderKpis(); renderPublicaciones(); renderLog(); renderContenido();
   } catch (e) {
     Object.assign(c, before);
     if (saveBtn) { saveBtn.disabled = false; saveBtn.textContent = '✓'; }
+    toast(e.message, true);
+  }
+}
+
+// ---------- pestaña Contenido: la pieza ya diseñada (link de Drive + miniatura), lista para bajar y subir ----------
+function contentCardHtml(c) {
+  const thumb = c.imagen_miniatura
+    ? `<img src="${esc(c.imagen_miniatura)}" alt="">`
+    : `<span class="content-thumb-empty">🖼️</span>`;
+  return `<div class="content-card" id="content-card-${c.id}">
+      <div class="content-thumb-wrap">${thumb}</div>
+      <div class="content-card-body">
+        <div class="content-card-head">
+          <span class="content-card-date">${esc(c.fecha)}</span>
+          <span class="estado-pill ${estadoClass(c.estado)}">${esc(c.estado)}</span>
+        </div>
+        <div class="content-card-tema">${esc(c.tema.slice(0,90))}${c.tema.length>90?'…':''}</div>
+        <span class="chip" style="align-self:flex-start;">${esc(c.formato)}</span>
+        <div class="content-card-actions">
+          ${c.link_drive ? `<a class="btn primary" href="${esc(c.link_drive)}" target="_blank" rel="noopener">↗ Abrir en Drive</a>` : `<span class="criteria-empty">Sin link de Drive todavía.</span>`}
+          ${canEdit() ? `<button class="btn ghost" onclick="toggleContentEdit('${c.id}')" title="Editar">✎</button>` : ''}
+        </div>
+      </div>
+    </div>`;
+}
+function contentCardEditHtml(c) {
+  return `<div class="content-card" id="content-card-${c.id}">
+      <div class="content-thumb-wrap">${c.imagen_miniatura ? `<img id="cc-thumb-preview-${c.id}" src="${esc(c.imagen_miniatura)}" alt="">` : `<img id="cc-thumb-preview-${c.id}" style="display:none;" alt="">`}</div>
+      <div class="content-card-body">
+        <div class="content-card-date">${esc(c.fecha)} — ${esc(c.tema.slice(0,60))}${c.tema.length>60?'…':''}</div>
+        <div class="editform">
+          <div><label>Link de Drive</label><input id="cc-drive-${c.id}" placeholder="https://drive.google.com/..." value="${esc(c.link_drive||'')}"></div>
+          <div><label>Miniatura</label><input id="cc-thumbfile-${c.id}" type="file" accept="image/*" onchange="previewContentThumb('${c.id}')"></div>
+          <div class="card-error" id="cc-err-${c.id}"></div>
+          <div class="actions">
+            <button class="btn ghost" onclick="toggleContentEdit('${c.id}')">Cancelar</button>
+            <button class="btn primary" id="cc-save-${c.id}" onclick="saveContentEdit('${c.id}')">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+function previewContentThumb(id) {
+  const input = document.getElementById('cc-thumbfile-' + id);
+  const img = document.getElementById('cc-thumb-preview-' + id);
+  const file = input.files && input.files[0];
+  if (!file || !img) return;
+  const reader = new FileReader();
+  reader.onload = () => { img.src = reader.result; img.style.display = ''; };
+  reader.readAsDataURL(file);
+}
+function renderContenido() {
+  const grid = document.getElementById('content-grid');
+  if (!grid) return;
+  if (!CALENDARIO.length) { grid.innerHTML = `<div class="empty">Sin piezas de contenido todavía — agrégalas desde el Calendario de contenido en Prospección.</div>`; return; }
+  const sorted = [...CALENDARIO].sort((a,b) => (a.fecha||'').localeCompare(b.fecha||''));
+  grid.innerHTML = sorted.map(c => contentCardHtml(c)).join('');
+}
+function toggleContentEdit(id) {
+  const c = CALENDARIO.find(x => x.id === id);
+  const card = document.getElementById('content-card-' + id);
+  if (!c || !card) return;
+  const editing = card.dataset.editing === '1';
+  card.dataset.editing = editing ? '0' : '1';
+  card.outerHTML = editing ? contentCardHtml(c) : contentCardEditHtml(c);
+}
+async function saveContentEdit(id) {
+  const c = CALENDARIO.find(x => x.id === id);
+  if (!c) return;
+  const before = { ...c };
+  const linkDrive = document.getElementById('cc-drive-' + id).value.trim();
+  const fileInput = document.getElementById('cc-thumbfile-' + id);
+  const file = fileInput && fileInput.files && fileInput.files[0];
+  const btn = document.getElementById('cc-save-' + id);
+  const errEl = document.getElementById('cc-err-' + id);
+  btn.disabled = true; btn.textContent = 'Guardando…';
+  try {
+    c.link_drive = linkDrive || null;
+    if (file) c.imagen_miniatura = await uploadCalThumbnail(id, file);
+    await saveCalendario(`${actor()}: actualizó el archivo/miniatura de una pieza de contenido ("${c.tema.slice(0,50)}")`);
+    toast('Guardado ✓');
+    renderContenido(); renderCalendar(); renderPublicaciones(); renderLog();
+  } catch (e) {
+    Object.assign(c, before);
+    errEl.textContent = e.message;
+    btn.disabled = false; btn.textContent = 'Guardar';
     toast(e.message, true);
   }
 }
@@ -1121,13 +1227,13 @@ function submitAddPost() {
   if (!tema) { errEl.textContent = 'Falta el tema.'; return; }
   const dolor = document.getElementById('npo-dolor').value.trim();
   const fecha = document.getElementById('npo-fecha').value || new Date().toISOString().slice(0,10);
-  const nuevo = { id: uid('c'), fecha, tema, dolor, formato: 'Texto', estado: 'Borrador', publicado_por: null, link_publicacion: null, imagen_miniatura: null };
+  const nuevo = { id: uid('c'), fecha, tema, dolor, formato: 'Texto', estado: 'Borrador', publicado_por: null, link_publicacion: null, imagen_miniatura: null, link_drive: null };
   closeAddPostModal();
   CALENDARIO.push(nuevo);
-  renderCalendar(); renderKpis(); renderPublicaciones();
+  renderCalendar(); renderKpis(); renderPublicaciones(); renderContenido();
   saveCalendario(`${actor()}: agregó una publicación al calendario`)
     .then(() => { toast('Guardado ✓'); renderLog(); })
-    .catch(e => { toast(e.message, true); CALENDARIO = CALENDARIO.filter(x => x.id !== nuevo.id); renderCalendar(); renderKpis(); renderPublicaciones(); });
+    .catch(e => { toast(e.message, true); CALENDARIO = CALENDARIO.filter(x => x.id !== nuevo.id); renderCalendar(); renderKpis(); renderPublicaciones(); renderContenido(); });
 }
 document.getElementById('npo-cancel').addEventListener('click', closeAddPostModal);
 document.getElementById('npo-save').addEventListener('click', submitAddPost);
@@ -1393,7 +1499,7 @@ async function init() {
     CALENDARIO = calData.calendario || [];
     CANDIDATOS = candData.candidatos || [];
     CRITERIOS = { sectores: [], paises: [], senales_prioritarias: [], senales_a_evitar: [], notas: '', ...critData };
-    renderKpis(); renderFunnel(); renderProspects(); renderCalendar(); renderPublicaciones(); renderPacs(); renderCandidatos(); renderCriteria();
+    renderKpis(); renderFunnel(); renderProspects(); renderCalendar(); renderPublicaciones(); renderPacs(); renderCandidatos(); renderCriteria(); renderContenido();
   } catch (e) {
     document.getElementById('prospect-cards').innerHTML = `<div class="empty">No se pudieron cargar los datos (${esc(e.message)}).</div>`;
   }

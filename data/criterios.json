@@ -1,13 +1,11 @@
 {
-  "sectores": [],
+  "sectores": [
+    "automotriz"
+  ],
   "paises": [
     "Perú"
   ],
-  "senales_prioritarias": [
-    "Búsqueda de agencia de ventas"
-  ],
-  "senales_a_evitar": [
-    "Dolor de conversión de leads"
-  ],
+  "senales_prioritarias": [],
+  "senales_a_evitar": [],
   "notas": "Priorizar publicaciones de quien lidera el área comercial (Jefe Comercial, Gerente Comercial, Founder) hablando de su propio equipo — no de reclutadores ni de páginas de empresa. Perfil de referencia que ya funcionó: Olenka Palomino Flores (Gerente Comercial, ICASA Grupo Inmobiliario)."
 }

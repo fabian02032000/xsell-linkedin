@@ -27,6 +27,35 @@
       "hubspot_contact_id": "244890504349",
       "hubspot_synced_at": "2026-08-28",
       "rubro": "Inmobiliario"
+    },
+    {
+      "id": "pwmaa6b4",
+      "nombre": "Angelina Castillo",
+      "cargo": "Jefe Comercial",
+      "empresa": "MITTA Perú",
+      "rubro": "Automotriz (renting / movilidad corporativa)",
+      "linkedin_url": "https://www.linkedin.com/in/angelina-castillo-aa6521b3/",
+      "email": null,
+      "ultima_publicacion": {
+        "fecha": "Hace ~3 meses (LinkedIn mostraba 'hace 3 meses' el 31/08/2026 — fecha exacta no disponible)",
+        "resumen": "Anuncio personal de nuevo cargo liderando el área comercial (sector automotriz - renting/movilidad)"
+      },
+      "publica_activamente": true,
+      "senales": [
+        "Anuncio personal de nuevo cargo liderando el área comercial (sector automotriz - renting/movilidad)"
+      ],
+      "dolor_detectado": "Publicación propia (no reclutador) anunciando su ingreso como Jefe Comercial de MITTA Perú, empresa de renting y movilidad para el sector automotriz. Habla de asumir el reto de liderar 'un gran equipo'. Coincide exactamente con el perfil de referencia definido en los criterios (líder comercial hablando de su propio equipo).",
+      "etapa": "Identificado",
+      "cuenta": "Fabián",
+      "origen": "Claude",
+      "mensaje_borrador": "",
+      "listo_para_enviar": false,
+      "proxima_accion": "Revisar y decidir cómo abordarlo",
+      "notas": "",
+      "interacciones": [],
+      "actualizado": "2026-09-03",
+      "hubspot_contact_id": null,
+      "hubspot_synced_at": null
     }
   ]
 }

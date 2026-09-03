@@ -1,17 +1,3 @@
 {
-  "candidatos": [
-    {
-      "id": "cand_20260831_3",
-      "nombre": "Manuel Alejandro Vargas Cerpa",
-      "cargo": "Especialista en Desarrollo Comercial B2B (Sector Automotriz)",
-      "empresa": "Geosatelital Perú",
-      "linkedin_url": "https://www.linkedin.com/in/manuel-vargas-cerpa/",
-      "senal": "Publicación personal celebrando resultados de su equipo comercial B2B (GPS/telemetría para flotas y concesionarios)",
-      "razon": "Publicación propia (no reclutador) sobre cierre de mes comercial, mencionando 'un equipo comercial motivado', metas de venta B2B a concesionarios y empresas de transporte en el sector automotriz peruano. No es el líder máximo del área (reporta a su GC y GG), pero es quien ejecuta el desarrollo comercial B2B — vale la pena evaluar si es punto de entrada útil o si conviene apuntar directamente a su Gerente Comercial.",
-      "fecha_encontrado": "2026-08-31",
-      "encontrado_por": "Claude",
-      "rubro": "Automotriz (GPS / telemetría para flotas y concesionarios)",
-      "fecha_publicacion": "31/08/2026 (LinkedIn mostraba 'hace 16 h' el 31/08/2026)"
-    }
-  ]
+  "candidatos": []
 }

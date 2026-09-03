@@ -1,19 +1,6 @@
 {
   "candidatos": [
     {
-      "id": "cand_20260831_1",
-      "nombre": "Angelina Castillo",
-      "cargo": "Jefe Comercial",
-      "empresa": "MITTA Perú",
-      "linkedin_url": "https://www.linkedin.com/in/angelina-castillo-aa6521b3/",
-      "senal": "Anuncio personal de nuevo cargo liderando el área comercial (sector automotriz - renting/movilidad)",
-      "razon": "Publicación propia (no reclutador) anunciando su ingreso como Jefe Comercial de MITTA Perú, empresa de renting y movilidad para el sector automotriz. Habla de asumir el reto de liderar 'un gran equipo'. Coincide exactamente con el perfil de referencia definido en los criterios (líder comercial hablando de su propio equipo).",
-      "fecha_encontrado": "2026-08-31",
-      "encontrado_por": "Claude",
-      "rubro": "Automotriz (renting / movilidad corporativa)",
-      "fecha_publicacion": "Hace ~3 meses (LinkedIn mostraba 'hace 3 meses' el 31/08/2026 — fecha exacta no disponible)"
-    },
-    {
       "id": "cand_20260831_2",
       "nombre": "Guillermo Neves",
       "cargo": "Gerente Comercial",

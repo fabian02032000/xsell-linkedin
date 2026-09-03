@@ -25,7 +25,8 @@
       "notas": "",
       "actualizado": "2026-08-27",
       "hubspot_contact_id": "244890504349",
-      "hubspot_synced_at": "2026-08-28"
+      "hubspot_synced_at": "2026-08-28",
+      "rubro": "Inmobiliario"
     },
     {
       "id": "pt70jhix",
@@ -50,7 +51,8 @@
       "interacciones": [],
       "actualizado": "2026-08-28",
       "hubspot_contact_id": null,
-      "hubspot_synced_at": null
+      "hubspot_synced_at": null,
+      "rubro": "Telecomunicaciones (FTTH)"
     }
   ]
 }

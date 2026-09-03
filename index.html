@@ -102,6 +102,7 @@
 
   .chips { display:flex; flex-wrap:wrap; gap:6px; }
   .chip { font-size:11px; font-weight:600; padding:3px 9px; border-radius:999px; background:var(--orange-soft); color:var(--orange); }
+  .chip.rubro { background:var(--teal-soft); color:var(--teal); }
   .pain { font-size:13px; color:var(--ink-soft); }
   .pain b { color:var(--ink); font-weight:600; }
   .lastpost { font-size:12.5px; color:var(--ink-soft); background:var(--surface-raised); border:1px solid var(--border); border-radius:9px; padding:9px 11px; }
@@ -429,6 +430,7 @@
         <div><label>Cargo</label><input id="np-cargo" placeholder="Ej. Gerente Comercial"></div>
         <div><label>Empresa</label><input id="np-empresa"></div>
       </div>
+      <div><label>Rubro</label><input id="np-rubro" placeholder="Ej. Automotriz, Inmobiliario, Retail"></div>
       <div><label>Link de LinkedIn</label><input id="np-linkedin" placeholder="https://www.linkedin.com/in/..."></div>
       <div class="card-error" id="np-err"></div>
       <div class="actions">
@@ -840,7 +842,7 @@ function prospectViewHtml(p) {
         </div>
       </div>
       ${accountBadge(p.cuenta)}
-      ${(p.senales && p.senales.length) ? `<div class="chips">${p.senales.map(s => `<span class="chip">${esc(s)}</span>`).join('')}</div>` : ''}
+      ${(p.rubro || (p.senales && p.senales.length)) ? `<div class="chips">${p.rubro ? `<span class="chip rubro">${esc(p.rubro)}</span>` : ''}${(p.senales||[]).map(s => `<span class="chip">${esc(s)}</span>`).join('')}</div>` : ''}
       ${p.dolor_detectado ? `<div class="pain"><b>Dolor:</b> ${esc(p.dolor_detectado)}</div>` : ''}
       ${p.ultima_publicacion ? `<div class="lastpost"><span class="lp-date">Última publicación · ${esc(p.ultima_publicacion.fecha || '')}</span>${esc(p.ultima_publicacion.resumen || '')}</div>` : ''}
       ${p.mensaje_borrador ? `<details class="msg"><summary>Mensaje borrador</summary><div class="msg-body">${esc(p.mensaje_borrador)}</div></details>` : ''}
@@ -863,6 +865,7 @@ function prospectEditHtml(p) {
           <div><label>Etapa</label><select id="ef-etapa-${p.id}">${STAGE_OPTIONS.map(s => `<option ${s===p.etapa?'selected':''}>${esc(s)}</option>`).join('')}</select></div>
           <div><label>Cuenta</label><select id="ef-cuenta-${p.id}">${['Fabián','Ingrid'].map(s => `<option ${s===p.cuenta?'selected':''}>${esc(s)}</option>`).join('')}</select></div>
         </div>
+        <div><label>Rubro</label><input id="ef-rubro-${p.id}" placeholder="Ej. Automotriz, Inmobiliario, Retail" value="${esc(p.rubro||'')}"></div>
         <div><label>Dolor detectado</label><input id="ef-dolor-${p.id}" value="${esc(p.dolor_detectado||'')}"></div>
         <div><label>Mensaje borrador</label><textarea id="ef-mensaje-${p.id}">${esc(p.mensaje_borrador||'')}</textarea></div>
         <div><label>Próxima acción</label><input id="ef-accion-${p.id}" value="${esc(p.proxima_accion||'')}"></div>
@@ -906,6 +909,7 @@ async function saveProspectEdit(id) {
   const before = { etapa: p.etapa, mensaje_borrador: p.mensaje_borrador, listo_para_enviar: p.listo_para_enviar };
   p.etapa = document.getElementById('ef-etapa-' + id).value;
   p.cuenta = document.getElementById('ef-cuenta-' + id).value;
+  p.rubro = document.getElementById('ef-rubro-' + id).value.trim();
   p.dolor_detectado = document.getElementById('ef-dolor-' + id).value.trim();
   p.mensaje_borrador = document.getElementById('ef-mensaje-' + id).value.trim();
   p.proxima_accion = document.getElementById('ef-accion-' + id).value.trim();
@@ -976,7 +980,7 @@ async function requestHubspotManual(id) {
 }
 
 function addProspectPrompt() {
-  ['np-nombre','np-cargo','np-empresa','np-linkedin'].forEach(id => document.getElementById(id).value = '');
+  ['np-nombre','np-cargo','np-empresa','np-rubro','np-linkedin'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('np-err').textContent = '';
   document.getElementById('add-prospect-overlay').classList.add('show');
   document.getElementById('np-nombre').focus();
@@ -990,9 +994,10 @@ function submitAddProspect() {
   if (!nombre) { errEl.textContent = 'Falta el nombre.'; return; }
   const cargo = document.getElementById('np-cargo').value.trim();
   const empresa = document.getElementById('np-empresa').value.trim();
+  const rubro = document.getElementById('np-rubro').value.trim();
   const linkedin_url = document.getElementById('np-linkedin').value.trim();
   const nuevo = {
-    id: uid('p'), nombre, cargo, empresa, linkedin_url,
+    id: uid('p'), nombre, cargo, empresa, rubro, linkedin_url,
     email: null, ultima_publicacion: null, publica_activamente: false, senales: [], dolor_detectado: '',
     etapa: 'Identificado', cuenta: 'Fabián', origen: actor() === 'Ingrid' ? 'Ingrid' : 'Fabián',
     mensaje_borrador: '', listo_para_enviar: false, proxima_accion: '', notas: '', interacciones: [],
@@ -1376,7 +1381,8 @@ function candidateCardHtml(c) {
   return `<div class="candidate-card2" id="cand-card-${c.id}" data-id="${c.id}">
       <div class="card-name"><a href="${esc(c.linkedin_url || '#')}" target="_blank" rel="noopener">${esc(c.nombre)} ↗</a></div>
       <div class="card-role">${esc(c.cargo || '')} · ${esc(c.empresa || '')}</div>
-      ${c.senal ? `<div class="chips"><span class="chip">${esc(c.senal)}</span></div>` : ''}
+      ${(c.rubro || c.senal) ? `<div class="chips">${c.rubro ? `<span class="chip rubro">${esc(c.rubro)}</span>` : ''}${c.senal ? `<span class="chip">${esc(c.senal)}</span>` : ''}</div>` : ''}
+      ${c.fecha_publicacion ? `<div class="lastpost"><span class="lp-date">Última publicación · ${esc(c.fecha_publicacion)}</span></div>` : ''}
       ${c.razon ? `<div class="pain"><b>Por qué lo elegí:</b> ${esc(c.razon)}</div>` : ''}
       <div class="card-foot"><span>Encontrado el ${esc(c.fecha_encontrado || '')}</span><span>${esc(c.encontrado_por || 'Claude')}</span></div>
       <div class="cand-actions2">
@@ -1430,8 +1436,10 @@ async function resolveCandidate(id, accept) {
       nuevo = existing; // ya se había creado en un intento anterior — no duplicar
     } else {
       nuevo = {
-        id: uid('p'), nombre: c.nombre, cargo: c.cargo || '', empresa: c.empresa || '', linkedin_url: c.linkedin_url || '',
-        email: null, ultima_publicacion: null, publica_activamente: false,
+        id: uid('p'), nombre: c.nombre, cargo: c.cargo || '', empresa: c.empresa || '', rubro: c.rubro || '', linkedin_url: c.linkedin_url || '',
+        email: null,
+        ultima_publicacion: c.fecha_publicacion ? { fecha: c.fecha_publicacion, resumen: c.senal || '' } : null,
+        publica_activamente: !!c.fecha_publicacion,
         senales: c.senal ? [c.senal] : [], dolor_detectado: c.razon || '',
         etapa: 'Identificado', cuenta: actor() === 'Ingrid' ? 'Ingrid' : 'Fabián', origen: 'Claude',
         mensaje_borrador: '', listo_para_enviar: false, proxima_accion: 'Revisar y decidir cómo abordarlo', notas: '',

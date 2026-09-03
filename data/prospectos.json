@@ -52,7 +52,13 @@
       "listo_para_enviar": false,
       "proxima_accion": "Revisar y decidir cómo abordarlo",
       "notas": "",
-      "interacciones": [],
+      "interacciones": [
+        {
+          "tipo": "Solicitud de conexión enviada",
+          "fecha": "2026-09-03",
+          "quien": "Fabián"
+        }
+      ],
       "actualizado": "2026-09-03",
       "hubspot_contact_id": null,
       "hubspot_synced_at": null

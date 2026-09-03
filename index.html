@@ -861,6 +861,12 @@ function prospectViewHtml(p) {
 function prospectEditHtml(p) {
   return `
       <div class="editform">
+        <div><label>Nombre y apellido</label><input id="ef-nombre-${p.id}" value="${esc(p.nombre||'')}"></div>
+        <div class="row2">
+          <div><label>Cargo</label><input id="ef-cargo-${p.id}" value="${esc(p.cargo||'')}"></div>
+          <div><label>Empresa</label><input id="ef-empresa-${p.id}" value="${esc(p.empresa||'')}"></div>
+        </div>
+        <div><label>Link de LinkedIn</label><input id="ef-linkedin-${p.id}" placeholder="https://www.linkedin.com/in/..." value="${esc(p.linkedin_url||'')}"></div>
         <div class="row2">
           <div><label>Etapa</label><select id="ef-etapa-${p.id}">${STAGE_OPTIONS.map(s => `<option ${s===p.etapa?'selected':''}>${esc(s)}</option>`).join('')}</select></div>
           <div><label>Cuenta</label><select id="ef-cuenta-${p.id}">${['Fabián','Ingrid'].map(s => `<option ${s===p.cuenta?'selected':''}>${esc(s)}</option>`).join('')}</select></div>
@@ -906,7 +912,13 @@ async function saveProspectEdit(id) {
   const btn = document.getElementById('ef-save-' + id);
   const errEl = document.getElementById('ef-err-' + id);
   errEl.textContent = '';
+  const nombreNuevo = document.getElementById('ef-nombre-' + id).value.trim();
+  if (!nombreNuevo) { errEl.textContent = 'Falta el nombre.'; return; }
   const before = { etapa: p.etapa, mensaje_borrador: p.mensaje_borrador, listo_para_enviar: p.listo_para_enviar };
+  p.nombre = nombreNuevo;
+  p.cargo = document.getElementById('ef-cargo-' + id).value.trim();
+  p.empresa = document.getElementById('ef-empresa-' + id).value.trim();
+  p.linkedin_url = document.getElementById('ef-linkedin-' + id).value.trim();
   p.etapa = document.getElementById('ef-etapa-' + id).value;
   p.cuenta = document.getElementById('ef-cuenta-' + id).value;
   p.rubro = document.getElementById('ef-rubro-' + id).value.trim();

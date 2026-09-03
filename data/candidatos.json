@@ -1,19 +1,6 @@
 {
   "candidatos": [
     {
-      "id": "cand_20260831_2",
-      "nombre": "Guillermo Neves",
-      "cargo": "Gerente Comercial",
-      "empresa": "Atrae Ventas Import S.A.C.",
-      "linkedin_url": "https://www.linkedin.com/in/guillermoneves/",
-      "senal": "Publicación personal de análisis/estrategia comercial en financiamiento vehicular (sector automotriz)",
-      "razon": "Perfil con headline 'Gerente Comercial' y experiencia explícita en Gestión de Equipos de Venta / Estrategia Comercial / Desarrollo de Canales. Publicación propia sobre financiamiento de motos y cargueros en Perú, mostrando expertise y visión del mercado automotriz local.",
-      "fecha_encontrado": "2026-08-31",
-      "encontrado_por": "Claude",
-      "rubro": "Automotriz (financiamiento vehicular)",
-      "fecha_publicacion": "Hace ~1 mes (LinkedIn mostraba 'hace 1 mes' el 31/08/2026 — fecha exacta no disponible)"
-    },
-    {
       "id": "cand_20260831_3",
       "nombre": "Manuel Alejandro Vargas Cerpa",
       "cargo": "Especialista en Desarrollo Comercial B2B (Sector Automotriz)",

@@ -62,6 +62,35 @@
       "actualizado": "2026-09-03",
       "hubspot_contact_id": null,
       "hubspot_synced_at": null
+    },
+    {
+      "id": "p9gvl90a",
+      "nombre": "Guillermo Neves",
+      "cargo": "Gerente Comercial",
+      "empresa": "Atrae Ventas Import S.A.C.",
+      "rubro": "Automotriz (financiamiento vehicular)",
+      "linkedin_url": "https://www.linkedin.com/in/guillermoneves/",
+      "email": null,
+      "ultima_publicacion": {
+        "fecha": "Hace ~1 mes (LinkedIn mostraba 'hace 1 mes' el 31/08/2026 — fecha exacta no disponible)",
+        "resumen": "Publicación personal de análisis/estrategia comercial en financiamiento vehicular (sector automotriz)"
+      },
+      "publica_activamente": true,
+      "senales": [
+        "Publicación personal de análisis/estrategia comercial en financiamiento vehicular (sector automotriz)"
+      ],
+      "dolor_detectado": "Perfil con headline 'Gerente Comercial' y experiencia explícita en Gestión de Equipos de Venta / Estrategia Comercial / Desarrollo de Canales. Publicación propia sobre financiamiento de motos y cargueros en Perú, mostrando expertise y visión del mercado automotriz local.",
+      "etapa": "Identificado",
+      "cuenta": "Fabián",
+      "origen": "Claude",
+      "mensaje_borrador": "",
+      "listo_para_enviar": false,
+      "proxima_accion": "Revisar y decidir cómo abordarlo",
+      "notas": "",
+      "interacciones": [],
+      "actualizado": "2026-09-03",
+      "hubspot_contact_id": null,
+      "hubspot_synced_at": null
     }
   ]
 }

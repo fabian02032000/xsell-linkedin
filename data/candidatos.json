@@ -1,3 +1,17 @@
 {
-  "candidatos": []
+  "candidatos": [
+    {
+      "id": "cand_20260903_1",
+      "nombre": "Gianna Velarde",
+      "cargo": "Business Development & Distribution Lead",
+      "empresa": "CFMOTO Perú",
+      "rubro": "Automotriz (motos / distribución)",
+      "linkedin_url": "https://www.linkedin.com/in/gianna-velarde-35abb033/",
+      "senal": "Publicación sobre desarrollo comercial y capacitación a la red de distribuidores",
+      "razon": "Lidera desarrollo de negocio y distribución para CFMOTO en Perú; en su publicación habla de capacitar al equipo comercial de un distribuidor aliado. No es una vacante ni un post de página de empresa, aunque el enfoque es de distribución más que gerencia comercial pura.",
+      "fecha_encontrado": "2026-09-03",
+      "encontrado_por": "Claude",
+      "fecha_publicacion": "Hace ~2 semanas (LinkedIn mostraba fecha relativa el 03/09/2026 — fecha exacta no disponible)"
+    }
+  ]
 }

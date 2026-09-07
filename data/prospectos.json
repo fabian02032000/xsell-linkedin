@@ -57,6 +57,35 @@
       "actualizado": "2026-09-07",
       "hubspot_contact_id": null,
       "hubspot_synced_at": null
+    },
+    {
+      "id": "pmlqd5gc",
+      "nombre": "Jorgelino Vega Fernández",
+      "cargo": "Jefe Comercial Corporativo",
+      "empresa": "Intermotors (Mitsubishi)",
+      "rubro": "Automotriz (flotas corporativas B2B — minería, agro, logística)",
+      "linkedin_url": "https://www.linkedin.com/in/jorgelinovega/",
+      "email": null,
+      "ultima_publicacion": {
+        "fecha": "Hace ~5 meses (LinkedIn mostraba fecha relativa el 07/09/2026 — fecha exacta no disponible)",
+        "resumen": "Anuncio personal de nuevo cargo como Jefe Comercial Corporativo en Intermotors (Mitsubishi)"
+      },
+      "publica_activamente": true,
+      "senales": [
+        "Anuncio personal de nuevo cargo como Jefe Comercial Corporativo en Intermotors (Mitsubishi)"
+      ],
+      "dolor_detectado": "Publicación propia (no reclutador) anunciando que asume el reto de Jefe Comercial Corporativo en Intermotors-Mitsubishi, con más de dos décadas liderando estrategias comerciales B2B (flotas para minería, agroindustria, transporte y logística). Muy buen encaje: líder comercial B2B, con headline propio orientado a diseñar planes de adquisición/renovación de flotas.",
+      "etapa": "Identificado",
+      "cuenta": "Ingrid",
+      "origen": "Claude",
+      "mensaje_borrador": "",
+      "listo_para_enviar": false,
+      "proxima_accion": "Revisar y decidir cómo abordarlo",
+      "notas": "",
+      "interacciones": [],
+      "actualizado": "2026-09-07",
+      "hubspot_contact_id": null,
+      "hubspot_synced_at": null
     }
   ]
 }

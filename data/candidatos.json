@@ -12,6 +12,19 @@
       "fecha_encontrado": "2026-09-03",
       "encontrado_por": "Claude",
       "fecha_publicacion": "Hace ~2 semanas (LinkedIn mostraba fecha relativa el 03/09/2026 — fecha exacta no disponible)"
+    },
+    {
+      "id": "cand_20260907_1",
+      "nombre": "Luis Felipe Dongo H.",
+      "cargo": "Gerente de Ventas",
+      "empresa": "Ford Perú",
+      "rubro": "Automotriz (concesionarios / red de dealers)",
+      "linkedin_url": "https://www.linkedin.com/in/luis-felipe-dongo-h-ab697829/",
+      "senal": "Anuncio personal de nuevo cargo como Gerente de Ventas en Ford Perú",
+      "razon": "Publicación propia (no reclutador) anunciando que asumió el cargo de Gerente de Ventas en Ford Perú, tras años en posventa automotriz. Habla de trabajar junto a grandes equipos y contribuir al desarrollo de la red de concesionarios. Coincide con el perfil de referencia (líder comercial anunciando su propio nuevo rol de liderazgo).",
+      "fecha_encontrado": "2026-09-07",
+      "encontrado_por": "Claude",
+      "fecha_publicacion": "Hace ~2 meses (LinkedIn mostraba fecha relativa el 07/09/2026 — fecha exacta no disponible)"
     }
   ]
 }

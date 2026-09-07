@@ -86,6 +86,35 @@
       "actualizado": "2026-09-07",
       "hubspot_contact_id": null,
       "hubspot_synced_at": null
+    },
+    {
+      "id": "p5jc4rdl",
+      "nombre": "Angel Moroni Vicario Salazar",
+      "cargo": "Gerente Comercial y Marketing",
+      "empresa": "SAAVAC Inmobiliaria",
+      "rubro": "Inmobiliario",
+      "linkedin_url": "https://www.linkedin.com/in/angelvicario/",
+      "email": null,
+      "ultima_publicacion": {
+        "fecha": "Hace ~2 semanas (LinkedIn mostraba fecha relativa el 07/09/2026 — fecha exacta no disponible)",
+        "resumen": "Publicación personal sobre alianzas y crecimiento del sector inmobiliario"
+      },
+      "publica_activamente": true,
+      "senales": [
+        "Publicación personal sobre alianzas y crecimiento del sector inmobiliario"
+      ],
+      "dolor_detectado": "Publicación propia (no reclutador) como Gerente Comercial de SAAVAC Inmobiliaria, compartiendo su participación en un evento con Edifica y hablando del crecimiento y la construcción de nuevas oportunidades en el sector. Headline propio orientado a ayudar a personas y empresas a invertir en bienes raíces.",
+      "etapa": "Identificado",
+      "cuenta": "Ingrid",
+      "origen": "Claude",
+      "mensaje_borrador": "",
+      "listo_para_enviar": false,
+      "proxima_accion": "Revisar y decidir cómo abordarlo",
+      "notas": "",
+      "interacciones": [],
+      "actualizado": "2026-09-07",
+      "hubspot_contact_id": null,
+      "hubspot_synced_at": null
     }
   ]
 }

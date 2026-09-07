@@ -1,19 +1,6 @@
 {
   "candidatos": [
     {
-      "id": "cand_20260907_4",
-      "nombre": "Angel Moroni Vicario Salazar",
-      "cargo": "Gerente Comercial y Marketing",
-      "empresa": "SAAVAC Inmobiliaria",
-      "rubro": "Inmobiliario",
-      "linkedin_url": "https://www.linkedin.com/in/angelvicario/",
-      "senal": "Publicación personal sobre alianzas y crecimiento del sector inmobiliario",
-      "razon": "Publicación propia (no reclutador) como Gerente Comercial de SAAVAC Inmobiliaria, compartiendo su participación en un evento con Edifica y hablando del crecimiento y la construcción de nuevas oportunidades en el sector. Headline propio orientado a ayudar a personas y empresas a invertir en bienes raíces.",
-      "fecha_encontrado": "2026-09-07",
-      "encontrado_por": "Claude",
-      "fecha_publicacion": "Hace ~2 semanas (LinkedIn mostraba fecha relativa el 07/09/2026 — fecha exacta no disponible)"
-    },
-    {
       "id": "cand_20260907_5",
       "nombre": "Candy Acero",
       "cargo": "Gerente de Ventas",

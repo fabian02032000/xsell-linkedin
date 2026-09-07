@@ -1,19 +1,6 @@
 {
   "candidatos": [
     {
-      "id": "cand_20260907_3",
-      "nombre": "Jorgelino Vega Fernández",
-      "cargo": "Jefe Comercial Corporativo",
-      "empresa": "Intermotors (Mitsubishi)",
-      "rubro": "Automotriz (flotas corporativas B2B — minería, agro, logística)",
-      "linkedin_url": "https://www.linkedin.com/in/jorgelinovega/",
-      "senal": "Anuncio personal de nuevo cargo como Jefe Comercial Corporativo en Intermotors (Mitsubishi)",
-      "razon": "Publicación propia (no reclutador) anunciando que asume el reto de Jefe Comercial Corporativo en Intermotors-Mitsubishi, con más de dos décadas liderando estrategias comerciales B2B (flotas para minería, agroindustria, transporte y logística). Muy buen encaje: líder comercial B2B, con headline propio orientado a diseñar planes de adquisición/renovación de flotas.",
-      "fecha_encontrado": "2026-09-07",
-      "encontrado_por": "Claude",
-      "fecha_publicacion": "Hace ~5 meses (LinkedIn mostraba fecha relativa el 07/09/2026 — fecha exacta no disponible)"
-    },
-    {
       "id": "cand_20260907_4",
       "nombre": "Angel Moroni Vicario Salazar",
       "cargo": "Gerente Comercial y Marketing",

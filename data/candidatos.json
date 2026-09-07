@@ -51,6 +51,45 @@
       "fecha_encontrado": "2026-09-07",
       "encontrado_por": "Claude",
       "fecha_publicacion": "Hace ~5 meses (LinkedIn mostraba fecha relativa el 07/09/2026 — fecha exacta no disponible)"
+    },
+    {
+      "id": "cand_20260907_4",
+      "nombre": "Angel Moroni Vicario Salazar",
+      "cargo": "Gerente Comercial y Marketing",
+      "empresa": "SAAVAC Inmobiliaria",
+      "rubro": "Inmobiliario",
+      "linkedin_url": "https://www.linkedin.com/in/angelvicario/",
+      "senal": "Publicación personal sobre alianzas y crecimiento del sector inmobiliario",
+      "razon": "Publicación propia (no reclutador) como Gerente Comercial de SAAVAC Inmobiliaria, compartiendo su participación en un evento con Edifica y hablando del crecimiento y la construcción de nuevas oportunidades en el sector. Headline propio orientado a ayudar a personas y empresas a invertir en bienes raíces.",
+      "fecha_encontrado": "2026-09-07",
+      "encontrado_por": "Claude",
+      "fecha_publicacion": "Hace ~2 semanas (LinkedIn mostraba fecha relativa el 07/09/2026 — fecha exacta no disponible)"
+    },
+    {
+      "id": "cand_20260907_5",
+      "nombre": "Candy Acero",
+      "cargo": "Gerente de Ventas",
+      "empresa": "Albamar Grupo Inmobiliario",
+      "rubro": "Inmobiliario",
+      "linkedin_url": "https://www.linkedin.com/in/candy-acero/",
+      "senal": "Publicación personal por el 21° aniversario de la inmobiliaria, hablando de su equipo",
+      "razon": "Publicación propia (no reclutador) como Gerente de Ventas de Albamar Grupo Inmobiliario, celebrando el aniversario de la empresa y destacando ser parte de \"un equipo comprometido\". Headline propio: \"Liderando equipos de alto impacto | Ventas B2B y B2C\" — coincide directamente con el perfil de referencia.",
+      "fecha_encontrado": "2026-09-07",
+      "encontrado_por": "Claude",
+      "fecha_publicacion": "Hace ~3 semanas (LinkedIn mostraba fecha relativa el 07/09/2026 — fecha exacta no disponible)"
+    },
+    {
+      "id": "cand_20260907_6",
+      "nombre": "Piero F. Sánchez Leveau",
+      "cargo": "Gerente Comercial",
+      "empresa": "Portofino Condominio de Playa (proyecto inmobiliario, Asia - Perú)",
+      "rubro": "Inmobiliario",
+      "linkedin_url": "https://www.linkedin.com/in/piero-f-sánchez-leveau-776a1023/",
+      "senal": "Publicación personal celebrando el 100% de venta del proyecto y hablando del desarrollo de su equipo comercial",
+      "razon": "Publicación propia (no reclutador) anunciando el sold-out del proyecto Portofino, reflexionando sobre cómo \"los equipos de ventas ganadores se construyen con seguimiento, capacitación y liderazgo\" y cerrando con \"vamos por el siguiente\" — señal clara de que necesitará armar/fortalecer el equipo comercial para su próximo proyecto. Headline propio: 20 años de experiencia liderando equipos de alto desempeño en ventas inmobiliarias.",
+      "fecha_encontrado": "2026-09-07",
+      "encontrado_por": "Claude",
+      "fecha_publicacion": "Hace ~3 semanas (LinkedIn mostraba fecha relativa el 07/09/2026 — fecha exacta no disponible)"
     }
   ]
 }

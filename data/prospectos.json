@@ -120,6 +120,35 @@
       "actualizado": "2026-09-03",
       "hubspot_contact_id": null,
       "hubspot_synced_at": null
+    },
+    {
+      "id": "pqhpwk9b",
+      "nombre": "Gianna Velarde",
+      "cargo": "Business Development & Distribution Lead",
+      "empresa": "CFMOTO Perú",
+      "rubro": "Automotriz (motos / distribución)",
+      "linkedin_url": "https://www.linkedin.com/in/gianna-velarde-35abb033/",
+      "email": null,
+      "ultima_publicacion": {
+        "fecha": "Hace ~2 semanas (LinkedIn mostraba fecha relativa el 03/09/2026 — fecha exacta no disponible)",
+        "resumen": "Publicación sobre desarrollo comercial y capacitación a la red de distribuidores"
+      },
+      "publica_activamente": true,
+      "senales": [
+        "Publicación sobre desarrollo comercial y capacitación a la red de distribuidores"
+      ],
+      "dolor_detectado": "Lidera desarrollo de negocio y distribución para CFMOTO en Perú; en su publicación habla de capacitar al equipo comercial de un distribuidor aliado. No es una vacante ni un post de página de empresa, aunque el enfoque es de distribución más que gerencia comercial pura.",
+      "etapa": "Identificado",
+      "cuenta": "Ingrid",
+      "origen": "Claude",
+      "mensaje_borrador": "",
+      "listo_para_enviar": false,
+      "proxima_accion": "Revisar y decidir cómo abordarlo",
+      "notas": "",
+      "interacciones": [],
+      "actualizado": "2026-09-07",
+      "hubspot_contact_id": null,
+      "hubspot_synced_at": null
     }
   ]
 }

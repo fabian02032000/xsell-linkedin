@@ -1,6 +1,34 @@
 {
   "prospectos": [
     {
+      "id": "p1",
+      "nombre": "Olenka Palomino Flores",
+      "cargo": "Gerente Comercial",
+      "empresa": "ICASA Grupo Inmobiliario",
+      "linkedin_url": "https://www.linkedin.com/in/olenka-palomino-flores/",
+      "email": null,
+      "ultima_publicacion": {
+        "fecha": "2026-08-20",
+        "resumen": "Publicó una vacante de Asesor Comercial Inmobiliario — está reforzando su equipo de ventas."
+      },
+      "publica_activamente": true,
+      "senales": [
+        "Búsqueda de personal"
+      ],
+      "dolor_detectado": "Equipo comercial insuficiente para la demanda actual",
+      "etapa": "Precalentamiento",
+      "cuenta": "Fabián",
+      "origen": "Claude",
+      "mensaje_borrador": "Hola Olenka, vi que en ICASA están reforzando el equipo comercial con un Asesor Comercial Inmobiliario. Ayudamos a empresas a sumar capacidad de ventas rápido, sin aumentar planilla fija. Me gustaría conectar contigo.",
+      "listo_para_enviar": false,
+      "proxima_accion": "Comentar una publicación suya (día 2-3 del precalentamiento) antes de conectar",
+      "notas": "",
+      "actualizado": "2026-08-27",
+      "hubspot_contact_id": "244890504349",
+      "hubspot_synced_at": "2026-08-28",
+      "rubro": "Inmobiliario"
+    },
+    {
       "id": "pwmaa6b4",
       "nombre": "Angelina Castillo",
       "cargo": "Jefe Comercial",
@@ -31,35 +59,6 @@
           "quien": "Fabián"
         }
       ],
-      "actualizado": "2026-09-03",
-      "hubspot_contact_id": null,
-      "hubspot_synced_at": null
-    },
-    {
-      "id": "p9gvl90a",
-      "nombre": "Guillermo Neves",
-      "cargo": "Gerente Comercial",
-      "empresa": "Atrae Ventas Import S.A.C.",
-      "rubro": "Automotriz (financiamiento vehicular)",
-      "linkedin_url": "https://www.linkedin.com/in/guillermoneves/",
-      "email": null,
-      "ultima_publicacion": {
-        "fecha": "Hace ~1 mes (LinkedIn mostraba 'hace 1 mes' el 31/08/2026 — fecha exacta no disponible)",
-        "resumen": "Publicación personal de análisis/estrategia comercial en financiamiento vehicular (sector automotriz)"
-      },
-      "publica_activamente": true,
-      "senales": [
-        "Publicación personal de análisis/estrategia comercial en financiamiento vehicular (sector automotriz)"
-      ],
-      "dolor_detectado": "Perfil con headline 'Gerente Comercial' y experiencia explícita en Gestión de Equipos de Venta / Estrategia Comercial / Desarrollo de Canales. Publicación propia sobre financiamiento de motos y cargueros en Perú, mostrando expertise y visión del mercado automotriz local.",
-      "etapa": "Identificado",
-      "cuenta": "Fabián",
-      "origen": "Claude",
-      "mensaje_borrador": "",
-      "listo_para_enviar": false,
-      "proxima_accion": "Revisar y decidir cómo abordarlo",
-      "notas": "",
-      "interacciones": [],
       "actualizado": "2026-09-03",
       "hubspot_contact_id": null,
       "hubspot_synced_at": null

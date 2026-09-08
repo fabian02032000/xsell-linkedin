@@ -2,11 +2,11 @@
   "calendario": [
     {
       "id": "c1",
-      "fecha": "2026-09-01",
+      "fecha": "2026-09-08",
       "tema": "Generar muchos leads no es lo mismo que vender más: el cuello de botella real suele estar en el seguimiento comercial, no en la pauta.",
       "dolor": "Leads que no se convierten en ventas",
-      "formato": "Texto",
-      "estado": "Borrador",
+      "formato": "Carrusel",
+      "estado": "Listo para revisar",
       "publicado_por": null,
       "link_publicacion": null,
       "link_drive": "https://drive.google.com/drive/u/0/folders/1B_0k5zrNeCfUBFdqOTbJrP6hoAMPP7dO",

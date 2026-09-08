@@ -269,9 +269,7 @@
 
   .thumb { width:42px; height:42px; border-radius:7px; object-fit:cover; border:1px solid var(--border); flex-shrink:0; background:var(--surface-raised); }
   .thumb-row { display:flex; align-items:center; gap:8px; }
-  .thumb-upload-preview { width:52px; height:52px; border-radius:8px; object-fit:cover; border:1px solid var(--border); }
-  .thumb-field { display:flex; align-items:center; gap:8px; margin-top:4px; }
-  .thumb-field input[type=file] { font-size:11px; color:var(--ink-soft); }
+  .drive-hint { font-size:11.5px; color:var(--ink-faint); margin:2px 0 0; }
 
   .criteria-box { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:18px 20px; margin-bottom:22px; }
   .criteria-box-head { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:12px; }
@@ -729,51 +727,30 @@ async function ghSaveFile(path, jsonObj, message, attempt) {
   }
   return res.json();
 }
-// Subida de la miniatura de una publicación: mismo mecanismo que ghSaveFile (PUT a Contents API
-// con reintento en 409) pero con contenido binario/base64 tal cual, sin tocar JSON, y sin fallar
-// si el archivo todavía no existe (miniatura nueva).
-async function ghGetFileMaybe(path) {
-  try { return await ghGetFile(path); } catch (e) { return null; }
+// Miniatura de una publicación a partir de su link de Drive: no se sube ninguna imagen al
+// repositorio — se arma la URL pública de miniatura que ofrece Drive para el ID del archivo.
+// Requiere el link de un ARCHIVO (no de una carpeta) compartido como "Cualquiera con el enlace".
+function driveFileId(url) {
+  url = (url || '').trim();
+  if (!url || /\/folders\//.test(url)) return null;
+  const m = url.match(/\/d\/([a-zA-Z0-9_-]{15,})/) || url.match(/[?&]id=([a-zA-Z0-9_-]{15,})/);
+  return m ? m[1] : null;
 }
-async function ghPutRawFile(path, base64Content, message, attempt) {
-  attempt = attempt || 0;
-  if (!canEdit()) throw new Error('Agrega tu token de GitHub en Configuración (⚙) para poder guardar.');
-  const current = await ghGetFileMaybe(path);
-  const body = { message, content: base64Content, branch: BRANCH };
-  if (current) body.sha = current.sha;
-  const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`, {
-    method: 'PUT',
-    headers: { 'Authorization': `Bearer ${getToken()}`, 'Accept': 'application/vnd.github+json' },
-    body: JSON.stringify(body)
-  });
-  if (!res.ok) {
-    if (res.status === 409) {
-      if (attempt < 3) { await sleep(350 + Math.random() * 350); return ghPutRawFile(path, base64Content, message, attempt + 1); }
-      throw new Error('No se pudo subir la imagen — inténtalo de nuevo.');
-    }
-    if (res.status === 401) throw new Error('Token inválido o sin permiso de escritura sobre este repositorio.');
-    const err = await res.json().catch(() => ({}));
-    throw new Error(err.message || ('Error al subir la imagen (' + res.status + ')'));
-  }
-  return res.json();
+function driveThumbUrl(driveLink) {
+  const id = driveFileId(driveLink);
+  return id ? `https://drive.google.com/thumbnail?id=${id}&sz=w400` : null;
 }
-function readFileAsBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => { const s = String(reader.result || ''); resolve(s.slice(s.indexOf(',') + 1)); };
-    reader.onerror = () => reject(new Error('No se pudo leer el archivo de imagen.'));
-    reader.readAsDataURL(file);
-  });
+// imagen_miniatura queda como compatibilidad con miniaturas subidas antes de este cambio
+// (ej. data/thumbs/c1.png); para todo lo nuevo, la miniatura sale sola del link de Drive.
+function calThumbSrc(c) {
+  return c.imagen_miniatura || driveThumbUrl(c.link_drive);
 }
-function extFromFile(file) {
-  const m = (file.name || '').match(/\.([a-zA-Z0-9]+)$/);
-  return m ? m[1].toLowerCase() : 'jpg';
+function thumbInnerHtml(src) {
+  return src ? `<img src="${esc(src)}" alt="">` : `<span class="content-thumb-empty">🖼️</span>`;
 }
-async function uploadCalThumbnail(id, file) {
-  const base64 = await readFileAsBase64(file);
-  const path = `data/thumbs/${id}.${extFromFile(file)}`;
-  await ghPutRawFile(path, base64, `${actor()}: subió miniatura para una publicación del calendario`);
-  return path;
+function smallThumbHtml(c) {
+  const src = calThumbSrc(c);
+  return src ? `<img class="thumb" src="${esc(src)}" alt="">` : '';
 }
 async function saveProspectos(commitMsg) {
   await ghSaveFile('data/prospectos.json', { prospectos: PROSPECTOS }, commitMsg);
@@ -1034,7 +1011,7 @@ function avatarOnly(cuenta) {
 }
 function pubByHtml(c) {
   if (!c.publicado_por) return '<span class="pub-by">—</span>';
-  return `<span class="pub-by thumb-row">${c.imagen_miniatura ? `<img class="thumb" src="${esc(c.imagen_miniatura)}" alt="">` : ''}${avatarOnly(c.publicado_por)}${c.link_publicacion ? ` · <a href="${esc(c.link_publicacion)}" target="_blank" rel="noopener">ver ↗</a>` : ''}</span>`;
+  return `<span class="pub-by thumb-row">${smallThumbHtml(c)}${avatarOnly(c.publicado_por)}${c.link_publicacion ? ` · <a href="${esc(c.link_publicacion)}" target="_blank" rel="noopener">ver ↗</a>` : ''}</span>`;
 }
 function calRowView(c) {
   return `
@@ -1060,24 +1037,11 @@ function calRowEdit(c) {
           <option value="Ingrid" ${c.publicado_por==='Ingrid'?'selected':''}>Ingrid</option>
         </select>
         <input id="ce-publink-${c.id}" placeholder="Link del post" value="${esc(c.link_publicacion||'')}">
-        <div class="thumb-field">
-          ${c.imagen_miniatura ? `<img class="thumb-upload-preview" id="ce-thumb-preview-${c.id}" src="${esc(c.imagen_miniatura)}" alt="">` : `<img class="thumb-upload-preview" id="ce-thumb-preview-${c.id}" style="display:none;" alt="">`}
-          <input id="ce-thumbfile-${c.id}" type="file" accept="image/*" onchange="previewCalThumb('${c.id}')">
-        </div>
       </td>
       <td style="white-space:nowrap;">
         <button class="btn primary" style="padding:5px 9px;" onclick="saveCalEdit('${c.id}')">✓</button>
         <button class="btn ghost" style="padding:5px 9px;" onclick="toggleCalEdit('${c.id}')">✕</button>
       </td>`;
-}
-function previewCalThumb(id) {
-  const input = document.getElementById('ce-thumbfile-' + id);
-  const img = document.getElementById('ce-thumb-preview-' + id);
-  const file = input.files && input.files[0];
-  if (!file || !img) return;
-  const reader = new FileReader();
-  reader.onload = () => { img.src = reader.result; img.style.display = ''; };
-  reader.readAsDataURL(file);
 }
 function renderCalendar() {
   document.getElementById('calendar-count').textContent = CALENDARIO.length + ' publicaciones';
@@ -1101,7 +1065,7 @@ function renderPublicaciones() {
     const posts = CALENDARIO.filter(c => c.publicado_por === persona).sort((a,b) => (b.fecha||'').localeCompare(a.fecha||''));
     const cls = persona === 'Ingrid' ? 'avatar ingrid' : 'avatar';
     const list = posts.length
-      ? `<ul class="pub-list">${posts.map(c => `<li class="thumb-row">${c.imagen_miniatura ? `<img class="thumb" src="${esc(c.imagen_miniatura)}" alt="">` : ''}<span><span class="pd">${esc(c.fecha)}</span>${c.link_publicacion ? `<a href="${esc(c.link_publicacion)}" target="_blank" rel="noopener">${esc(c.tema.slice(0,70))}${c.tema.length>70?'…':''} ↗</a>` : esc(c.tema.slice(0,70))}</span></li>`).join('')}</ul>`
+      ? `<ul class="pub-list">${posts.map(c => `<li class="thumb-row">${smallThumbHtml(c)}<span><span class="pd">${esc(c.fecha)}</span>${c.link_publicacion ? `<a href="${esc(c.link_publicacion)}" target="_blank" rel="noopener">${esc(c.tema.slice(0,70))}${c.tema.length>70?'…':''} ↗</a>` : esc(c.tema.slice(0,70))}</span></li>`).join('')}</ul>`
       : `<div class="pub-empty">Todavía no ha marcado ninguna publicación como subida.</div>`;
     return `<div class="pub-card">
       <div class="pub-card-head">
@@ -1124,14 +1088,9 @@ async function saveCalEdit(id) {
   c.link_publicacion = document.getElementById('ce-publink-' + id).value.trim() || null;
   // Cruce automático: si alguien queda marcado como quien lo publicó, el estado pasa a Publicado solo.
   c.estado = c.publicado_por ? 'Publicado' : document.getElementById('ce-estado-' + id).value;
-  const fileInput = document.getElementById('ce-thumbfile-' + id);
-  const file = fileInput && fileInput.files && fileInput.files[0];
   const saveBtn = document.querySelector(`#calrow-${id} .btn.primary`);
   if (saveBtn) { saveBtn.disabled = true; saveBtn.textContent = '…'; }
   try {
-    if (file) {
-      c.imagen_miniatura = await uploadCalThumbnail(id, file);
-    }
     await saveCalendario(`${actor()}: editó una publicación del calendario ("${c.tema.slice(0,50)}")${c.publicado_por ? ' — marcada como publicada por ' + c.publicado_por : ''}`);
     toast('Guardado ✓');
     renderCalendar(); renderKpis(); renderPublicaciones(); renderLog(); renderContenido();
@@ -1144,11 +1103,8 @@ async function saveCalEdit(id) {
 
 // ---------- pestaña Contenido: la pieza ya diseñada (link de Drive + miniatura), lista para bajar y subir ----------
 function contentCardHtml(c) {
-  const thumb = c.imagen_miniatura
-    ? `<img src="${esc(c.imagen_miniatura)}" alt="">`
-    : `<span class="content-thumb-empty">🖼️</span>`;
   return `<div class="content-card" id="content-card-${c.id}">
-      <div class="content-thumb-wrap">${thumb}</div>
+      <div class="content-thumb-wrap">${thumbInnerHtml(calThumbSrc(c))}</div>
       <div class="content-card-body">
         <div class="content-card-head">
           <span class="content-card-date">${esc(c.fecha)}</span>
@@ -1165,12 +1121,12 @@ function contentCardHtml(c) {
 }
 function contentCardEditHtml(c) {
   return `<div class="content-card" id="content-card-${c.id}">
-      <div class="content-thumb-wrap">${c.imagen_miniatura ? `<img id="cc-thumb-preview-${c.id}" src="${esc(c.imagen_miniatura)}" alt="">` : `<img id="cc-thumb-preview-${c.id}" style="display:none;" alt="">`}</div>
+      <div class="content-thumb-wrap" id="cc-thumb-wrap-${c.id}">${thumbInnerHtml(calThumbSrc(c))}</div>
       <div class="content-card-body">
         <div class="content-card-date">${esc(c.fecha)} — ${esc(c.tema.slice(0,60))}${c.tema.length>60?'…':''}</div>
         <div class="editform">
-          <div><label>Link de Drive</label><input id="cc-drive-${c.id}" placeholder="https://drive.google.com/..." value="${esc(c.link_drive||'')}"></div>
-          <div><label>Miniatura</label><input id="cc-thumbfile-${c.id}" type="file" accept="image/*" onchange="previewContentThumb('${c.id}')"></div>
+          <div><label>Link de Drive</label><input id="cc-drive-${c.id}" placeholder="https://drive.google.com/file/d/..." value="${esc(c.link_drive||'')}" oninput="previewDriveThumb('${c.id}')"></div>
+          <p class="drive-hint">La miniatura sale sola de ese link — usa el link de un <b>archivo</b> (no de una carpeta) compartido como "Cualquiera con el enlace".</p>
           <div class="card-error" id="cc-err-${c.id}"></div>
           <div class="actions">
             <button class="btn ghost" onclick="toggleContentEdit('${c.id}')">Cancelar</button>
@@ -1180,14 +1136,11 @@ function contentCardEditHtml(c) {
       </div>
     </div>`;
 }
-function previewContentThumb(id) {
-  const input = document.getElementById('cc-thumbfile-' + id);
-  const img = document.getElementById('cc-thumb-preview-' + id);
-  const file = input.files && input.files[0];
-  if (!file || !img) return;
-  const reader = new FileReader();
-  reader.onload = () => { img.src = reader.result; img.style.display = ''; };
-  reader.readAsDataURL(file);
+function previewDriveThumb(id) {
+  const input = document.getElementById('cc-drive-' + id);
+  const wrap = document.getElementById('cc-thumb-wrap-' + id);
+  if (!input || !wrap) return;
+  wrap.innerHTML = thumbInnerHtml(driveThumbUrl(input.value));
 }
 function renderContenido() {
   const grid = document.getElementById('content-grid');
@@ -1209,15 +1162,12 @@ async function saveContentEdit(id) {
   if (!c) return;
   const before = { ...c };
   const linkDrive = document.getElementById('cc-drive-' + id).value.trim();
-  const fileInput = document.getElementById('cc-thumbfile-' + id);
-  const file = fileInput && fileInput.files && fileInput.files[0];
   const btn = document.getElementById('cc-save-' + id);
   const errEl = document.getElementById('cc-err-' + id);
   btn.disabled = true; btn.textContent = 'Guardando…';
   try {
     c.link_drive = linkDrive || null;
-    if (file) c.imagen_miniatura = await uploadCalThumbnail(id, file);
-    await saveCalendario(`${actor()}: actualizó el archivo/miniatura de una pieza de contenido ("${c.tema.slice(0,50)}")`);
+    await saveCalendario(`${actor()}: actualizó el link de Drive de una pieza de contenido ("${c.tema.slice(0,50)}")`);
     toast('Guardado ✓');
     renderContenido(); renderCalendar(); renderPublicaciones(); renderLog();
   } catch (e) {

@@ -29,6 +29,11 @@
           "tipo": "Like",
           "fecha": "2026-09-11",
           "quien": "Ingrid"
+        },
+        {
+          "tipo": "Comentario",
+          "fecha": "2026-09-01",
+          "quien": "Ingrid"
         }
       ],
       "actualizado": "2026-09-07",
@@ -59,13 +64,7 @@
       "listo_para_enviar": false,
       "proxima_accion": "Revisar y decidir cómo abordarlo",
       "notas": "",
-      "interacciones": [
-        {
-          "tipo": "Like",
-          "fecha": "2026-09-11",
-          "quien": "Ingrid"
-        }
-      ],
+      "interacciones": [],
       "actualizado": "2026-09-07",
       "hubspot_contact_id": null,
       "hubspot_synced_at": null

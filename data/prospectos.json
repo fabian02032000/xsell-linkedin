@@ -114,6 +114,11 @@
           "tipo": "Like",
           "fecha": "2026-09-11",
           "quien": "Ingrid"
+        },
+        {
+          "tipo": "Comentario",
+          "fecha": "2026-09-08",
+          "quien": "Ingrid"
         }
       ],
       "actualizado": "2026-09-07",

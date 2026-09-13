@@ -74,6 +74,11 @@
           "tipo": "Comentario",
           "fecha": "2026-09-11",
           "quien": "Ingrid"
+        },
+        {
+          "tipo": "Comentario",
+          "fecha": "2026-09-01",
+          "quien": "Ingrid"
         }
       ],
       "actualizado": "2026-09-07",

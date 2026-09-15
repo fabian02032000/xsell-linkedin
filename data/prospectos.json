@@ -259,6 +259,30 @@
       "actualizado": "2026-09-15",
       "hubspot_contact_id": null,
       "hubspot_synced_at": null
+    },
+    {
+      "id": "pqm4zpj3",
+      "nombre": "Renzo Miranda Quiñones",
+      "cargo": "MBA | Gerente de Marketing Corporativo | AI | Digital Transformation | Business Intelligence | Commercial Strategy | Data Analytics | Growth Marketing | CRM | Power BI",
+      "empresa": "Autoniza Perú",
+      "rubro": "Automotriz",
+      "linkedin_url": "https://www.linkedin.com/in/renzomiranda/?skipRedirect=true",
+      "email": null,
+      "ultima_publicacion": null,
+      "publica_activamente": false,
+      "senales": [],
+      "dolor_detectado": "",
+      "etapa": "Identificado",
+      "cuenta": "Fabián",
+      "origen": "Ingrid",
+      "mensaje_borrador": "",
+      "listo_para_enviar": false,
+      "proxima_accion": "",
+      "notas": "",
+      "interacciones": [],
+      "actualizado": "2026-09-15",
+      "hubspot_contact_id": null,
+      "hubspot_synced_at": null
     }
   ]
 }

@@ -279,7 +279,13 @@
       "listo_para_enviar": false,
       "proxima_accion": "",
       "notas": "",
-      "interacciones": [],
+      "interacciones": [
+        {
+          "tipo": "Comentario",
+          "fecha": "2026-09-14",
+          "quien": "Ingrid"
+        }
+      ],
       "actualizado": "2026-09-15",
       "hubspot_contact_id": null,
       "hubspot_synced_at": null

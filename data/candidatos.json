@@ -1,17 +1,3 @@
 {
-  "candidatos": [
-    {
-      "id": "cand_20260907_5",
-      "nombre": "Candy Acero",
-      "cargo": "Gerente de Ventas",
-      "empresa": "Albamar Grupo Inmobiliario",
-      "rubro": "Inmobiliario",
-      "linkedin_url": "https://www.linkedin.com/in/candy-acero/",
-      "senal": "Publicación personal por el 21° aniversario de la inmobiliaria, hablando de su equipo",
-      "razon": "Publicación propia (no reclutador) como Gerente de Ventas de Albamar Grupo Inmobiliario, celebrando el aniversario de la empresa y destacando ser parte de \"un equipo comprometido\". Headline propio: \"Liderando equipos de alto impacto | Ventas B2B y B2C\" — coincide directamente con el perfil de referencia.",
-      "fecha_encontrado": "2026-09-07",
-      "encontrado_por": "Claude",
-      "fecha_publicacion": "Hace ~3 semanas (LinkedIn mostraba fecha relativa el 07/09/2026 — fecha exacta no disponible)"
-    }
-  ]
+  "candidatos": []
 }

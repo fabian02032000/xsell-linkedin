@@ -224,6 +224,35 @@
       "actualizado": "2026-09-07",
       "hubspot_contact_id": null,
       "hubspot_synced_at": null
+    },
+    {
+      "id": "pfp1hjee",
+      "nombre": "Candy Acero",
+      "cargo": "Gerente de Ventas",
+      "empresa": "Albamar Grupo Inmobiliario",
+      "rubro": "Inmobiliario",
+      "linkedin_url": "https://www.linkedin.com/in/candy-acero/",
+      "email": null,
+      "ultima_publicacion": {
+        "fecha": "Hace ~3 semanas (LinkedIn mostraba fecha relativa el 07/09/2026 — fecha exacta no disponible)",
+        "resumen": "Publicación personal por el 21° aniversario de la inmobiliaria, hablando de su equipo"
+      },
+      "publica_activamente": true,
+      "senales": [
+        "Publicación personal por el 21° aniversario de la inmobiliaria, hablando de su equipo"
+      ],
+      "dolor_detectado": "Publicación propia (no reclutador) como Gerente de Ventas de Albamar Grupo Inmobiliario, celebrando el aniversario de la empresa y destacando ser parte de \"un equipo comprometido\". Headline propio: \"Liderando equipos de alto impacto | Ventas B2B y B2C\" — coincide directamente con el perfil de referencia.",
+      "etapa": "Identificado",
+      "cuenta": "Ingrid",
+      "origen": "Claude",
+      "mensaje_borrador": "",
+      "listo_para_enviar": false,
+      "proxima_accion": "Revisar y decidir cómo abordarlo",
+      "notas": "",
+      "interacciones": [],
+      "actualizado": "2026-09-15",
+      "hubspot_contact_id": null,
+      "hubspot_synced_at": null
     }
   ]
 }

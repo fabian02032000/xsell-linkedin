@@ -255,6 +255,10 @@
   .interaction-list .it-icon { font-size:13px; flex-shrink:0; }
   .interaction-list .it-who { color:var(--ink-faint); font-size:10.5px; }
   .interaction-list .it-date { font-family:"IBM Plex Mono",monospace; font-size:10.5px; color:var(--ink-faint); margin-left:auto; }
+  .interaction-list .it-actions { display:flex; gap:1px; flex-shrink:0; }
+  .interaction-list .it-edit, .interaction-list .it-del { background:none; border:none; color:var(--ink-faint); cursor:pointer; font-size:11px; padding:2px 4px; line-height:1; }
+  .interaction-list .it-edit:hover { color:var(--purple); }
+  .interaction-list .it-del:hover { color:var(--red); }
   .interaction-empty { font-size:12px; color:var(--ink-faint); font-style:italic; margin-top:6px; }
 
   .candidate-wrap { max-width: none; }
@@ -458,7 +462,7 @@
 
 <div class="modal-overlay" id="add-interaction-overlay">
   <div class="modal-box">
-    <h3>Registrar interacción</h3>
+    <h3 id="interaction-modal-title">Registrar interacción</h3>
     <p class="modal-sub" id="ni-who"></p>
     <div class="editform">
       <div><label>Tipo</label><select id="ni-tipo"></select></div>
@@ -528,6 +532,7 @@ let CALENDARIO = [];
 let CANDIDATOS = [];
 let CRITERIOS = { sectores: [], paises: [], senales_prioritarias: [], senales_a_evitar: [], notas: "" };
 let currentInteractionProspectId = null;
+let currentInteractionIdx = null;
 
 function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function stageClass(estado) { return 'stage-' + (STAGE_GROUP[estado] || 'prospectando'); }
@@ -573,9 +578,10 @@ function reminderPillHtml(p) {
   return `<span class="reminder-pill ${r.level}" title="${r.level==='ok' ? 'Todavía dentro del plazo esperado' : 'Según el paso de seguimiento definido para esta etapa'}">${esc(r.text)}</span>`;
 }
 function interactionsHtml(p) {
-  const list = (p.interacciones || []).slice().sort((a,b) => (b.fecha||'').localeCompare(a.fecha||''));
+  const withIdx = (p.interacciones || []).map((it, i) => ({ ...it, _idx: i }));
+  const list = withIdx.slice().sort((a,b) => (b.fecha||'').localeCompare(a.fecha||''));
   const items = list.length
-    ? `<ul class="interaction-list">${list.map(it => `<li><span class="it-icon">${INTERACTION_ICONS[it.tipo] || '•'}</span>${esc(it.tipo)}${it.quien ? `<span class="it-who">· ${esc(it.quien)}</span>` : ''}<span class="it-date">${esc(fmtDateShort(it.fecha))}</span></li>`).join('')}</ul>`
+    ? `<ul class="interaction-list">${list.map(it => `<li><span class="it-icon">${INTERACTION_ICONS[it.tipo] || '•'}</span>${esc(it.tipo)}${it.quien ? `<span class="it-who">· ${esc(it.quien)}</span>` : ''}<span class="it-date">${esc(fmtDateShort(it.fecha))}</span>${canEdit() ? `<span class="it-actions"><button class="it-edit" title="Editar" onclick="editInteraction('${p.id}', ${it._idx})">✎</button><button class="it-del" title="Eliminar" onclick="deleteInteraction('${p.id}', ${it._idx})">🗑</button></span>` : ''}</li>`).join('')}</ul>`
     : `<div class="interaction-empty">Sin interacciones registradas todavía.</div>`;
   return `<div class="interactions" id="interactions-${p.id}">
       <div class="interactions-head">
@@ -589,6 +595,8 @@ function openInteractionModal(id) {
   const p = PROSPECTOS.find(x => x.id === id);
   if (!p) return;
   currentInteractionProspectId = id;
+  currentInteractionIdx = null;
+  document.getElementById('interaction-modal-title').textContent = 'Registrar interacción';
   document.getElementById('ni-who').textContent = `Para ${p.nombre}. El paso de etapa se registra solo — esto es para likes, comentarios o mensajes sueltos.`;
   const sel = document.getElementById('ni-tipo');
   sel.innerHTML = INTERACTION_TYPES.map(t => `<option>${esc(t)}</option>`).join('');
@@ -596,25 +604,64 @@ function openInteractionModal(id) {
   document.getElementById('ni-err').textContent = '';
   document.getElementById('add-interaction-overlay').classList.add('show');
 }
+function editInteraction(id, idx) {
+  const p = PROSPECTOS.find(x => x.id === id);
+  if (!p || !p.interacciones || !p.interacciones[idx]) return;
+  const it = p.interacciones[idx];
+  currentInteractionProspectId = id;
+  currentInteractionIdx = idx;
+  document.getElementById('interaction-modal-title').textContent = 'Editar interacción';
+  document.getElementById('ni-who').textContent = `Para ${p.nombre}.`;
+  const sel = document.getElementById('ni-tipo');
+  sel.innerHTML = INTERACTION_TYPES.map(t => `<option${t === it.tipo ? ' selected' : ''}>${esc(t)}</option>`).join('');
+  document.getElementById('ni-fecha').value = it.fecha || todayStr();
+  document.getElementById('ni-err').textContent = '';
+  document.getElementById('add-interaction-overlay').classList.add('show');
+}
+async function deleteInteraction(id, idx) {
+  const p = PROSPECTOS.find(x => x.id === id);
+  if (!p || !p.interacciones || !p.interacciones[idx]) return;
+  const it = p.interacciones[idx];
+  if (!window.confirm(`¿Eliminar esta interacción ("${it.tipo}" del ${fmtDateShort(it.fecha)})?`)) return;
+  const before = p.interacciones.slice();
+  p.interacciones = before.filter((_, i) => i !== idx);
+  try {
+    await saveProspectos(`${actor()}: eliminó una interacción ("${it.tipo}") de ${p.nombre}`);
+    toast('Eliminado');
+    const card = document.getElementById('card-' + id);
+    if (card) card.innerHTML = prospectViewHtml(p);
+    renderLog();
+  } catch (e) {
+    p.interacciones = before;
+    toast(e.message, true);
+  }
+}
 function closeInteractionModal() {
   document.getElementById('add-interaction-overlay').classList.remove('show');
   currentInteractionProspectId = null;
+  currentInteractionIdx = null;
 }
 async function submitInteraction() {
   const id = currentInteractionProspectId;
+  const idx = currentInteractionIdx;
   const p = PROSPECTOS.find(x => x.id === id);
   const errEl = document.getElementById('ni-err');
   if (!p) return;
   const fecha = document.getElementById('ni-fecha').value;
   if (!fecha) { errEl.textContent = 'Falta la fecha.'; return; }
   const tipo = document.getElementById('ni-tipo').value;
-  const entry = { tipo, fecha, quien: actor() };
   const before = (p.interacciones || []).slice();
-  p.interacciones = [...before, entry];
+  const isEdit = idx !== null && idx !== undefined && before[idx];
+  if (isEdit) {
+    p.interacciones = before.map((it, i) => i === idx ? { ...it, tipo, fecha } : it);
+  } else {
+    const entry = { tipo, fecha, quien: actor() };
+    p.interacciones = [...before, entry];
+  }
   const saveBtn = document.getElementById('ni-save');
   saveBtn.disabled = true; saveBtn.textContent = 'Guardando…';
   try {
-    await saveProspectos(`${actor()}: registró "${tipo}" con ${p.nombre}`);
+    await saveProspectos(`${actor()}: ${isEdit ? 'editó' : 'registró'} "${tipo}" con ${p.nombre}`);
     closeInteractionModal();
     toast('Guardado ✓');
     const card = document.getElementById('card-' + id);

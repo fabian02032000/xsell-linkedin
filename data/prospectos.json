@@ -39,6 +39,11 @@
           "tipo": "Otro",
           "fecha": "2026-09-14",
           "quien": "Ingrid"
+        },
+        {
+          "tipo": "Like",
+          "fecha": "2026-09-22",
+          "quien": "Ingrid"
         }
       ],
       "actualizado": "2026-09-07",

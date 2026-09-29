@@ -1,17 +1,3 @@
 {
-  "candidatos": [
-    {
-      "id": "c9k4wrpz",
-      "nombre": "Silvia Seminario",
-      "cargo": "Gerente Comercial",
-      "empresa": "Vicunha Perú",
-      "rubro": "Textil (fabricación de denim / moda)",
-      "linkedin_url": "https://www.linkedin.com/in/silvia-seminario/",
-      "fecha_publicacion": "Hace ~1 mes (LinkedIn mostraba fecha relativa el 29/09/2026 — fecha exacta no disponible)",
-      "senal": "Publicación propia sobre cómo lidera y desarrolla a una asesora comercial de su equipo",
-      "razon": "Gerente Comercial de Vicunha Perú, uno de los mayores fabricantes de denim de Latinoamérica. Publica seguido sobre liderazgo de su propio equipo comercial (coaching a una asesora comercial, agradecimientos explícitos a \"mi equipo comercial\" por el Día del Vendedor). Su headline menciona \"Liderazgo de Equipos\" — encaje directo con el perfil de referencia: líder comercial hablando de su propio equipo, no de reclutadores.",
-      "fecha_encontrado": "2026-09-29",
-      "encontrado_por": "Claude"
-    }
-  ]
+  "candidatos": []
 }

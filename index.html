@@ -819,10 +819,12 @@ function renderKpis() {
   PROSPECTOS.forEach(p => { const g = STAGE_GROUP[p.etapa]; if (g && groups[g] !== undefined) groups[g]++; });
   const listos = PROSPECTOS.filter(p => p.listo_para_enviar).length;
   const publicados = CALENDARIO.filter(c => c.estado === 'Publicado').length;
+  const mensajesEnviados = PROSPECTOS.reduce((sum, p) => sum + (p.interacciones || []).filter(i => i.tipo === 'Mensaje enviado').length, 0);
   const kpis = [
     [PROSPECTOS.length, 'Prospectos totales'],
     [groups.prospectando, 'En precalentamiento'],
     [listos, 'Mensajes listos para enviar'],
+    [mensajesEnviados, 'Mensajes enviados'],
     [groups.conversando, 'Conversando'],
     [groups.reunion, 'Reuniones'],
     [publicados + '/' + CALENDARIO.length, 'Contenido publicado'],

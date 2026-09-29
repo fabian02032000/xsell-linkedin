@@ -1,3 +1,43 @@
 {
-  "candidatos": []
+  "candidatos": [
+    {
+      "id": "c7x2mqn1",
+      "nombre": "Juan Carlos de la Fuente Raffo",
+      "cargo": "Gerente Comercial (Negocio Automotriz) / CCO",
+      "empresa": "Pandero S.A. EAFC",
+      "rubro": "Automotriz (financiamiento vehicular / fondos colectivos)",
+      "linkedin_url": "https://www.linkedin.com/in/juancarlosdelafuente/",
+      "fecha_publicacion": "Hace ~1 mes (LinkedIn mostraba fecha relativa el 29/09/2026 — fecha exacta no disponible)",
+      "senal": "Publicación propia anunciando la apertura de nuevos puntos de venta (Jaén y Piura) para el negocio Automotriz de Pandero",
+      "razon": "Lidera el negocio Automotriz de Pandero (financiamiento vehicular) y viene abriendo puntos de venta nuevos de forma acelerada en varias ciudades (Jaén, Piura, Atocongo, Arequipa) — en sus propias publicaciones celebra el crecimiento y reconoce a su equipo comercial en cada apertura. Trayectoria en banca y sector automotriz (Scotiabank, BBVA, Grupo EFE), hoy Gerente Comercial de Pandero Auto. Cada apertura implica armar/reforzar equipo comercial rápido en una plaza nueva — encaje directo con lo que ofrece Xsell.",
+      "fecha_encontrado": "2026-09-29",
+      "encontrado_por": "Claude"
+    },
+    {
+      "id": "c9k4wrpz",
+      "nombre": "Silvia Seminario",
+      "cargo": "Gerente Comercial",
+      "empresa": "Vicunha Perú",
+      "rubro": "Textil (fabricación de denim / moda)",
+      "linkedin_url": "https://www.linkedin.com/in/silvia-seminario/",
+      "fecha_publicacion": "Hace ~1 mes (LinkedIn mostraba fecha relativa el 29/09/2026 — fecha exacta no disponible)",
+      "senal": "Publicación propia sobre cómo lidera y desarrolla a una asesora comercial de su equipo",
+      "razon": "Gerente Comercial de Vicunha Perú, uno de los mayores fabricantes de denim de Latinoamérica. Publica seguido sobre liderazgo de su propio equipo comercial (coaching a una asesora comercial, agradecimientos explícitos a \"mi equipo comercial\" por el Día del Vendedor). Su headline menciona \"Liderazgo de Equipos\" — encaje directo con el perfil de referencia: líder comercial hablando de su propio equipo, no de reclutadores.",
+      "fecha_encontrado": "2026-09-29",
+      "encontrado_por": "Claude"
+    },
+    {
+      "id": "c3jf82lq",
+      "nombre": "Angelina Castillo",
+      "cargo": "Jefe Comercial",
+      "empresa": "MITTA Perú",
+      "rubro": "Automotriz (renting / flotas corporativas B2B)",
+      "linkedin_url": "https://www.linkedin.com/in/angelina-castillo-aa6521b3/",
+      "fecha_publicacion": "Hace ~4 meses (LinkedIn mostraba fecha relativa el 29/09/2026 — fecha exacta no disponible)",
+      "senal": "Anuncio personal de nuevo cargo como Jefe Comercial en MITTA Perú (renting y soluciones de movilidad para el sector automotriz)",
+      "razon": "Publicación propia (no reclutador) anunciando que asume el reto de Jefe Comercial en MITTA Perú, empresa líder en renting y movilidad para flotas corporativas del sector automotriz, mencionando que lo hace \"junto a un gran equipo\". Coincide con el perfil de referencia: líder comercial B2B anunciando su propio nuevo rol de liderazgo — mismo patrón que otros prospectos ya agregados (ej. Manuel Juarez Barreno en Ford).",
+      "fecha_encontrado": "2026-09-29",
+      "encontrado_por": "Claude"
+    }
+  ]
 }

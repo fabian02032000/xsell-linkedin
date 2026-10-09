@@ -541,6 +541,7 @@ function b64EncodeUnicode(str) { return btoa(encodeURIComponent(str).replace(/%(
 function b64DecodeUnicode(str) { return decodeURIComponent(atob(str).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('')); }
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 function todayStr() { return new Date().toISOString().slice(0,10); }
+function daysAgoStr(n) { const d = new Date(); d.setDate(d.getDate() - n); return d.toISOString().slice(0,10); }
 function daysBetween(fromStr, toStr) {
   if (!fromStr) return null;
   const a = new Date(fromStr + 'T00:00:00'), b = new Date((toStr || todayStr()) + 'T00:00:00');
@@ -601,6 +602,8 @@ function openInteractionModal(id) {
   const sel = document.getElementById('ni-tipo');
   sel.innerHTML = INTERACTION_TYPES.map(t => `<option>${esc(t)}</option>`).join('');
   document.getElementById('ni-fecha').value = todayStr();
+  document.getElementById('ni-fecha').min = daysAgoStr(7);
+  document.getElementById('ni-fecha').max = todayStr();
   document.getElementById('ni-err').textContent = '';
   document.getElementById('add-interaction-overlay').classList.add('show');
 }
@@ -615,6 +618,8 @@ function editInteraction(id, idx) {
   const sel = document.getElementById('ni-tipo');
   sel.innerHTML = INTERACTION_TYPES.map(t => `<option${t === it.tipo ? ' selected' : ''}>${esc(t)}</option>`).join('');
   document.getElementById('ni-fecha').value = it.fecha || todayStr();
+  document.getElementById('ni-fecha').min = daysAgoStr(7);
+  document.getElementById('ni-fecha').max = todayStr();
   document.getElementById('ni-err').textContent = '';
   document.getElementById('add-interaction-overlay').classList.add('show');
 }
@@ -649,6 +654,7 @@ async function submitInteraction() {
   if (!p) return;
   const fecha = document.getElementById('ni-fecha').value;
   if (!fecha) { errEl.textContent = 'Falta la fecha.'; return; }
+  if (fecha < daysAgoStr(7) || fecha > todayStr()) { errEl.textContent = 'La fecha debe estar dentro de los últimos 7 días.'; return; }
   const tipo = document.getElementById('ni-tipo').value;
   const before = (p.interacciones || []).slice();
   const isEdit = idx !== null && idx !== undefined && before[idx];

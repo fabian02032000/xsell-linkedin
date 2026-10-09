@@ -1,3 +1,56 @@
 {
-  "candidatos": []
+  "candidatos": [
+    {
+      "id": "c4f9mxpa",
+      "nombre": "Fernando Augusto Alvarez Olivares",
+      "cargo": "Líder comercial regional (Región Sur)",
+      "empresa": "Inchcape Américas / Grupo Roberts - Resersur",
+      "rubro": "Automotriz (multimarca: JAC, GWM, Changan, Renault, Mazda, Suzuki)",
+      "linkedin_url": "https://pe.linkedin.com/in/fernandoalvarez24",
+      "fecha_publicacion": "Publicación reciente sobre resultados 2025 de su equipo (fecha exacta no visible en el perfil)",
+      "senal": "Publicación propia felicitando a su equipo comercial regional por premios de mejor gestión de ventas y mejor sucursal en ventas y postventa durante 2025",
+      "razon": "Lidera la región sur para varias marcas automotrices (JAC, GWM, Changan, Renault, Mazda, Suzuki) representadas por Inchcape Américas a través de Grupo Roberts - Resersur. En su propio post reconoce y agradece a su equipo comercial por los premios obtenidos — coincide con el perfil de referencia: líder hablando de su propio equipo, no un reclutador.",
+      "fecha_encontrado": "2026-10-09",
+      "encontrado_por": "Claude"
+    },
+    {
+      "id": "c2b7wknt",
+      "nombre": "Daniel Chávez Briceño",
+      "cargo": "Gerente Comercial",
+      "empresa": "Ford Perú",
+      "rubro": "Automotriz",
+      "linkedin_url": "https://www.linkedin.com/in/danchab/",
+      "fecha_publicacion": "Nombramiento anunciado el 10/09/2026",
+      "senal": "Nombramiento como nuevo Gerente Comercial de Ford Perú, encargado de liderar el equipo comercial para fortalecer la presencia de marca y la fidelización de clientes",
+      "razon": "Economista con maestría en Marketing y Gestión Comercial, más de 15 años en el sector automotriz liderando unidades de negocio comercial, postventa y canales digitales en grandes importadoras. Ford Perú anunció su nombramiento el 10/09/2026 — la nota de prensa indica explícitamente que liderará el equipo comercial y fortalecerá la relación con la red de concesionarios. Nota: no pude abrir su perfil de LinkedIn directamente (LinkedIn bloquea la lectura automatizada), así que la URL se tomó de un resultado de búsqueda que coincide con su nombre y el alcance regional de Ford (Chile, Colombia, Perú y Venezuela) — vale la pena que lo confirmes tú mismo antes de contactarlo.",
+      "fecha_encontrado": "2026-10-09",
+      "encontrado_por": "Claude"
+    },
+    {
+      "id": "c8r3tzln",
+      "nombre": "Mishell Danae De La Cruz Paredes",
+      "cargo": "Rol comercial (desarrollo y manejo de equipos comerciales) — título exacto no visible en el perfil",
+      "empresa": "Rodesa Automotriz S.A.C.",
+      "rubro": "Automotriz (Trujillo, La Libertad)",
+      "linkedin_url": "https://pe.linkedin.com/in/mishelldanaedelacruzparedes",
+      "fecha_publicacion": "No disponible — dato tomado de la sección 'Acerca de' de su perfil, sin fecha de publicación específica",
+      "senal": "Su perfil describe su rol como 'Desarrollo y manejo de equipos comerciales orientado a objetivos específicos' en Rodesa Automotriz",
+      "razon": "Trabaja en Rodesa Automotriz S.A.C. (Trujillo) y su propio perfil se describe como responsable de desarrollar y manejar equipos comerciales orientados a objetivos — coincide con el perfil de líder comercial que gestiona su propio equipo. Confianza media: no pude ver su cargo exacto ni una publicación puntual (LinkedIn limita la lectura automatizada del perfil completo) — conviene revisar su perfil completo antes de escribirle.",
+      "fecha_encontrado": "2026-10-09",
+      "encontrado_por": "Claude"
+    },
+    {
+      "id": "c6m1vdqs",
+      "nombre": "Luis Alfredo Rivero Bahamonde",
+      "cargo": "Jefe de Ventas (supervisa 5 locales)",
+      "empresa": "No identificada en el perfil — sector automotriz confirmado en su sección 'Acerca de'",
+      "rubro": "Automotriz",
+      "linkedin_url": "https://pe.linkedin.com/in/luisriverobahamonde",
+      "fecha_publicacion": "No disponible — dato tomado de la sección 'Acerca de' de su perfil, sin fecha de publicación específica",
+      "senal": "Su perfil indica que se desempeña como Jefe de Ventas supervisando 5 locales dentro de la industria automotriz",
+      "razon": "Su propio perfil dice 'Actualmente me desempeño en la industria automotriz' como Jefe de Ventas a cargo de 5 locales, lo que implica liderazgo de un equipo comercial distribuido. Confianza media: no logré identificar el nombre de la empresa ni una publicación reciente puntual (LinkedIn limita la lectura automatizada) — conviene confirmar la empresa antes de escribirle.",
+      "fecha_encontrado": "2026-10-09",
+      "encontrado_por": "Claude"
+    }
+  ]
 }

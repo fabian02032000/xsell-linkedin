@@ -488,6 +488,35 @@
       "actualizado": "2026-09-29",
       "hubspot_contact_id": null,
       "hubspot_synced_at": null
+    },
+    {
+      "id": "pxmbdksn",
+      "nombre": "Fernando Augusto Alvarez Olivares",
+      "cargo": "Líder comercial regional (Región Sur)",
+      "empresa": "Inchcape Américas / Grupo Roberts - Resersur",
+      "rubro": "Automotriz (multimarca: JAC, GWM, Changan, Renault, Mazda, Suzuki)",
+      "linkedin_url": "https://pe.linkedin.com/in/fernandoalvarez24",
+      "email": null,
+      "ultima_publicacion": {
+        "fecha": "Publicación reciente sobre resultados 2025 de su equipo (fecha exacta no visible en el perfil)",
+        "resumen": "Publicación propia felicitando a su equipo comercial regional por premios de mejor gestión de ventas y mejor sucursal en ventas y postventa durante 2025"
+      },
+      "publica_activamente": true,
+      "senales": [
+        "Publicación propia felicitando a su equipo comercial regional por premios de mejor gestión de ventas y mejor sucursal en ventas y postventa durante 2025"
+      ],
+      "dolor_detectado": "Lidera la región sur para varias marcas automotrices (JAC, GWM, Changan, Renault, Mazda, Suzuki) representadas por Inchcape Américas a través de Grupo Roberts - Resersur. En su propio post reconoce y agradece a su equipo comercial por los premios obtenidos — coincide con el perfil de referencia: líder hablando de su propio equipo, no un reclutador.",
+      "etapa": "Identificado",
+      "cuenta": "Ingrid",
+      "origen": "Claude",
+      "mensaje_borrador": "",
+      "listo_para_enviar": false,
+      "proxima_accion": "Revisar y decidir cómo abordarlo",
+      "notas": "",
+      "interacciones": [],
+      "actualizado": "2026-10-12",
+      "hubspot_contact_id": null,
+      "hubspot_synced_at": null
     }
   ]
 }

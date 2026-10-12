@@ -1,17 +1,3 @@
 {
-  "candidatos": [
-    {
-      "id": "c8r3tzln",
-      "nombre": "Mishell Danae De La Cruz Paredes",
-      "cargo": "Rol comercial (desarrollo y manejo de equipos comerciales) — título exacto no visible en el perfil",
-      "empresa": "Rodesa Automotriz S.A.C.",
-      "rubro": "Automotriz (Trujillo, La Libertad)",
-      "linkedin_url": "https://pe.linkedin.com/in/mishelldanaedelacruzparedes",
-      "fecha_publicacion": "No disponible — dato tomado de la sección 'Acerca de' de su perfil, sin fecha de publicación específica",
-      "senal": "Su perfil describe su rol como 'Desarrollo y manejo de equipos comerciales orientado a objetivos específicos' en Rodesa Automotriz",
-      "razon": "Trabaja en Rodesa Automotriz S.A.C. (Trujillo) y su propio perfil se describe como responsable de desarrollar y manejar equipos comerciales orientados a objetivos — coincide con el perfil de líder comercial que gestiona su propio equipo. Confianza media: no pude ver su cargo exacto ni una publicación puntual (LinkedIn limita la lectura automatizada del perfil completo) — conviene revisar su perfil completo antes de escribirle.",
-      "fecha_encontrado": "2026-10-09",
-      "encontrado_por": "Claude"
-    }
-  ]
+  "candidatos": []
 }

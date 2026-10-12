@@ -294,11 +294,6 @@
           "tipo": "No ha publicado contenido",
           "fecha": "2026-10-01",
           "quien": "Ingrid"
-        },
-        {
-          "tipo": "No ha publicado contenido",
-          "fecha": "2026-10-12",
-          "quien": "Ingrid"
         }
       ],
       "actualizado": "2026-09-07",
@@ -348,6 +343,11 @@
         {
           "tipo": "No ha publicado contenido",
           "fecha": "2026-10-01",
+          "quien": "Ingrid"
+        },
+        {
+          "tipo": "No ha publicado contenido",
+          "fecha": "2026-10-12",
           "quien": "Ingrid"
         }
       ],
@@ -518,13 +518,7 @@
       "listo_para_enviar": false,
       "proxima_accion": "Revisar y decidir cómo abordarlo",
       "notas": "",
-      "interacciones": [
-        {
-          "tipo": "Like",
-          "fecha": "2026-10-12",
-          "quien": "Ingrid"
-        }
-      ],
+      "interacciones": [],
       "actualizado": "2026-10-12",
       "hubspot_contact_id": null,
       "hubspot_synced_at": null
@@ -560,6 +554,35 @@
           "quien": "Ingrid"
         }
       ],
+      "actualizado": "2026-10-12",
+      "hubspot_contact_id": null,
+      "hubspot_synced_at": null
+    },
+    {
+      "id": "pw4by8lj",
+      "nombre": "Luis Alfredo Rivero Bahamonde",
+      "cargo": "Jefe de Ventas (supervisa 5 locales)",
+      "empresa": "No identificada en el perfil — sector automotriz confirmado en su sección 'Acerca de'",
+      "rubro": "Automotriz",
+      "linkedin_url": "https://pe.linkedin.com/in/luisriverobahamonde",
+      "email": null,
+      "ultima_publicacion": {
+        "fecha": "No disponible — dato tomado de la sección 'Acerca de' de su perfil, sin fecha de publicación específica",
+        "resumen": "Su perfil indica que se desempeña como Jefe de Ventas supervisando 5 locales dentro de la industria automotriz"
+      },
+      "publica_activamente": true,
+      "senales": [
+        "Su perfil indica que se desempeña como Jefe de Ventas supervisando 5 locales dentro de la industria automotriz"
+      ],
+      "dolor_detectado": "Su propio perfil dice 'Actualmente me desempeño en la industria automotriz' como Jefe de Ventas a cargo de 5 locales, lo que implica liderazgo de un equipo comercial distribuido. Confianza media: no logré identificar el nombre de la empresa ni una publicación reciente puntual (LinkedIn limita la lectura automatizada) — conviene confirmar la empresa antes de escribirle.",
+      "etapa": "Identificado",
+      "cuenta": "Ingrid",
+      "origen": "Claude",
+      "mensaje_borrador": "",
+      "listo_para_enviar": false,
+      "proxima_accion": "Revisar y decidir cómo abordarlo",
+      "notas": "",
+      "interacciones": [],
       "actualizado": "2026-10-12",
       "hubspot_contact_id": null,
       "hubspot_synced_at": null

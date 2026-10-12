@@ -509,6 +509,11 @@
           "tipo": "Like",
           "fecha": "2026-09-29",
           "quien": "Ingrid"
+        },
+        {
+          "tipo": "No ha publicado contenido",
+          "fecha": "2026-10-12",
+          "quien": "Ingrid"
         }
       ],
       "actualizado": "2026-09-29",

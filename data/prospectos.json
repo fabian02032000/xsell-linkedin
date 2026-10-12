@@ -517,6 +517,35 @@
       "actualizado": "2026-10-12",
       "hubspot_contact_id": null,
       "hubspot_synced_at": null
+    },
+    {
+      "id": "piq3485k",
+      "nombre": "Daniel Chávez Briceño",
+      "cargo": "Gerente Comercial",
+      "empresa": "Ford Perú",
+      "rubro": "Automotriz",
+      "linkedin_url": "https://www.linkedin.com/in/danchab/",
+      "email": null,
+      "ultima_publicacion": {
+        "fecha": "Nombramiento anunciado el 10/09/2026",
+        "resumen": "Nombramiento como nuevo Gerente Comercial de Ford Perú, encargado de liderar el equipo comercial para fortalecer la presencia de marca y la fidelización de clientes"
+      },
+      "publica_activamente": true,
+      "senales": [
+        "Nombramiento como nuevo Gerente Comercial de Ford Perú, encargado de liderar el equipo comercial para fortalecer la presencia de marca y la fidelización de clientes"
+      ],
+      "dolor_detectado": "Economista con maestría en Marketing y Gestión Comercial, más de 15 años en el sector automotriz liderando unidades de negocio comercial, postventa y canales digitales en grandes importadoras. Ford Perú anunció su nombramiento el 10/09/2026 — la nota de prensa indica explícitamente que liderará el equipo comercial y fortalecerá la relación con la red de concesionarios. Nota: no pude abrir su perfil de LinkedIn directamente (LinkedIn bloquea la lectura automatizada), así que la URL se tomó de un resultado de búsqueda que coincide con su nombre y el alcance regional de Ford (Chile, Colombia, Perú y Venezuela) — vale la pena que lo confirmes tú mismo antes de contactarlo.",
+      "etapa": "Identificado",
+      "cuenta": "Ingrid",
+      "origen": "Claude",
+      "mensaje_borrador": "",
+      "listo_para_enviar": false,
+      "proxima_accion": "Revisar y decidir cómo abordarlo",
+      "notas": "",
+      "interacciones": [],
+      "actualizado": "2026-10-12",
+      "hubspot_contact_id": null,
+      "hubspot_synced_at": null
     }
   ]
 }

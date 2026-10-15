@@ -399,6 +399,11 @@
           "tipo": "Solicitud de conexión enviada",
           "fecha": "2026-10-12",
           "quien": "Ingrid"
+        },
+        {
+          "tipo": "Conexión aceptada",
+          "fecha": "2026-10-15",
+          "quien": "Ingrid"
         }
       ],
       "actualizado": "2026-09-15",

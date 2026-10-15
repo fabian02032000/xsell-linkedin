@@ -1,3 +1,69 @@
 {
-  "candidatos": []
+  "candidatos": [
+    {
+      "id": "cand-20261015-01",
+      "nombre": "Cesar Pfeiffer",
+      "cargo": "Coordinador Comercial LATAM",
+      "empresa": "Audaces",
+      "rubro": "Textil (tecnología / software para confección)",
+      "linkedin_url": "https://pe.linkedin.com/in/cesarpfeiffer",
+      "fecha_publicacion": "No determinada con precisión (post reciente visible en su perfil)",
+      "senal": "Post propio agradeciendo al equipo comercial de Perú por el desempeño en ventas de software (SaaS)",
+      "razon": "Confianza ALTA. Es un post propio (no de la empresa), reconoce explícitamente el desempeño comercial del equipo de ventas en Perú, y trabaja junto a la gerente comercial LATAM Michelle Grumíche. Encaja bien con el dolor de seguimiento/gestión de equipo comercial.",
+      "fecha_encontrado": "2026-10-15",
+      "encontrado_por": "Claude"
+    },
+    {
+      "id": "cand-20261015-02",
+      "nombre": "Joaquin Otero",
+      "cargo": "Gerente General",
+      "empresa": "Texcope",
+      "rubro": "Textil (hilos y fibras)",
+      "linkedin_url": "https://pe.linkedin.com/in/joaquinotero",
+      "fecha_publicacion": "No determinada con precisión (resultados 2024 mencionados en el post)",
+      "senal": "Post felicitando 'al equipo comercial' por los resultados del año; aparece etiquetado en talleres de estrategia comercial del equipo",
+      "razon": "Confianza MEDIA-ALTA. El mensaje felicita explícitamente al equipo comercial, pero no pude confirmar al 100% que el post sea de su propia autoría (podría ser un repost). Como Gerente General, es razonable que lidere o supervise directamente al equipo comercial.",
+      "fecha_encontrado": "2026-10-15",
+      "encontrado_por": "Claude"
+    },
+    {
+      "id": "cand-20261015-03",
+      "nombre": "Alejandro Olazábal Gómez de la Torre",
+      "cargo": "CEO / Gerente General",
+      "empresa": "Incalpaca (Grupo Inca, marca KUNA)",
+      "rubro": "Textil (fibra de alpaca)",
+      "linkedin_url": "https://pe.linkedin.com/in/alejandroolazabalgt",
+      "fecha_publicacion": "No determinada con precisión",
+      "senal": "En su propia sección 'Acerca de' declara: 'Lidero equipos y operaciones'",
+      "razon": "Confianza MEDIA-ALTA. Es una declaración propia sobre liderazgo de equipos, pero no es un post espeífico sobre el equipo comercial ni resultados de ventas — es más genérico (liderazgo de equipos y operaciones en general).",
+      "fecha_encontrado": "2026-10-15",
+      "encontrado_por": "Claude"
+    },
+    {
+      "id": "cand-20261015-04",
+      "nombre": "Ximena Chale",
+      "cargo": "Sub Gerente Comercial de Motores",
+      "empresa": "Distribuidora Cummins Perú",
+      "rubro": "Automotriz / equipos pesados (motores para minería, camiones, construcción)",
+      "linkedin_url": "https://pe.linkedin.com/in/ximenachale",
+      "fecha_publicacion": "No determinada con precisión",
+      "senal": "Cargo de sub gerencia comercial confirmado en su propio perfil",
+      "razon": "Confianza MEDIA. El título confirma responsabilidad comercial, pero no encontré posts propios recientes hablando explícitamente de su equipo o resultados de ventas. Es adyacente a automotriz (motores para vehículos pesados/minería), no venta de autos directamente.",
+      "fecha_encontrado": "2026-10-15",
+      "encontrado_por": "Claude"
+    },
+    {
+      "id": "cand-20261015-05",
+      "nombre": "David Caravedo",
+      "cargo": "Gerente Comercial de Buses",
+      "empresa": "Volvo Group Peru",
+      "rubro": "Automotriz (vehículos pesados / buses)",
+      "linkedin_url": "https://pe.linkedin.com/in/davidcaravedoportal",
+      "fecha_publicacion": "No determinada con precisión (actividad reciente visible: LatBus 2026)",
+      "senal": "Cita propia: 'crecimiento del 30% en el segmento de buses frente al año anterior'; posts recientes sobre cierre de ventas con clientes clave (ej. Transportes Cruz del Sur)",
+      "razon": "Confianza ALTA. Tiene una cita propia citando un resultado comercial concreto (30% de crecimiento), lidera la estrategia de ventas nacional de buses, y su actividad en LinkedIn es reciente y activa (no parece desactualizado ni ser reclutador).",
+      "fecha_encontrado": "2026-10-15",
+      "encontrado_por": "Claude"
+    }
+  ]
 }

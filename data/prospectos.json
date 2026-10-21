@@ -729,6 +729,35 @@
       "actualizado": "2026-10-12",
       "hubspot_contact_id": null,
       "hubspot_synced_at": null
+    },
+    {
+      "id": "p31wkcz9",
+      "nombre": "Cesar Pfeiffer",
+      "cargo": "Coordinador Comercial LATAM",
+      "empresa": "Audaces",
+      "rubro": "Textil (tecnología / software para confección)",
+      "linkedin_url": "https://pe.linkedin.com/in/cesarpfeiffer",
+      "email": null,
+      "ultima_publicacion": {
+        "fecha": "No determinada con precisión (post reciente visible en su perfil)",
+        "resumen": "Post propio agradeciendo al equipo comercial de Perú por el desempeño en ventas de software (SaaS)"
+      },
+      "publica_activamente": true,
+      "senales": [
+        "Post propio agradeciendo al equipo comercial de Perú por el desempeño en ventas de software (SaaS)"
+      ],
+      "dolor_detectado": "Confianza ALTA. Es un post propio (no de la empresa), reconoce explícitamente el desempeño comercial del equipo de ventas en Perú, y trabaja junto a la gerente comercial LATAM Michelle Grumíche. Encaja bien con el dolor de seguimiento/gestión de equipo comercial.",
+      "etapa": "Identificado",
+      "cuenta": "Ingrid",
+      "origen": "Claude",
+      "mensaje_borrador": "",
+      "listo_para_enviar": false,
+      "proxima_accion": "Revisar y decidir cómo abordarlo",
+      "notas": "",
+      "interacciones": [],
+      "actualizado": "2026-10-21",
+      "hubspot_contact_id": null,
+      "hubspot_synced_at": null
     }
   ]
 }

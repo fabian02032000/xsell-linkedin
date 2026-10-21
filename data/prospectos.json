@@ -764,6 +764,35 @@
       "actualizado": "2026-10-21",
       "hubspot_contact_id": null,
       "hubspot_synced_at": null
+    },
+    {
+      "id": "p95keg4d",
+      "nombre": "Alejandro Olazábal Gómez de la Torre",
+      "cargo": "CEO / Gerente General",
+      "empresa": "Incalpaca (Grupo Inca, marca KUNA)",
+      "rubro": "Textil (fibra de alpaca)",
+      "linkedin_url": "https://pe.linkedin.com/in/alejandroolazabalgt",
+      "email": null,
+      "ultima_publicacion": {
+        "fecha": "No determinada con precisión",
+        "resumen": "En su propia sección 'Acerca de' declara: 'Lidero equipos y operaciones'"
+      },
+      "publica_activamente": true,
+      "senales": [
+        "En su propia sección 'Acerca de' declara: 'Lidero equipos y operaciones'"
+      ],
+      "dolor_detectado": "Confianza MEDIA-ALTA. Es una declaración propia sobre liderazgo de equipos, pero no es un post espeífico sobre el equipo comercial ni resultados de ventas — es más genérico (liderazgo de equipos y operaciones en general).",
+      "etapa": "Identificado",
+      "cuenta": "Ingrid",
+      "origen": "Claude",
+      "mensaje_borrador": "",
+      "listo_para_enviar": false,
+      "proxima_accion": "Revisar y decidir cómo abordarlo",
+      "notas": "",
+      "interacciones": [],
+      "actualizado": "2026-10-21",
+      "hubspot_contact_id": null,
+      "hubspot_synced_at": null
     }
   ]
 }

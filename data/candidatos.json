@@ -1,19 +1,6 @@
 {
   "candidatos": [
     {
-      "id": "cand-20261015-01",
-      "nombre": "Cesar Pfeiffer",
-      "cargo": "Coordinador Comercial LATAM",
-      "empresa": "Audaces",
-      "rubro": "Textil (tecnología / software para confección)",
-      "linkedin_url": "https://pe.linkedin.com/in/cesarpfeiffer",
-      "fecha_publicacion": "No determinada con precisión (post reciente visible en su perfil)",
-      "senal": "Post propio agradeciendo al equipo comercial de Perú por el desempeño en ventas de software (SaaS)",
-      "razon": "Confianza ALTA. Es un post propio (no de la empresa), reconoce explícitamente el desempeño comercial del equipo de ventas en Perú, y trabaja junto a la gerente comercial LATAM Michelle Grumíche. Encaja bien con el dolor de seguimiento/gestión de equipo comercial.",
-      "fecha_encontrado": "2026-10-15",
-      "encontrado_por": "Claude"
-    },
-    {
       "id": "cand-20261015-02",
       "nombre": "Joaquin Otero",
       "cargo": "Gerente General",

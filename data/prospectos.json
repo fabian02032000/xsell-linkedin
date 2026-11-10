@@ -799,6 +799,35 @@
       "actualizado": "2026-10-21",
       "hubspot_contact_id": null,
       "hubspot_synced_at": null
+    },
+    {
+      "id": "pqw1awy7",
+      "nombre": "Ximena Chale",
+      "cargo": "Sub Gerente Comercial de Motores",
+      "empresa": "Distribuidora Cummins Perú",
+      "rubro": "Automotriz / equipos pesados (motores para minería, camiones, construcción)",
+      "linkedin_url": "https://pe.linkedin.com/in/ximenachale",
+      "email": null,
+      "ultima_publicacion": {
+        "fecha": "No determinada con precisión",
+        "resumen": "Cargo de sub gerencia comercial confirmado en su propio perfil"
+      },
+      "publica_activamente": true,
+      "senales": [
+        "Cargo de sub gerencia comercial confirmado en su propio perfil"
+      ],
+      "dolor_detectado": "Confianza MEDIA. El título confirma responsabilidad comercial, pero no encontré posts propios recientes hablando explícitamente de su equipo o resultados de ventas. Es adyacente a automotriz (motores para vehículos pesados/minería), no venta de autos directamente.",
+      "etapa": "Identificado",
+      "cuenta": "Ingrid",
+      "origen": "Claude",
+      "mensaje_borrador": "",
+      "listo_para_enviar": false,
+      "proxima_accion": "Revisar y decidir cómo abordarlo",
+      "notas": "",
+      "interacciones": [],
+      "actualizado": "2026-11-10",
+      "hubspot_contact_id": null,
+      "hubspot_synced_at": null
     }
   ]
 }

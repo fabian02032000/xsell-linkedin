@@ -1,12 +1,95 @@
 {
   "candidatos": [
-    {"id":"cand-20261110-01","nombre":"Eduardo Gonzales Navarro","cargo":"Gerente Comercial","empresa":"Respira Inmobiliaria","rubro":"Inmobiliario","linkedin_url":"https://www.linkedin.com/in/eduardo-gonzales-navarro-392068192/","fecha_publicacion":"Hace ~1 mes","senal":"¡He empezado en un nuevo puesto de Gerente comercial en Respira Inmobiliaria! (anuncio propio de nuevo cargo)","razon":"Confianza MEDIA-ALTA. Post propio (no reclutador) anunciando su nuevo cargo como Gerente Comercial. Antes fue Gerente Comercial en JCC Ingenieria e Inversion y CEO en Inmobiliaria Trigal Sur: trayectoria consistente liderando areas comerciales inmobiliarias. Mismo patron de nuevo cargo ya validado (ej. Jorgelino Vega, Angelina Castillo).","fecha_encontrado":"2026-11-10","encontrado_por":"Claude"},
-    {"id":"cand-20261110-02","nombre":"Gonzalo Gamero Orellana","cargo":"Direccion Comercial","empresa":"Beca Inmobiliaria","rubro":"Inmobiliario","linkedin_url":"https://www.linkedin.com/in/gonzalo-gamero-orellana-89aa0015/","fecha_publicacion":"Hace ~6 meses","senal":"Hoy celebramos a quienes no solo venden, sino que generan oportunidades y construyen futuro... Gracias por su disciplina, vision y compromiso (reconocimiento propio a su equipo de ventas)","razon":"Confianza MEDIA. Post propio reconociendo a su equipo comercial de Beca Inmobiliaria (desarrolladora con proyectos activos en Lima: Bellagio, Ancora, Landart). Headline: Direccion Comercial | Desarrollo de Negocios Inmobiliarios.","fecha_encontrado":"2026-11-10","encontrado_por":"Claude"},
-    {"id":"cand-20261110-03","nombre":"Stephany Farfan","cargo":"Gerente comercial","empresa":"Anden Inmobiliaria","rubro":"Inmobiliario","linkedin_url":"https://www.linkedin.com/in/stephanyfarfan/","fecha_publicacion":"Hace ~2 meses","senal":"Una feria siempre implica mucho trabajo duro de todo el equipo... demuestra el tremendo equipo que tenemos aqui / Muy orgullosa de este equipo","razon":"Confianza ALTA. Posts propios reconociendo explicitamente a su equipo comercial tras una feria inmobiliaria. Previamente lidero el equipo comercial de Beeyond (otra inmobiliaria): trayectoria consistente en liderazgo de equipos de ventas inmobiliarios.","fecha_encontrado":"2026-11-10","encontrado_por":"Claude"},
-    {"id":"cand-20261110-04","nombre":"Olenka Palomino Flores","cargo":"Gerente Comercial","empresa":"ICASA Grupo Inmobiliario","rubro":"Inmobiliario","linkedin_url":"https://www.linkedin.com/in/olenkapalominoflores/","fecha_publicacion":"Hace ~2 meses","senal":"Era el dia de entregar las llaves de la sala de ventas. Ya ni yo ni el equipo comercial volveriamos ahi. El proyecto esta 100% vendido... Cumplimos con todos los propietarios, en tiempo record","razon":"Confianza ALTA. Post propio y muy personal celebrando el sold-out de un proyecto junto a su equipo comercial, con reflexion genuina sobre el proceso (no solo la cifra de venta). Mismo patron que Piero Sanchez Leveau (Portofino), ya en la base de prospectos.","fecha_encontrado":"2026-11-10","encontrado_por":"Claude"},
-    {"id":"cand-20261110-05","nombre":"Luis Fernando Sanchez Victorio","cargo":"Gerente Comercial","empresa":"Automotores Inka","rubro":"Automotriz (concesionario multimarca: Mitsubishi, Hyundai, JAC, BYD - 5 ciudades: Trujillo, Chiclayo, Chimbote, Lima, Huancayo)","linkedin_url":"https://www.linkedin.com/in/luis-fernando-sanchez-victorio-gerencia-comercial-ventas/","fecha_publicacion":"Hace ~5 meses (publica con frecuencia sobre su equipo)","senal":"Detras de cada resultado importante existe un equipo alineado, comprometido y enfocado en seguir creciendo / agradecer al enorme equipo que siempre se porta a la altura de las circunstancias","razon":"Confianza ALTA. El candidato mas solido encontrado: Gerente Comercial de un concesionario multimarca que opera en 5 ciudades distintas, publica con frecuencia y en voz propia sobre su equipo comercial y los retos de coordinar operaciones dispersas geograficamente: encaja directamente con el dolor que resuelve Xsell.","fecha_encontrado":"2026-11-10","encontrado_por":"Claude"},
-    {"id":"cand-20261110-06","nombre":"Carlos Torrelio, Ing. Industrial, MBA","cargo":"Gerente Comercial y Ventas - Division Camiones","empresa":"Zapler (Automundo Peru)","rubro":"Automotriz (vehiculos pesados / camiones - mineria, construccion, transporte de carga)","linkedin_url":"https://www.linkedin.com/in/carlos-torrelio-luque-mba/","fecha_publicacion":"Hace ~4 meses","senal":"La FFVV de Zapler esta entrenada para asesorar al cliente en una configuracion ideal para su operacion (menciona directamente a su fuerza de ventas)","razon":"Confianza MEDIA. Publica con mucha frecuencia sobre el negocio de camiones de Zapler (empresa en expansion, +60% de crecimiento en ventas el primer semestre 2026 segun nota de prensa) y menciona a su FFVV entrenada; no es un post centrado 100% en el equipo pero confirma que lidera fuerza de ventas de una empresa automotriz en fuerte crecimiento.","fecha_encontrado":"2026-11-10","encontrado_por":"Claude"},
-    {"id":"cand-20261110-07","nombre":"Juan Bulnes","cargo":"Gerente Comercial","empresa":"Clickcars","rubro":"Automotriz (vehiculos seminuevos / venta digital)","linkedin_url":"https://www.linkedin.com/in/juan-bulnes-2a5a251b6/","fecha_publicacion":"Hace ~8 meses (post mas reciente propio)","senal":"Comparte y comenta analisis propio del mercado de seminuevos; post propio sobre su etapa anterior en Autoniza (me siento orgulloso de pertenecer a esta familia tan grande)","razon":"Confianza MEDIA. Gerente Comercial de Clickcars (concesionaria de vehiculos seminuevos), activo y analitico sobre el sector, con trayectoria previa como Jefe de Ventas en Grupo Autoniza. No hay post reciente hablando directamente de su equipo actual en Clickcars, pero el perfil encaja con el patron de lider comercial automotriz.","fecha_encontrado":"2026-11-10","encontrado_por":"Claude"},
-    {"id":"cand-20261110-08","nombre":"Percy Regente Dueñas","cargo":"Jefe Comercial","empresa":"Incamotors","rubro":"Automotriz (concesionario Hyundai)","linkedin_url":"https://www.linkedin.com/in/percy-regente-duenas-34024999/","fecha_publicacion":"Hace ~1 ano (reshare de evento de liderazgo Hyundai H-Leaders)","senal":"Participo y fue etiquetado en el programa oficial H-Leaders de Hyundai Peru para jefes y gerentes de ventas de toda la red, enfocado en liderazgo, coaching y gestion de equipos comerciales","razon":"Confianza MEDIA-BAJA. No tiene publicaciones propias recientes sobre su equipo (solo reshares de contenido oficial de Hyundai/Gildemeister), pero su cargo y su participacion confirmada en el programa de desarrollo de lideres comerciales de la red Hyundai son una senal indirecta de que lidera un equipo de ventas activo. Vale la pena confirmar con una revision manual antes de contactarlo.","fecha_encontrado":"2026-11-10","encontrado_por":"Claude"}
+    {
+      "id": "cand-20261110-02",
+      "nombre": "Gonzalo Gamero Orellana",
+      "cargo": "Direccion Comercial",
+      "empresa": "Beca Inmobiliaria",
+      "rubro": "Inmobiliario",
+      "linkedin_url": "https://www.linkedin.com/in/gonzalo-gamero-orellana-89aa0015/",
+      "fecha_publicacion": "Hace ~6 meses",
+      "senal": "Hoy celebramos a quienes no solo venden, sino que generan oportunidades y construyen futuro... Gracias por su disciplina, vision y compromiso (reconocimiento propio a su equipo de ventas)",
+      "razon": "Confianza MEDIA. Post propio reconociendo a su equipo comercial de Beca Inmobiliaria (desarrolladora con proyectos activos en Lima: Bellagio, Ancora, Landart). Headline: Direccion Comercial | Desarrollo de Negocios Inmobiliarios.",
+      "fecha_encontrado": "2026-11-10",
+      "encontrado_por": "Claude"
+    },
+    {
+      "id": "cand-20261110-03",
+      "nombre": "Stephany Farfan",
+      "cargo": "Gerente comercial",
+      "empresa": "Anden Inmobiliaria",
+      "rubro": "Inmobiliario",
+      "linkedin_url": "https://www.linkedin.com/in/stephanyfarfan/",
+      "fecha_publicacion": "Hace ~2 meses",
+      "senal": "Una feria siempre implica mucho trabajo duro de todo el equipo... demuestra el tremendo equipo que tenemos aqui / Muy orgullosa de este equipo",
+      "razon": "Confianza ALTA. Posts propios reconociendo explicitamente a su equipo comercial tras una feria inmobiliaria. Previamente lidero el equipo comercial de Beeyond (otra inmobiliaria): trayectoria consistente en liderazgo de equipos de ventas inmobiliarios.",
+      "fecha_encontrado": "2026-11-10",
+      "encontrado_por": "Claude"
+    },
+    {
+      "id": "cand-20261110-04",
+      "nombre": "Olenka Palomino Flores",
+      "cargo": "Gerente Comercial",
+      "empresa": "ICASA Grupo Inmobiliario",
+      "rubro": "Inmobiliario",
+      "linkedin_url": "https://www.linkedin.com/in/olenkapalominoflores/",
+      "fecha_publicacion": "Hace ~2 meses",
+      "senal": "Era el dia de entregar las llaves de la sala de ventas. Ya ni yo ni el equipo comercial volveriamos ahi. El proyecto esta 100% vendido... Cumplimos con todos los propietarios, en tiempo record",
+      "razon": "Confianza ALTA. Post propio y muy personal celebrando el sold-out de un proyecto junto a su equipo comercial, con reflexion genuina sobre el proceso (no solo la cifra de venta). Mismo patron que Piero Sanchez Leveau (Portofino), ya en la base de prospectos.",
+      "fecha_encontrado": "2026-11-10",
+      "encontrado_por": "Claude"
+    },
+    {
+      "id": "cand-20261110-05",
+      "nombre": "Luis Fernando Sanchez Victorio",
+      "cargo": "Gerente Comercial",
+      "empresa": "Automotores Inka",
+      "rubro": "Automotriz (concesionario multimarca: Mitsubishi, Hyundai, JAC, BYD - 5 ciudades: Trujillo, Chiclayo, Chimbote, Lima, Huancayo)",
+      "linkedin_url": "https://www.linkedin.com/in/luis-fernando-sanchez-victorio-gerencia-comercial-ventas/",
+      "fecha_publicacion": "Hace ~5 meses (publica con frecuencia sobre su equipo)",
+      "senal": "Detras de cada resultado importante existe un equipo alineado, comprometido y enfocado en seguir creciendo / agradecer al enorme equipo que siempre se porta a la altura de las circunstancias",
+      "razon": "Confianza ALTA. El candidato mas solido encontrado: Gerente Comercial de un concesionario multimarca que opera en 5 ciudades distintas, publica con frecuencia y en voz propia sobre su equipo comercial y los retos de coordinar operaciones dispersas geograficamente: encaja directamente con el dolor que resuelve Xsell.",
+      "fecha_encontrado": "2026-11-10",
+      "encontrado_por": "Claude"
+    },
+    {
+      "id": "cand-20261110-06",
+      "nombre": "Carlos Torrelio, Ing. Industrial, MBA",
+      "cargo": "Gerente Comercial y Ventas - Division Camiones",
+      "empresa": "Zapler (Automundo Peru)",
+      "rubro": "Automotriz (vehiculos pesados / camiones - mineria, construccion, transporte de carga)",
+      "linkedin_url": "https://www.linkedin.com/in/carlos-torrelio-luque-mba/",
+      "fecha_publicacion": "Hace ~4 meses",
+      "senal": "La FFVV de Zapler esta entrenada para asesorar al cliente en una configuracion ideal para su operacion (menciona directamente a su fuerza de ventas)",
+      "razon": "Confianza MEDIA. Publica con mucha frecuencia sobre el negocio de camiones de Zapler (empresa en expansion, +60% de crecimiento en ventas el primer semestre 2026 segun nota de prensa) y menciona a su FFVV entrenada; no es un post centrado 100% en el equipo pero confirma que lidera fuerza de ventas de una empresa automotriz en fuerte crecimiento.",
+      "fecha_encontrado": "2026-11-10",
+      "encontrado_por": "Claude"
+    },
+    {
+      "id": "cand-20261110-07",
+      "nombre": "Juan Bulnes",
+      "cargo": "Gerente Comercial",
+      "empresa": "Clickcars",
+      "rubro": "Automotriz (vehiculos seminuevos / venta digital)",
+      "linkedin_url": "https://www.linkedin.com/in/juan-bulnes-2a5a251b6/",
+      "fecha_publicacion": "Hace ~8 meses (post mas reciente propio)",
+      "senal": "Comparte y comenta analisis propio del mercado de seminuevos; post propio sobre su etapa anterior en Autoniza (me siento orgulloso de pertenecer a esta familia tan grande)",
+      "razon": "Confianza MEDIA. Gerente Comercial de Clickcars (concesionaria de vehiculos seminuevos), activo y analitico sobre el sector, con trayectoria previa como Jefe de Ventas en Grupo Autoniza. No hay post reciente hablando directamente de su equipo actual en Clickcars, pero el perfil encaja con el patron de lider comercial automotriz.",
+      "fecha_encontrado": "2026-11-10",
+      "encontrado_por": "Claude"
+    },
+    {
+      "id": "cand-20261110-08",
+      "nombre": "Percy Regente Dueñas",
+      "cargo": "Jefe Comercial",
+      "empresa": "Incamotors",
+      "rubro": "Automotriz (concesionario Hyundai)",
+      "linkedin_url": "https://www.linkedin.com/in/percy-regente-duenas-34024999/",
+      "fecha_publicacion": "Hace ~1 ano (reshare de evento de liderazgo Hyundai H-Leaders)",
+      "senal": "Participo y fue etiquetado en el programa oficial H-Leaders de Hyundai Peru para jefes y gerentes de ventas de toda la red, enfocado en liderazgo, coaching y gestion de equipos comerciales",
+      "razon": "Confianza MEDIA-BAJA. No tiene publicaciones propias recientes sobre su equipo (solo reshares de contenido oficial de Hyundai/Gildemeister), pero su cargo y su participacion confirmada en el programa de desarrollo de lideres comerciales de la red Hyundai son una senal indirecta de que lidera un equipo de ventas activo. Vale la pena confirmar con una revision manual antes de contactarlo.",
+      "fecha_encontrado": "2026-11-10",
+      "encontrado_por": "Claude"
+    }
   ]
 }

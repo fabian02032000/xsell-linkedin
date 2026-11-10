@@ -1,19 +1,6 @@
 {
   "candidatos": [
     {
-      "id": "cand-20261015-02",
-      "nombre": "Joaquin Otero",
-      "cargo": "Gerente General",
-      "empresa": "Texcope",
-      "rubro": "Textil (hilos y fibras)",
-      "linkedin_url": "https://pe.linkedin.com/in/joaquinotero",
-      "fecha_publicacion": "No determinada con precisión (resultados 2024 mencionados en el post)",
-      "senal": "Post felicitando 'al equipo comercial' por los resultados del año; aparece etiquetado en talleres de estrategia comercial del equipo",
-      "razon": "Confianza MEDIA-ALTA. El mensaje felicita explícitamente al equipo comercial, pero no pude confirmar al 100% que el post sea de su propia autoría (podría ser un repost). Como Gerente General, es razonable que lidere o supervise directamente al equipo comercial.",
-      "fecha_encontrado": "2026-10-15",
-      "encontrado_por": "Claude"
-    },
-    {
       "id": "cand-20261015-04",
       "nombre": "Ximena Chale",
       "cargo": "Sub Gerente Comercial de Motores",

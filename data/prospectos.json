@@ -1009,7 +1009,13 @@
       "listo_para_enviar": false,
       "proxima_accion": "Revisar y decidir cómo abordarlo",
       "notas": "",
-      "interacciones": [],
+      "interacciones": [
+        {
+          "tipo": "Like",
+          "fecha": "2026-11-10",
+          "quien": "Ingrid"
+        }
+      ],
       "actualizado": "2026-11-10",
       "hubspot_contact_id": null,
       "hubspot_synced_at": null

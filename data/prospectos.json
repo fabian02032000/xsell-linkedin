@@ -886,6 +886,35 @@
       "actualizado": "2026-11-10",
       "hubspot_contact_id": null,
       "hubspot_synced_at": null
+    },
+    {
+      "id": "pqu52lac",
+      "nombre": "Gonzalo Gamero Orellana",
+      "cargo": "Direccion Comercial",
+      "empresa": "Beca Inmobiliaria",
+      "rubro": "Inmobiliario",
+      "linkedin_url": "https://www.linkedin.com/in/gonzalo-gamero-orellana-89aa0015/",
+      "email": null,
+      "ultima_publicacion": {
+        "fecha": "Hace ~6 meses",
+        "resumen": "Hoy celebramos a quienes no solo venden, sino que generan oportunidades y construyen futuro... Gracias por su disciplina, vision y compromiso (reconocimiento propio a su equipo de ventas)"
+      },
+      "publica_activamente": true,
+      "senales": [
+        "Hoy celebramos a quienes no solo venden, sino que generan oportunidades y construyen futuro... Gracias por su disciplina, vision y compromiso (reconocimiento propio a su equipo de ventas)"
+      ],
+      "dolor_detectado": "Confianza MEDIA. Post propio reconociendo a su equipo comercial de Beca Inmobiliaria (desarrolladora con proyectos activos en Lima: Bellagio, Ancora, Landart). Headline: Direccion Comercial | Desarrollo de Negocios Inmobiliarios.",
+      "etapa": "Identificado",
+      "cuenta": "Ingrid",
+      "origen": "Claude",
+      "mensaje_borrador": "",
+      "listo_para_enviar": false,
+      "proxima_accion": "Revisar y decidir cómo abordarlo",
+      "notas": "",
+      "interacciones": [],
+      "actualizado": "2026-11-10",
+      "hubspot_contact_id": null,
+      "hubspot_synced_at": null
     }
   ]
 }

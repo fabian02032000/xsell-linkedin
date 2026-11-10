@@ -857,6 +857,35 @@
       "actualizado": "2026-11-10",
       "hubspot_contact_id": null,
       "hubspot_synced_at": null
+    },
+    {
+      "id": "p8rphd8k",
+      "nombre": "Eduardo Gonzales Navarro",
+      "cargo": "Gerente Comercial",
+      "empresa": "Respira Inmobiliaria",
+      "rubro": "Inmobiliario",
+      "linkedin_url": "https://www.linkedin.com/in/eduardo-gonzales-navarro-392068192/",
+      "email": null,
+      "ultima_publicacion": {
+        "fecha": "Hace ~1 mes",
+        "resumen": "¡He empezado en un nuevo puesto de Gerente comercial en Respira Inmobiliaria! (anuncio propio de nuevo cargo)"
+      },
+      "publica_activamente": true,
+      "senales": [
+        "¡He empezado en un nuevo puesto de Gerente comercial en Respira Inmobiliaria! (anuncio propio de nuevo cargo)"
+      ],
+      "dolor_detectado": "Confianza MEDIA-ALTA. Post propio (no reclutador) anunciando su nuevo cargo como Gerente Comercial. Antes fue Gerente Comercial en JCC Ingenieria e Inversion y CEO en Inmobiliaria Trigal Sur: trayectoria consistente liderando areas comerciales inmobiliarias. Mismo patron de nuevo cargo ya validado (ej. Jorgelino Vega, Angelina Castillo).",
+      "etapa": "Identificado",
+      "cuenta": "Ingrid",
+      "origen": "Claude",
+      "mensaje_borrador": "",
+      "listo_para_enviar": false,
+      "proxima_accion": "Revisar y decidir cómo abordarlo",
+      "notas": "",
+      "interacciones": [],
+      "actualizado": "2026-11-10",
+      "hubspot_contact_id": null,
+      "hubspot_synced_at": null
     }
   ]
 }

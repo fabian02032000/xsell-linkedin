@@ -559,6 +559,11 @@
           "tipo": "Like",
           "fecha": "2026-10-21",
           "quien": "Ingrid"
+        },
+        {
+          "tipo": "Like",
+          "fecha": "2026-11-10",
+          "quien": "Ingrid"
         }
       ],
       "actualizado": "2026-09-29",

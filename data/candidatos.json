@@ -1,19 +1,6 @@
 {
   "candidatos": [
     {
-      "id": "cand-20261110-04",
-      "nombre": "Olenka Palomino Flores",
-      "cargo": "Gerente Comercial",
-      "empresa": "ICASA Grupo Inmobiliario",
-      "rubro": "Inmobiliario",
-      "linkedin_url": "https://www.linkedin.com/in/olenkapalominoflores/",
-      "fecha_publicacion": "Hace ~2 meses",
-      "senal": "Era el dia de entregar las llaves de la sala de ventas. Ya ni yo ni el equipo comercial volveriamos ahi. El proyecto esta 100% vendido... Cumplimos con todos los propietarios, en tiempo record",
-      "razon": "Confianza ALTA. Post propio y muy personal celebrando el sold-out de un proyecto junto a su equipo comercial, con reflexion genuina sobre el proceso (no solo la cifra de venta). Mismo patron que Piero Sanchez Leveau (Portofino), ya en la base de prospectos.",
-      "fecha_encontrado": "2026-11-10",
-      "encontrado_por": "Claude"
-    },
-    {
       "id": "cand-20261110-05",
       "nombre": "Luis Fernando Sanchez Victorio",
       "cargo": "Gerente Comercial",

@@ -1,19 +1,6 @@
 {
   "candidatos": [
     {
-      "id": "cand-20261015-04",
-      "nombre": "Ximena Chale",
-      "cargo": "Sub Gerente Comercial de Motores",
-      "empresa": "Distribuidora Cummins Perú",
-      "rubro": "Automotriz / equipos pesados (motores para minería, camiones, construcción)",
-      "linkedin_url": "https://pe.linkedin.com/in/ximenachale",
-      "fecha_publicacion": "No determinada con precisión",
-      "senal": "Cargo de sub gerencia comercial confirmado en su propio perfil",
-      "razon": "Confianza MEDIA. El título confirma responsabilidad comercial, pero no encontré posts propios recientes hablando explícitamente de su equipo o resultados de ventas. Es adyacente a automotriz (motores para vehículos pesados/minería), no venta de autos directamente.",
-      "fecha_encontrado": "2026-10-15",
-      "encontrado_por": "Claude"
-    },
-    {
       "id": "cand-20261015-05",
       "nombre": "David Caravedo",
       "cargo": "Gerente Comercial de Buses",

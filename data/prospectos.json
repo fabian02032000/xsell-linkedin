@@ -915,6 +915,35 @@
       "actualizado": "2026-11-10",
       "hubspot_contact_id": null,
       "hubspot_synced_at": null
+    },
+    {
+      "id": "pe4613r2",
+      "nombre": "Percy Regente Dueñas",
+      "cargo": "Jefe Comercial",
+      "empresa": "Incamotors",
+      "rubro": "Automotriz (concesionario Hyundai)",
+      "linkedin_url": "https://www.linkedin.com/in/percy-regente-duenas-34024999/",
+      "email": null,
+      "ultima_publicacion": {
+        "fecha": "Hace ~1 ano (reshare de evento de liderazgo Hyundai H-Leaders)",
+        "resumen": "Participo y fue etiquetado en el programa oficial H-Leaders de Hyundai Peru para jefes y gerentes de ventas de toda la red, enfocado en liderazgo, coaching y gestion de equipos comerciales"
+      },
+      "publica_activamente": true,
+      "senales": [
+        "Participo y fue etiquetado en el programa oficial H-Leaders de Hyundai Peru para jefes y gerentes de ventas de toda la red, enfocado en liderazgo, coaching y gestion de equipos comerciales"
+      ],
+      "dolor_detectado": "Confianza MEDIA-BAJA. No tiene publicaciones propias recientes sobre su equipo (solo reshares de contenido oficial de Hyundai/Gildemeister), pero su cargo y su participacion confirmada en el programa de desarrollo de lideres comerciales de la red Hyundai son una senal indirecta de que lidera un equipo de ventas activo. Vale la pena confirmar con una revision manual antes de contactarlo.",
+      "etapa": "Identificado",
+      "cuenta": "Ingrid",
+      "origen": "Claude",
+      "mensaje_borrador": "",
+      "listo_para_enviar": false,
+      "proxima_accion": "Revisar y decidir cómo abordarlo",
+      "notas": "",
+      "interacciones": [],
+      "actualizado": "2026-11-10",
+      "hubspot_contact_id": null,
+      "hubspot_synced_at": null
     }
   ]
 }

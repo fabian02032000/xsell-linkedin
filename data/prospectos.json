@@ -1031,6 +1031,35 @@
       "actualizado": "2026-11-10",
       "hubspot_contact_id": null,
       "hubspot_synced_at": null
+    },
+    {
+      "id": "p5xypflv",
+      "nombre": "Juan Bulnes",
+      "cargo": "Gerente Comercial",
+      "empresa": "Clickcars",
+      "rubro": "Automotriz (vehiculos seminuevos / venta digital)",
+      "linkedin_url": "https://www.linkedin.com/in/juan-bulnes-2a5a251b6/",
+      "email": null,
+      "ultima_publicacion": {
+        "fecha": "Hace ~8 meses (post mas reciente propio)",
+        "resumen": "Comparte y comenta analisis propio del mercado de seminuevos; post propio sobre su etapa anterior en Autoniza (me siento orgulloso de pertenecer a esta familia tan grande)"
+      },
+      "publica_activamente": true,
+      "senales": [
+        "Comparte y comenta analisis propio del mercado de seminuevos; post propio sobre su etapa anterior en Autoniza (me siento orgulloso de pertenecer a esta familia tan grande)"
+      ],
+      "dolor_detectado": "Confianza MEDIA. Gerente Comercial de Clickcars (concesionaria de vehiculos seminuevos), activo y analitico sobre el sector, con trayectoria previa como Jefe de Ventas en Grupo Autoniza. No hay post reciente hablando directamente de su equipo actual en Clickcars, pero el perfil encaja con el patron de lider comercial automotriz.",
+      "etapa": "Identificado",
+      "cuenta": "Ingrid",
+      "origen": "Claude",
+      "mensaje_borrador": "",
+      "listo_para_enviar": false,
+      "proxima_accion": "Revisar y decidir cómo abordarlo",
+      "notas": "",
+      "interacciones": [],
+      "actualizado": "2026-11-10",
+      "hubspot_contact_id": null,
+      "hubspot_synced_at": null
     }
   ]
 }

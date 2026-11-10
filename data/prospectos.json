@@ -828,6 +828,35 @@
       "actualizado": "2026-11-10",
       "hubspot_contact_id": null,
       "hubspot_synced_at": null
+    },
+    {
+      "id": "p7vawli6",
+      "nombre": "David Caravedo",
+      "cargo": "Gerente Comercial de Buses",
+      "empresa": "Volvo Group Peru",
+      "rubro": "Automotriz (vehículos pesados / buses)",
+      "linkedin_url": "https://pe.linkedin.com/in/davidcaravedoportal",
+      "email": null,
+      "ultima_publicacion": {
+        "fecha": "No determinada con precisión (actividad reciente visible: LatBus 2026)",
+        "resumen": "Cita propia: 'crecimiento del 30% en el segmento de buses frente al año anterior'; posts recientes sobre cierre de ventas con clientes clave (ej. Transportes Cruz del Sur)"
+      },
+      "publica_activamente": true,
+      "senales": [
+        "Cita propia: 'crecimiento del 30% en el segmento de buses frente al año anterior'; posts recientes sobre cierre de ventas con clientes clave (ej. Transportes Cruz del Sur)"
+      ],
+      "dolor_detectado": "Confianza ALTA. Tiene una cita propia citando un resultado comercial concreto (30% de crecimiento), lidera la estrategia de ventas nacional de buses, y su actividad en LinkedIn es reciente y activa (no parece desactualizado ni ser reclutador).",
+      "etapa": "Identificado",
+      "cuenta": "Ingrid",
+      "origen": "Claude",
+      "mensaje_borrador": "",
+      "listo_para_enviar": false,
+      "proxima_accion": "Revisar y decidir cómo abordarlo",
+      "notas": "",
+      "interacciones": [],
+      "actualizado": "2026-11-10",
+      "hubspot_contact_id": null,
+      "hubspot_synced_at": null
     }
   ]
 }

@@ -1060,6 +1060,35 @@
       "actualizado": "2026-11-10",
       "hubspot_contact_id": null,
       "hubspot_synced_at": null
+    },
+    {
+      "id": "pa13iloc",
+      "nombre": "Luis Fernando Sanchez Victorio",
+      "cargo": "Gerente Comercial",
+      "empresa": "Automotores Inka",
+      "rubro": "Automotriz (concesionario multimarca: Mitsubishi, Hyundai, JAC, BYD - 5 ciudades: Trujillo, Chiclayo, Chimbote, Lima, Huancayo)",
+      "linkedin_url": "https://www.linkedin.com/in/luis-fernando-sanchez-victorio-gerencia-comercial-ventas/",
+      "email": null,
+      "ultima_publicacion": {
+        "fecha": "Hace ~5 meses (publica con frecuencia sobre su equipo)",
+        "resumen": "Detras de cada resultado importante existe un equipo alineado, comprometido y enfocado en seguir creciendo / agradecer al enorme equipo que siempre se porta a la altura de las circunstancias"
+      },
+      "publica_activamente": true,
+      "senales": [
+        "Detras de cada resultado importante existe un equipo alineado, comprometido y enfocado en seguir creciendo / agradecer al enorme equipo que siempre se porta a la altura de las circunstancias"
+      ],
+      "dolor_detectado": "Confianza ALTA. El candidato mas solido encontrado: Gerente Comercial de un concesionario multimarca que opera en 5 ciudades distintas, publica con frecuencia y en voz propia sobre su equipo comercial y los retos de coordinar operaciones dispersas geograficamente: encaja directamente con el dolor que resuelve Xsell.",
+      "etapa": "Identificado",
+      "cuenta": "Ingrid",
+      "origen": "Claude",
+      "mensaje_borrador": "",
+      "listo_para_enviar": false,
+      "proxima_accion": "Revisar y decidir cómo abordarlo",
+      "notas": "",
+      "interacciones": [],
+      "actualizado": "2026-11-10",
+      "hubspot_contact_id": null,
+      "hubspot_synced_at": null
     }
   ]
 }

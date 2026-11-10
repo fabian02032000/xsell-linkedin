@@ -1002,6 +1002,35 @@
       "actualizado": "2026-11-10",
       "hubspot_contact_id": null,
       "hubspot_synced_at": null
+    },
+    {
+      "id": "pez46atr",
+      "nombre": "Olenka Palomino Flores",
+      "cargo": "Gerente Comercial",
+      "empresa": "ICASA Grupo Inmobiliario",
+      "rubro": "Inmobiliario",
+      "linkedin_url": "https://www.linkedin.com/in/olenkapalominoflores/",
+      "email": null,
+      "ultima_publicacion": {
+        "fecha": "Hace ~2 meses",
+        "resumen": "Era el dia de entregar las llaves de la sala de ventas. Ya ni yo ni el equipo comercial volveriamos ahi. El proyecto esta 100% vendido... Cumplimos con todos los propietarios, en tiempo record"
+      },
+      "publica_activamente": true,
+      "senales": [
+        "Era el dia de entregar las llaves de la sala de ventas. Ya ni yo ni el equipo comercial volveriamos ahi. El proyecto esta 100% vendido... Cumplimos con todos los propietarios, en tiempo record"
+      ],
+      "dolor_detectado": "Confianza ALTA. Post propio y muy personal celebrando el sold-out de un proyecto junto a su equipo comercial, con reflexion genuina sobre el proceso (no solo la cifra de venta). Mismo patron que Piero Sanchez Leveau (Portofino), ya en la base de prospectos.",
+      "etapa": "Identificado",
+      "cuenta": "Ingrid",
+      "origen": "Claude",
+      "mensaje_borrador": "",
+      "listo_para_enviar": false,
+      "proxima_accion": "Revisar y decidir cómo abordarlo",
+      "notas": "",
+      "interacciones": [],
+      "actualizado": "2026-11-10",
+      "hubspot_contact_id": null,
+      "hubspot_synced_at": null
     }
   ]
 }
